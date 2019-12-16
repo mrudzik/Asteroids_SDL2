@@ -1,7 +1,15 @@
 
 #include <iostream>
 
+
+void LaunchGame()
+{
+
+}
+
+
 int main()
 {
-    std::cout << "Hello there" << std::endl;
+    std::cout << "Starting Game" << std::endl;
+    LaunchGame();
 }

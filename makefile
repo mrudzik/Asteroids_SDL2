@@ -5,24 +5,18 @@ OBJ_DIR :=	./objects/
 INC_DIR :=	./includes/
 # LIB_DIR :=	./Library/
 
-SRC = 	main.cpp
+SRC = 	main.cpp \
+		parser/ParserControl.cpp \
+		GameSDL_Window.cpp
 		
 
 #	project object files
 OBJ =		$(addprefix $(OBJ_DIR), $(SRC:.cpp=.o))
 
-INCLUDES	=	-I $(INC_DIR)\
-				-I ./frameworks/SDL2.framework/Versions/A/Headers \
-				-I ./frameworks/SDL2_ttf.framework/Versions/A/Headers \
-				-I ./frameworks/SDL2_image.framework/Versions/A/Headers \
-				-I ./frameworks/SDL2_mixer.framework/Headers \
-				-I ./frameworks/SDL2_net.framework/Headers
+INCLUDES	=	-I $(INC_DIR) \
+				-I $(INC_DIR)/parser
 
-FRAMEWORKS	=	-F ./frameworks \
-				-rpath ./frameworks \
-				-framework OpenGL -framework AppKit -framework OpenCl \
-				-framework SDL2 -framework SDL2_ttf -framework SDL2_image \
-				-framework SDL2_mixer -framework SDL2_net
+FRAMEWORKS	=	-w -lSDL2
 
 
 

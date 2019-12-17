@@ -6,7 +6,8 @@ INC_DIR :=	./includes/
 # LIB_DIR :=	./Library/
 
 SRC = 	main.cpp \
-		parser/ParserControl.cpp \
+		parser/ParserControl.cpp	parser/ParserFlags.cpp	\
+		parser/ParserMessages.cpp	parser/ParserTools.cpp	\
 		GameSDL_Window.cpp
 		
 
@@ -14,7 +15,7 @@ SRC = 	main.cpp \
 OBJ =		$(addprefix $(OBJ_DIR), $(SRC:.cpp=.o))
 
 INCLUDES	=	-I $(INC_DIR) \
-				-I $(INC_DIR)/parser
+				# -I $(INC_DIR)/parser
 
 FRAMEWORKS	=	-w -lSDL2
 

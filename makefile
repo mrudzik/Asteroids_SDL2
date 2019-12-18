@@ -11,7 +11,8 @@ SRC = 	main.cpp \
 		GameManager.cpp	\
 		GameSDL_Window.cpp \
 		input/InputControl.cpp	\
-		input/KeyBehaviour.cpp		input/MouseBehaviour.cpp
+		input/KeyBehaviour.cpp		input/MouseBehaviour.cpp \
+		texture/PicTexture.cpp
 		
 
 #	project object files
@@ -20,7 +21,7 @@ OBJ =		$(addprefix $(OBJ_DIR), $(SRC:.cpp=.o))
 INCLUDES	=	-I $(INC_DIR) \
 				# -I $(INC_DIR)/parser
 
-FRAMEWORKS	=	-w -lSDL2
+FRAMEWORKS	=	-w -lSDL2 -w -lSDL2_image
 
 
 

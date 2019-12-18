@@ -4,6 +4,7 @@
 
 # include <iostream>
 # include <SDL2/SDL.h>
+# include <SDL2/SDL_image.h>
 
 // # include "SDL_image.h"
 // # include "SDL_mixer.h"
@@ -22,29 +23,22 @@ private:
 	
 	int 				_wind_W;
 	int 				_wind_H;
-	// int 				_img_buff[H][W];
 
 	GameSDL_Window(void){
 		return;
 	}
 
 public:
-	const Uint8		*key_state;
 	
-	int 			getWidth(void);
-	int 			getHeight(void);
+	int 			GetWidth(void);
+	int 			GetHeight(void);
+	SDL_Renderer*	GetRender(void);
 
-	void 			draw_text(const char* text, int x, int y);
-	void 	 		draw_window(void);
-
-	SDL_Renderer*	get_render(void);
-
-	
-	
+	// void 			DrawText(const char* text, int x, int y);
+	// void 	 		DrawWindow(void);
 
 	GameSDL_Window(std::string str, int sizeX, int sizeY,
 	int win_pos_x, int win_pos_y);
-
 	~GameSDL_Window();
 
 };

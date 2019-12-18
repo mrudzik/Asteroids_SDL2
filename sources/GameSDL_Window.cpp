@@ -36,3 +36,69 @@ GameSDL_Window::~GameSDL_Window()
 		SDL_DestroyWindow(window);
 }
 
+
+
+int 			GameSDL_Window::GetHeight(void)
+{
+	return (this->_wind_H);
+}
+
+int 			GameSDL_Window::GetWidth(void)
+{
+	return (this->_wind_W);
+}
+
+SDL_Renderer*	GameSDL_Window::GetRender(void)
+{
+	return (this->renderer);
+}
+
+
+// void 			GameSDL_Window::draw_text(const char* text, int x, int y)
+// {
+// 	SDL_Surface			*font_surf;
+// 	SDL_Texture			*font_textr;
+// 	SDL_Rect			font_rect;
+// 	SDL_Color 			color;
+	
+// 	int	tw;
+// 	int	th;
+
+// 	color.r = 255;
+// 	color.g = 255;
+// 	color.b = 255;
+
+// 	font_surf = TTF_RenderText_Solid(font_ttf, text, color);
+// 	font_textr = SDL_CreateTextureFromSurface(renderer, font_surf);
+// 	SDL_QueryTexture(font_textr, NULL, NULL, &tw, &th);
+// 	font_rect.x = x;
+// 	font_rect.y = y;
+// 	font_rect.w = tw;
+// 	font_rect.h = th;
+// 	SDL_RenderCopy(renderer, font_textr, NULL, &font_rect);
+// 	SDL_DestroyTexture(font_textr);
+// 	SDL_FreeSurface(font_surf);
+// }
+
+// void 	 		GameSDL_Window::DrawWindow(void)
+// {
+// 	SDL_RenderClear(renderer);
+// 	// SDL_UpdateTexture(texture, NULL, _img_buff, _wind_W << 2);
+// 	SDL_RenderCopy(renderer, texture, NULL, NULL);
+	
+// 	// int x;
+// 	// int y;
+
+// 	// y = 0;
+// 	// while (y < _wind_H)
+// 	// {
+// 	// 	x = 0;
+// 	// 	while (x < _wind_W)
+// 	// 	{
+// 	// 		_img_buff[y][x] = 0x333333;
+// 	// 		x++;
+// 	// 	}
+// 	// 	y++;
+// 	// }
+// }
+

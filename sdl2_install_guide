@@ -4,8 +4,13 @@ Ubuntu 18.04 SDL2 Installation guide
 apt-cache search libsdl2
 
 // Install this via Root
-// Dev SDL2 basic package
-apt-get install libsdl2-dev
+// Dev SDL2 basic stuff
+// Dev Image stuff
 // Dev Fonts ttf stuff
+
+apt-get install libsdl2-dev
+apt-get install libsdl2-image-dev
 apt-get install libsdl2-ttf-dev
+
+
 

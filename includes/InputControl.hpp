@@ -24,7 +24,7 @@ public:
     void KeyboardScancodeInput();
     
     void MouseEventInput();
-    void MouseScancodeInput();
+
 };
 
 

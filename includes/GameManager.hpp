@@ -2,15 +2,24 @@
 #ifndef GAMEMANAGER_HPP
 #define GAMEMANAGER_HPP
 
+#include "ParserControl.hpp"
+#include "GameSDL_Window.hpp"
 
 class GameManager
 {
 private:
-	// Private fields here
+	GameSDL_Window _window;
+	
+	bool _gameLoop;
+
 public:
-	// Constructor/Destructor
-	GameManager();
+	GameManager(s_ParsedData parsedData);
 	~GameManager();
+
+	void 	GameLoop();
+
+
+	void 	QuitGame();
 };
 
 #endif

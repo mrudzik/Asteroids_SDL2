@@ -13,14 +13,7 @@ int win_pos_x, int win_pos_y): _wind_W(sizeX), _wind_H(sizeY)
 		SDL_RENDERER_PRESENTVSYNC)))
 		{
 			std::cout << "Renderer Created" << std::endl;
-			// if ((texture = SDL_CreateTexture(renderer,
-			// SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, _wind_W, _wind_H)))
-			// {
-			// 	std::cout << "Texture Created" << std::endl;
-			// 	// font_ttf = TTF_OpenFont("ARIAL.TTF", 15);
-			// 	key_state = SDL_GetKeyboardState(NULL);
-			// }
-			SDL_Delay( 2000 );
+			// SDL_Delay( 2000 );
 		}
 	}
 	std::cout << "Window Initialized" << std::endl;
@@ -30,9 +23,12 @@ int win_pos_x, int win_pos_y): _wind_W(sizeX), _wind_H(sizeY)
 
 GameSDL_Window::~GameSDL_Window()
 {
-		if (texture != NULL)
-			SDL_DestroyTexture(texture);
+	std::cout << "Shutting down" << std::endl;
+	if (texture != NULL)
+		SDL_DestroyTexture(texture);
+	if (renderer != NULL)
 		SDL_DestroyRenderer(renderer);
+	if (window != NULL)
 		SDL_DestroyWindow(window);
-	}
+}
 

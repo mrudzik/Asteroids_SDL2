@@ -20,19 +20,14 @@ struct s_ParsedData
 class ParserControl
 {
 private:
-    /* data */
-    // int     _argc;
-    // char**  _argv;
     std::vector<std::string> _params;
     s_ParsedData _data;
 
-    // TODO V
     // Declared in ParserTools.cpp
     int ParseSize(int* x_res, int* y_res, std::string param);
     int ParseCount(int *res, std::string param);
     int ParseRate(double *res, std::string param);
 
-    // TODO V
     // Declared in ParserFlags.cpp
     int Find_WindowSize(std::string flag, std::string param);
     int Find_MapSize(std::string flag, std::string param);
@@ -41,22 +36,23 @@ private:
     int Find_AbilityProbability(std::string flag, std::string param);
 
 public:
+    // Declared in ParserControl.cpp
     ParserControl(int argc, char** argv);
     ~ParserControl();
+    
+    int             StartParsing();
+    s_ParsedData    GetParsedData();
 
     // Declared in ParserMessages.cpp
     void ShowParams();
     void ShowData();
     void ShowHelp();
 
-    int StartParsing();
+    
+
 
     
 
 };
-
-
-
-
 
 #endif

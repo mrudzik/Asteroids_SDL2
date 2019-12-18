@@ -8,7 +8,10 @@ INC_DIR :=	./includes/
 SRC = 	main.cpp \
 		parser/ParserControl.cpp	parser/ParserFlags.cpp	\
 		parser/ParserMessages.cpp	parser/ParserTools.cpp	\
-		GameSDL_Window.cpp
+		GameManager.cpp	\
+		GameSDL_Window.cpp \
+		input/InputControl.cpp	\
+		input/KeyBehaviour.cpp		input/MouseBehaviour.cpp
 		
 
 #	project object files

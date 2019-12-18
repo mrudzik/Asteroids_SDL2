@@ -60,3 +60,8 @@ int ParserControl::StartParsing()
     ShowData();
     return 1; // Means to continue Game
 }
+
+s_ParsedData ParserControl::GetParsedData()
+{
+    return _data;
+}

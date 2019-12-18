@@ -24,13 +24,12 @@ private:
 	int 				_wind_H;
 	// int 				_img_buff[H][W];
 
-
 	GameSDL_Window(void){
 		return;
 	}
 
 public:
-	const Uint8			*key_state;
+	const Uint8		*key_state;
 	
 	int 			getWidth(void);
 	int 			getHeight(void);

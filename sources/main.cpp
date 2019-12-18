@@ -1,23 +1,32 @@
 
-#include "GameSDL_Window.hpp"
+// #include "GameSDL_Window.hpp"
 #include "ParserControl.hpp"
+#include "GameManager.hpp"
+// #include <iostream>
 
 void LaunchGame()
 {
-    GameSDL_Window window("Asteroids", 800, 800, 100, 100);
+    // GameSDL_Window window("Asteroids", 800, 800, 100, 100);
 
 }
 
-#include <iostream>
+int    Parsing(int argc, char** argv, s_ParsedData* parsedData)
+{
+    ParserControl parser(argc, argv);
+    if (parser.StartParsing() != 1)
+        return 0;
+
+    *parsedData = parser.GetParsedData();
+    return 1;
+}
 
 int main(int argc, char** argv)
 {
-    ParserControl parser(argc, argv);
+    s_ParsedData parsedData;
+
+    if (Parsing(argc, argv, &parsedData) == 0)
+        return 0;
     
-    parser.StartParsing();
-
-
-    // std::cout << "Starting Game" << std::endl;
-    // LaunchGame();
+    GameManager gameManager(parsedData);
 
 }

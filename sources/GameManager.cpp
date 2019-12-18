@@ -24,6 +24,8 @@ void    GameManager::GameLoop()
         inputController.ManageInput();
 
 
+
+
     }
 }
 

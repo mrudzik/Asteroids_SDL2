@@ -3,7 +3,7 @@
 
 # include <iostream>
 # include <SDL2/SDL.h>
-# include <GameManager.hpp>
+# include "GameManager.hpp"
 
 class InputControl
 {
@@ -19,6 +19,12 @@ public:
     ~InputControl();
 
     void ManageInput();
+    
+    void KeyboardEventInput();
+    void KeyboardScancodeInput();
+    
+    void MouseEventInput();
+    void MouseScancodeInput();
 };
 
 

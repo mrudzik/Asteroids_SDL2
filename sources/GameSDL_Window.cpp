@@ -4,6 +4,10 @@
 GameSDL_Window::GameSDL_Window(std::string str, int sizeX, int sizeY,
 int win_pos_x, int win_pos_y): _wind_W(sizeX), _wind_H(sizeY)
 {
+	std::cout << "SDL Initializing everything" << std::endl;
+	SDL_Init(SDL_INIT_EVERYTHING);
+
+
 	std::cout << "Window Start" << std::endl;
 	if ((window = SDL_CreateWindow(str.c_str(),
 	win_pos_x, win_pos_y, _wind_W, _wind_H, SDL_WINDOW_FOREIGN)))

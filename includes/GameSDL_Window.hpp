@@ -22,17 +22,24 @@ private:
 	// TTF_Font			*font_ttf;
 	
 	int 				_wind_W;
-	int 				_wind_H;
+	int 				_wind_W_half;
 
-	GameSDL_Window(void){
+	int 				_wind_H;
+	int 				_wind_H_half;
+
+	GameSDL_Window(){
 		return;
 	}
 
 public:
 	
-	int 			GetWidth(void);
-	int 			GetHeight(void);
-	SDL_Renderer*	GetRender(void);
+	int 			GetWidth();
+	int 			GetWidthHalf();
+	
+	int 			GetHeight();
+	int 			GetHeightHalf();
+
+	SDL_Renderer*	GetRender();
 
 	// void 			DrawText(const char* text, int x, int y);
 	// void 	 		DrawWindow(void);

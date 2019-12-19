@@ -12,14 +12,15 @@ SRC = 	main.cpp \
 		GameSDL_Window.cpp \
 		input/InputControl.cpp	\
 		input/KeyBehaviour.cpp		input/MouseBehaviour.cpp \
-		texture/PicTexture.cpp
+		texture/PicTexture.cpp	\
+		game_objects/AbstractGameObject.cpp
 		
 
 #	project object files
 OBJ =		$(addprefix $(OBJ_DIR), $(SRC:.cpp=.o))
 
 INCLUDES	=	-I $(INC_DIR) \
-				# -I $(INC_DIR)/parser
+				-I $(INC_DIR)/game_objects
 
 FRAMEWORKS	=	-w -lSDL2 -w -lSDL2_image
 

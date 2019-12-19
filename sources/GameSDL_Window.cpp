@@ -2,7 +2,8 @@
 #include<GameSDL_Window.hpp>
 
 GameSDL_Window::GameSDL_Window(std::string str, int sizeX, int sizeY,
-int win_pos_x, int win_pos_y): _wind_W(sizeX), _wind_H(sizeY)
+int win_pos_x, int win_pos_y): _wind_W(sizeX), _wind_W_half(sizeX / 2),
+	_wind_H(sizeY), _wind_H_half(sizeY / 2)
 {
 	std::cout << "SDL Initializing everything" << std::endl;
 	SDL_Init(SDL_INIT_EVERYTHING);
@@ -38,19 +39,30 @@ GameSDL_Window::~GameSDL_Window()
 
 
 
-int 			GameSDL_Window::GetHeight(void)
+int 			GameSDL_Window::GetHeight()
 {
-	return (this->_wind_H);
+	return _wind_H;
 }
 
-int 			GameSDL_Window::GetWidth(void)
+int 			GameSDL_Window::GetHeightHalf()
 {
-	return (this->_wind_W);
+	return _wind_H_half;
 }
 
-SDL_Renderer*	GameSDL_Window::GetRender(void)
+int 			GameSDL_Window::GetWidth()
 {
-	return (this->renderer);
+	return _wind_W;
+}
+
+int 			GameSDL_Window::GetWidthHalf()
+{
+	return _wind_W_half;
+}
+
+
+SDL_Renderer*	GameSDL_Window::GetRender()
+{
+	return renderer;
 }
 
 

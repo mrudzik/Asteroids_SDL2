@@ -4,12 +4,14 @@
 
 #include "ParserControl.hpp"
 #include "GameSDL_Window.hpp"
+#include "GameObjectFactory.hpp"
 
 class GameManager
 {
 private:
 	GameSDL_Window _window;
-	
+	GameObjectFactory _objectFactory;
+
 	bool _gameLoop;
 
 public:

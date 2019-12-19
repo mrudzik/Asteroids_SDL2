@@ -28,13 +28,24 @@ int win_pos_x, int win_pos_y): _wind_W(sizeX), _wind_W_half(sizeX / 2),
 
 GameSDL_Window::~GameSDL_Window()
 {
-	std::cout << "Shutting down" << std::endl;
+	std::cout << "Destructing Window" << std::endl;
 	if (texture != NULL)
+	{
+		std::cout << "Destoying Texture" << std::endl;
 		SDL_DestroyTexture(texture);
+	}
 	if (renderer != NULL)
+	{
+		std::cout << "Destoying Renderer" << std::endl;
 		SDL_DestroyRenderer(renderer);
+	}
 	if (window != NULL)
+	{
+		std::cout << "Destoying Window" << std::endl;		
 		SDL_DestroyWindow(window);
+	}
+	std::cout << "Destructing Window Complete" << std::endl;
+
 }
 
 

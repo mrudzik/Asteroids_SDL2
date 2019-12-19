@@ -9,7 +9,7 @@ SRC = 	main.cpp \
 		parser/ParserControl.cpp	parser/ParserFlags.cpp	\
 		parser/ParserMessages.cpp	parser/ParserTools.cpp	\
 		GameManager.cpp	\
-		GameSDL_Window.cpp \
+		GameSDL_Window.cpp 			GameObjectFactory.cpp	\
 		input/InputControl.cpp	\
 		input/KeyBehaviour.cpp		input/MouseBehaviour.cpp \
 		texture/PicTexture.cpp	\

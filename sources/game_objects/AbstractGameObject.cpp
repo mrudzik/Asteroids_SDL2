@@ -1,13 +1,14 @@
 
 #include "AbstractGameObject.hpp"
-
+#include <cmath>
 
 AbstractGameObject::AbstractGameObject(GameSDL_Window* window,
-    std::string spritePath, int xPos, int yPos, float xVec, float yVec,
+    PicTexture* newAvatar, int xPos, int yPos, float xVec, float yVec,
     float speed, float rotation, float angle)   //, float size)
 {
     _window = window;
-    _Avatar.LoadFromFile(spritePath, *_window);
+    _Avatar = newAvatar;
+    //.LoadFromFile(spritePath, *_window);
     _xPos = xPos;
     _yPos = yPos;
     _xVec = xVec;
@@ -15,7 +16,7 @@ AbstractGameObject::AbstractGameObject(GameSDL_Window* window,
     _speed = speed;
     _rotationSpeed = rotation;
     _angle = angle;
-    _sizeRadius = _Avatar.GetWidth() / 2.5f;
+    _sizeRadius = _Avatar->GetWidth() / 2.5f;
     // _size = size;
 }
 
@@ -54,7 +55,7 @@ void AbstractGameObject::RenderOnWindow(int xPlayer, int yPlayer)
 
     // TODO Protection to not render something that you cannot see
 
-    _Avatar.RenderPic(*_window, xDif, yDif, NULL, _angle, NULL, SDL_FLIP_NONE);
+    _Avatar->RenderPic(*_window, xDif, yDif, NULL, _angle, NULL, SDL_FLIP_NONE);
 }
 
 void AbstractGameObject::StopMoving()

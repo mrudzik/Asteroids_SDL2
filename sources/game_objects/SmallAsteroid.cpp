@@ -1,7 +1,8 @@
 
-#include "BigAsteroid.hpp"
+#include "SmallAsteroid.hpp"
 
-BigAsteroid::BigAsteroid(GameSDL_Window* window, PicTexture* newAvatar,
+
+SmallAsteroid::SmallAsteroid(GameSDL_Window* window, PicTexture* newAvatar,
     int xPos, int yPos, float xVec, float yVec, float speed, float rotation,
     float angle) : 
         AbstractGameObject(window, newAvatar, xPos, yPos, xVec, yVec,
@@ -10,6 +11,6 @@ BigAsteroid::BigAsteroid(GameSDL_Window* window, PicTexture* newAvatar,
 
 }
 
-BigAsteroid::~BigAsteroid()
+SmallAsteroid::~SmallAsteroid()
 {
 }

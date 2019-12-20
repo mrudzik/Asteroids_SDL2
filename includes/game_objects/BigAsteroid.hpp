@@ -4,7 +4,7 @@
 
 #include "AbstractGameObject.hpp"
 
-class BigAsteroid : AbstractGameObject
+class BigAsteroid : public AbstractGameObject
 {
 
 private:
@@ -12,10 +12,9 @@ private:
     /* data */
 public:
 
-    BigAsteroid(GameSDL_Window* window,
-        std::string spritePath, int xPos, int yPos,
-        float xVec, float yVec, float speed,
-        float rotation, float angle, float size);
+    BigAsteroid(GameSDL_Window* window, PicTexture* newAvatar,
+    int xPos, int yPos, float xVec, float yVec, float speed,
+	float rotation, float angle);
     ~BigAsteroid();
 
 };

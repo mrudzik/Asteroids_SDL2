@@ -1,8 +1,6 @@
 
 #include "GameObjectFactory.hpp"
 
-
-
 GameObjectFactory::GameObjectFactory(GameSDL_Window* window)
 {
     std::cout << "Game Object Factory Creation" << std::endl;
@@ -22,15 +20,20 @@ GameObjectFactory::GameObjectFactory(GameSDL_Window* window)
 }
 
 GameObjectFactory::~GameObjectFactory()
-{
-    
-    // Deallocate all Objects
+{// Deallocate all Objects
+	
 	std::cout << "Deallocating Asteroids" << std::endl;
-    for (int i = 0; i < (int)_asteroids.size(); i++)
+    for (int i = 0; i < (int)_bigAsteroids.size(); i++)
     {// Deallocating Asteroids
-		delete _asteroids.at(i);
-        // DestroyAsteroid(i);
+		delete _bigAsteroids.at(i);
+		_bigAsteroids.at(i) = NULL;
     }
+	for (int i = 0; i < (int)_smallAsteroids.size(); i++)
+	{// Small Asteroids
+		delete _smallAsteroids.at(i);
+		_smallAsteroids.at(i) = NULL;
+	}
+
 
 	// Deallocate all saved Pictures
     delete _bigAsteroidPic;
@@ -44,9 +47,13 @@ GameObjectFactory::~GameObjectFactory()
 
 void	GameObjectFactory::CalculateMovementAll()
 {
-	for (int i = 0; i < (int)_asteroids.size(); i++)
+	for (int i = 0; i < (int)_bigAsteroids.size(); i++)
 	{// Asteroids Movement
-		_asteroids.at(i)->CalculateMovement();
+		_bigAsteroids.at(i)->CalculateMovement();
+	}
+	for (int i = 0; i < (int)_smallAsteroids.size(); i++)
+	{// Small Asteroids
+		_smallAsteroids.at(i)->CalculateMovement();
 	}
 
 }
@@ -55,18 +62,22 @@ void 	GameObjectFactory::CalculateIntersectionsAll()
 {
 	// Clear all Objects from calculated flag
 
-	for (int i = 0; i < (int)_asteroids.size(); i++)
-	{// Asteroids
-		_asteroids.at(i)->IntersectCalculated = false;
-	}
+	// for (int i = 0; i < (int)_bigAsteroids.size(); i++)
+	// {// Asteroids
+	// 	_bigAsteroids.at(i)->IntersectCalculated = false;
+	// }
 }
 
 
 void	GameObjectFactory::RenderAll(int playerX, int playerY)
 {
-	for (int i = 0; i < (int)_asteroids.size(); i++)
-	{// Asteroids Rendering
-		_asteroids.at(i)->RenderOnWindow(playerX, playerY);
+	for (int i = 0; i < (int)_bigAsteroids.size(); i++)
+	{// Big Asteroids
+		_bigAsteroids.at(i)->RenderOnWindow(playerX, playerY);
+	}
+	for (int i = 0; i < (int)_smallAsteroids.size(); i++)
+	{// Small Asteroids
+		_smallAsteroids.at(i)->RenderOnWindow(playerX, playerY);
 	}
 
 }
@@ -82,24 +93,38 @@ void	GameObjectFactory::RenderAll(int playerX, int playerY)
 void    GameObjectFactory::CreateObject(ObjectsEnum objType, int xPos, int yPos,
 float xVec, float yVec, float speed, float rotationSpeed, float angle)
 {
-    AbstractGameObject* tempObject;
-
-	if (objType == ObjectsEnum::BigAsteroid)
+	if (objType == ObjectsEnum::BigAsteroidType)
 	{
-		tempObject = new AbstractGameObject(_window, _bigAsteroidPic, xPos, yPos,
-		xVec, yVec, speed, rotationSpeed, angle);
-		_asteroids.push_back(tempObject);
+		BigAsteroid* tempObject =
+		new BigAsteroid(_window, _bigAsteroidPic, xPos, yPos,
+			xVec, yVec, speed, rotationSpeed, angle);
+		_bigAsteroids.push_back(tempObject);
+	}
+	else if (objType == ObjectsEnum::SmallAsteroidType)
+	{
+		SmallAsteroid* tempObject =
+		new SmallAsteroid(_window, _smallAsteroidPic, xPos, yPos,
+			xVec, yVec, speed, rotationSpeed, angle);
+		_smallAsteroids.push_back(tempObject);
 	}
     
 }
 
 void    GameObjectFactory::DestroyObject(ObjectsEnum objType, int index)
 {
-	if (objType == ObjectsEnum::BigAsteroid)
+	if (objType == ObjectsEnum::BigAsteroidType)
 	{
-		AbstractGameObject* tempAsteroid = _asteroids.at(index);
+		BigAsteroid* tempAsteroid = _bigAsteroids.at(index);
 		// Erase that pointer from vector
-		_asteroids.erase(_asteroids.begin() + index);
+		_bigAsteroids.erase(_bigAsteroids.begin() + index);
+		// Deal with allocated data on that pointer
+		delete tempAsteroid;
+	}
+	else if (objType == ObjectsEnum::SmallAsteroidType)
+	{
+		SmallAsteroid* tempAsteroid = _smallAsteroids.at(index);
+		// Erase that pointer from vector
+		_smallAsteroids.erase(_smallAsteroids.begin() + index);
 		// Deal with allocated data on that pointer
 		delete tempAsteroid;
 	}

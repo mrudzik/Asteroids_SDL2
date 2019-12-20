@@ -13,7 +13,10 @@ SRC = 	main.cpp \
 		input/InputControl.cpp	\
 		input/KeyBehaviour.cpp		input/MouseBehaviour.cpp \
 		texture/PicTexture.cpp	\
-		game_objects/AbstractGameObject.cpp
+		\
+		game_objects/AbstractGameObject.cpp \
+		game_objects/BigAsteroid.cpp	\
+		game_objects/SmallAsteroid.cpp
 		
 
 #	project object files

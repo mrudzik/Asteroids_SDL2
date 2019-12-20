@@ -25,8 +25,10 @@ void    GameManager::GameLoop()
 
 	InputControl inputController(this);
 
-	_objectFactory.CreateObject(ObjectsEnum::BigAsteroid, 100, 200, -1, -1, 1, 0.5f, 0);
-	_objectFactory.CreateObject(ObjectsEnum::BigAsteroid, -200, 200, 1, -1, 1, -0.2f, 30);
+	_objectFactory.CreateObject(ObjectsEnum::BigAsteroidType, 100, 200, -1, -1, 1, 0.5f, 0);
+	_objectFactory.CreateObject(ObjectsEnum::BigAsteroidType, -200, 200, 1, -1, 1, -0.2f, 30);
+
+	_objectFactory.CreateObject(ObjectsEnum::SmallAsteroidType, 300, -200, -1, 1, 1, -0.2f, 30);
 
 	/* // Test Field
 	PicTexture  testTexture;

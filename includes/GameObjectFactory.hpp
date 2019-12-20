@@ -4,14 +4,17 @@
 
 #include <iostream>
 #include <vector>
+
 #include "GameSDL_Window.hpp"
 #include "AbstractGameObject.hpp"
+#include "BigAsteroid.hpp"
+#include "SmallAsteroid.hpp"
 
 enum ObjectsEnum
 {
-	BigAsteroid,
-	SmallAsteroid,
-	Bullet
+	BigAsteroidType,
+	SmallAsteroidType,
+	BulletType
 };
 
 class GameObjectFactory
@@ -25,8 +28,9 @@ private:
     PicTexture*     _spaceShipPic;
     PicTexture*     _bulletPic;
 
-    // Allocated Asteroids
-    std::vector<AbstractGameObject*>    _asteroids;
+    // Allocated Objects
+    std::vector<BigAsteroid*>		_bigAsteroids;
+	std::vector<SmallAsteroid*>		_smallAsteroids;
 
 
 public:

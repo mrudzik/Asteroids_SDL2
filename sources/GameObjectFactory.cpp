@@ -33,6 +33,11 @@ GameObjectFactory::~GameObjectFactory()
 		delete _smallAsteroids.at(i);
 		_smallAsteroids.at(i) = NULL;
 	}
+	for (int i = 0; i < (int)_bullets.size(); i++)
+	{// Small Asteroids
+		delete _bullets.at(i);
+		_bullets.at(i) = NULL;
+	}
 
 
 	// Deallocate all saved Pictures
@@ -55,6 +60,10 @@ void	GameObjectFactory::CalculateMovementAll()
 	{// Small Asteroids
 		_smallAsteroids.at(i)->CalculateMovement();
 	}
+	for (int i = 0; i < (int)_bullets.size(); i++)
+	{
+		_bullets.at(i)->CalculateMovement();
+	}
 
 }
 
@@ -66,6 +75,7 @@ void 	GameObjectFactory::CalculateIntersectionsAll()
 	// {// Asteroids
 	// 	_bigAsteroids.at(i)->IntersectCalculated = false;
 	// }
+
 }
 
 
@@ -78,6 +88,10 @@ void	GameObjectFactory::RenderAll(int playerX, int playerY)
 	for (int i = 0; i < (int)_smallAsteroids.size(); i++)
 	{// Small Asteroids
 		_smallAsteroids.at(i)->RenderOnWindow(playerX, playerY);
+	}
+	for (int i = 0; i < (int)_bullets.size(); i++)
+	{// Bullets
+		_bullets.at(i)->RenderOnWindow(playerX, playerY);
 	}
 
 }
@@ -107,7 +121,13 @@ float xVec, float yVec, float speed, float rotationSpeed, float angle)
 			xVec, yVec, speed, rotationSpeed, angle);
 		_smallAsteroids.push_back(tempObject);
 	}
-    
+    else if (objType == ObjectsEnum::BulletType)
+	{
+		Bullet* tempObject =
+		new Bullet(_window, _bulletPic, xPos, yPos,
+			xVec, yVec, speed, rotationSpeed, angle);
+		_bullets.push_back(tempObject);
+	}
 }
 
 void    GameObjectFactory::DestroyObject(ObjectsEnum objType, int index)
@@ -128,6 +148,16 @@ void    GameObjectFactory::DestroyObject(ObjectsEnum objType, int index)
 		// Deal with allocated data on that pointer
 		delete tempAsteroid;
 	}
+	else if (objType == ObjectsEnum::BulletType)
+	{
+		Bullet* tempBullet = _bullets.at(index);
+		// Erase that pointer from vector
+		_bullets.erase(_bullets.begin() + index);
+		// Deal with allocated data on that pointer
+		delete tempBullet;
+	}
+
+
     
 }
 

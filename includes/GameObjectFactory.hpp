@@ -9,6 +9,7 @@
 #include "AbstractGameObject.hpp"
 #include "BigAsteroid.hpp"
 #include "SmallAsteroid.hpp"
+#include "Bullet.hpp"
 
 enum ObjectsEnum
 {
@@ -31,6 +32,7 @@ private:
     // Allocated Objects
     std::vector<BigAsteroid*>		_bigAsteroids;
 	std::vector<SmallAsteroid*>		_smallAsteroids;
+	std::vector<Bullet*>			_bullets;
 
 
 public:

@@ -30,6 +30,8 @@ void    GameManager::GameLoop()
 
 	_objectFactory.CreateObject(ObjectsEnum::SmallAsteroidType, 300, -200, -1, 1, 1, -0.2f, 30);
 
+	_objectFactory.CreateObject(ObjectsEnum::BulletType, -300, -200, 1, 1, 1, -0.2f, 30);
+
 	/* // Test Field
 	PicTexture  testTexture;
 	testTexture.LoadFromFile("resourses/background.png", _window);

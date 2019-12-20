@@ -8,20 +8,22 @@ GameObjectFactory::GameObjectFactory(GameSDL_Window* window)
 
     _bigAsteroidPic = new PicTexture();
     _bigAsteroidPic->LoadFromFile("resourses/big_asteroid.png", *_window);
-
     _smallAsteroidPic = new PicTexture();
     _smallAsteroidPic->LoadFromFile("resourses/small_asteroid.png", *_window);
-
     _spaceShipPic = new PicTexture();
     _spaceShipPic->LoadFromFile("resourses/spaceship.png", *_window);
-
     _bulletPic = new PicTexture();
     _bulletPic->LoadFromFile("resourses/bullet.png", *_window);
+
+	std::cout << "Creating Player" << std::endl;
+	player = new Player(_window, _spaceShipPic, 0, 0, 0, 0, 0, 0, 0);
 }
 
 GameObjectFactory::~GameObjectFactory()
 {// Deallocate all Objects
 	
+	delete player;
+
 	std::cout << "Deallocating Asteroids" << std::endl;
     for (int i = 0; i < (int)_bigAsteroids.size(); i++)
     {// Deallocating Asteroids
@@ -38,7 +40,6 @@ GameObjectFactory::~GameObjectFactory()
 		delete _bullets.at(i);
 		_bullets.at(i) = NULL;
 	}
-
 
 	// Deallocate all saved Pictures
     delete _bigAsteroidPic;
@@ -64,6 +65,9 @@ void	GameObjectFactory::CalculateMovementAll()
 	{
 		_bullets.at(i)->CalculateMovement();
 	}
+	player->CalculateAngle();
+	player->CalculateMovement();
+	player->InertiaDampeners();
 
 }
 
@@ -79,8 +83,11 @@ void 	GameObjectFactory::CalculateIntersectionsAll()
 }
 
 
-void	GameObjectFactory::RenderAll(int playerX, int playerY)
+void	GameObjectFactory::RenderAll()
 {
+	int playerX = player->GetPosX();
+	int playerY = player->GetPosY();
+
 	for (int i = 0; i < (int)_bigAsteroids.size(); i++)
 	{// Big Asteroids
 		_bigAsteroids.at(i)->RenderOnWindow(playerX, playerY);
@@ -93,6 +100,7 @@ void	GameObjectFactory::RenderAll(int playerX, int playerY)
 	{// Bullets
 		_bullets.at(i)->RenderOnWindow(playerX, playerY);
 	}
+	player->RenderOnWindow(-playerX, -playerY);
 
 }
 
@@ -156,6 +164,7 @@ void    GameObjectFactory::DestroyObject(ObjectsEnum objType, int index)
 		// Deal with allocated data on that pointer
 		delete tempBullet;
 	}
+	
 
 
     

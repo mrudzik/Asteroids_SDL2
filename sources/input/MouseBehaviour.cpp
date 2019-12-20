@@ -8,7 +8,7 @@ void    InputControl::MouseEventInput()
     {
         if (_event.button.button == SDL_BUTTON_LEFT)
         {
-            std::cout << "Peu" << std::endl;
+			_game->Shoot();
         }
     }
 }

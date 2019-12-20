@@ -10,6 +10,7 @@ GameManager::GameManager(s_ParsedData parsedData) :
 _window("Asteroids", parsedData.winSize_x, parsedData.winSize_y, 100, 100),
 _objectFactory(&_window)
 {
+	player = _objectFactory.player;
 	std::cout << "Starting Game Loop" << std::endl;
 	_gameLoop = true;
 	GameLoop();
@@ -17,7 +18,7 @@ _objectFactory(&_window)
 
 GameManager::~GameManager()
 {
-
+	player = NULL;
 }
 
 void    GameManager::GameLoop()
@@ -27,6 +28,7 @@ void    GameManager::GameLoop()
 
 	_objectFactory.CreateObject(ObjectsEnum::BigAsteroidType, 100, 200, -1, -1, 1, 0.5f, 0);
 	_objectFactory.CreateObject(ObjectsEnum::BigAsteroidType, -200, 200, 1, -1, 1, -0.2f, 30);
+	_objectFactory.CreateObject(ObjectsEnum::BigAsteroidType, -200, 200, 0, 0, 0, -0.2f, 30);
 
 	_objectFactory.CreateObject(ObjectsEnum::SmallAsteroidType, 300, -200, -1, 1, 1, -0.2f, 30);
 
@@ -47,31 +49,16 @@ void    GameManager::GameLoop()
 		// GameLogic
 		// Some calculations where something positioned etc.
 
-
 		// // All GameObjects Calculate Movement
-		// testObject.CalculateMovement();
-		// testObject2.CalculateMovement();
-
 		// // All GameObjects Calculate Intersections
 		// if (testObject.CheckIntersect(&testObject2))
-		// {
-		//     testObject.StopMoving();
-		//     testObject2.StopMoving();
-		//     std::cout << "Intersecting" << std::endl;
-		// }
 		_objectFactory.CalculateMovementAll();
 		_objectFactory.CalculateIntersectionsAll();
 		
 		SDL_RenderClear(_window.GetRender());
-
-		_objectFactory.RenderAll(0, 0);
-		// testTexture.RenderPic(_window, 100, 100, NULL, 90, NULL, SDL_FLIP_NONE);
-		
-		// testObject2.RenderOnWindow(0, 0);
-		// testObject.RenderOnWindow(0, 0);
-
-
-
+		// Render BackGround
+		// Render Objects
+		_objectFactory.RenderAll();
 		SDL_RenderPresent(_window.GetRender());
 	}
 
@@ -79,6 +66,12 @@ void    GameManager::GameLoop()
 }
 
 
+
+void 	GameManager::Shoot()
+{
+	_objectFactory.CreateObject(ObjectsEnum::BulletType, -player->GetPosX(),
+	-player->GetPosY(), 1, 0, 2, 0, 0);
+}
 
 // TODO Transfer this to another file
 void    GameManager::QuitGame()

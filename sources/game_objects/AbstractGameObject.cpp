@@ -50,8 +50,8 @@ int AbstractGameObject::CheckIntersect(AbstractGameObject* target)
 
 void AbstractGameObject::RenderOnWindow(int xPlayer, int yPlayer)
 {
-    int xDif = xPlayer + _xPos + _window->GetWidthHalf();// + _sizeRadius;
-    int yDif = yPlayer + _yPos + _window->GetHeightHalf();// - _sizeRadius;
+    int xDif = xPlayer + _xPos + _window->GetWidthHalf();
+    int yDif = yPlayer + _yPos + _window->GetHeightHalf();
 
     // TODO Protection to not render something that you cannot see
 

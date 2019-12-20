@@ -17,7 +17,8 @@ SRC = 	main.cpp \
 		game_objects/AbstractGameObject.cpp \
 		game_objects/BigAsteroid.cpp	\
 		game_objects/SmallAsteroid.cpp	\
-		game_objects/Bullet.cpp
+		game_objects/Bullet.cpp			\
+		game_objects/Player.cpp
 		
 
 #	project object files

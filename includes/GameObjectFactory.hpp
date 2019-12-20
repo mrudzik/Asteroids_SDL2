@@ -10,12 +10,14 @@
 #include "BigAsteroid.hpp"
 #include "SmallAsteroid.hpp"
 #include "Bullet.hpp"
+#include "Player.hpp"
 
 enum ObjectsEnum
 {
 	BigAsteroidType,
 	SmallAsteroidType,
-	BulletType
+	BulletType,
+	PlayerType
 };
 
 class GameObjectFactory
@@ -34,15 +36,16 @@ private:
 	std::vector<SmallAsteroid*>		_smallAsteroids;
 	std::vector<Bullet*>			_bullets;
 
-
+	
 public:
+	Player*	player;
 
     GameObjectFactory(GameSDL_Window* window);
     ~GameObjectFactory();
 
 	void CalculateMovementAll();
 	void CalculateIntersectionsAll();
-	void RenderAll(int playerX, int playerY);
+	void RenderAll();
 
     void CreateObject(ObjectsEnum objType, int xPos, int yPos,
 		float xVec, float yVec, float speed, float rotationSpeed, float angle);

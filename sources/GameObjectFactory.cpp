@@ -71,16 +71,7 @@ void	GameObjectFactory::CalculateMovementAll()
 
 }
 
-void 	GameObjectFactory::CalculateIntersectionsAll()
-{
-	// Clear all Objects from calculated flag
 
-	// for (int i = 0; i < (int)_bigAsteroids.size(); i++)
-	// {// Asteroids
-	// 	_bigAsteroids.at(i)->IntersectCalculated = false;
-	// }
-
-}
 
 
 void	GameObjectFactory::RenderAll()

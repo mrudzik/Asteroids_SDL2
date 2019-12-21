@@ -8,8 +8,8 @@ INC_DIR :=	./includes/
 SRC = 	main.cpp \
 		parser/ParserControl.cpp	parser/ParserFlags.cpp	\
 		parser/ParserMessages.cpp	parser/ParserTools.cpp	\
-		GameManager.cpp	\
-		GameSDL_Window.cpp 			GameObjectFactory.cpp	\
+		GameManager.cpp				GameSDL_Window.cpp 	\
+		GameObjectFactory.cpp		GameObjectIntersections.cpp \
 		input/InputControl.cpp	\
 		input/KeyBehaviour.cpp		input/MouseBehaviour.cpp \
 		texture/PicTexture.cpp	\

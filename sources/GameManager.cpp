@@ -1,8 +1,6 @@
 
 #include "GameManager.hpp"
 #include "InputControl.hpp"
-#include "PicTexture.hpp"
-#include "AbstractGameObject.hpp"
 #include "GameObjectFactory.hpp"
 
 
@@ -10,6 +8,7 @@ GameManager::GameManager(s_ParsedData parsedData) :
 _window("Asteroids", parsedData.winSize_x, parsedData.winSize_y, 100, 100),
 _objectFactory(&_window)
 {
+	srand(0);
 	player = _objectFactory.player;
 	std::cout << "Starting Game Loop" << std::endl;
 	_gameLoop = true;
@@ -26,22 +25,11 @@ void    GameManager::GameLoop()
 
 	InputControl inputController(this);
 
-	_objectFactory.CreateObject(ObjectsEnum::BigAsteroidType, 100, 200, -1, -1, 1, 0.5f, 0);
-	_objectFactory.CreateObject(ObjectsEnum::BigAsteroidType, -200, 200, 1, -1, 1, -0.2f, 30);
-	_objectFactory.CreateObject(ObjectsEnum::BigAsteroidType, -200, 200, 0, 0, 0, -0.2f, 30);
-
+	_objectFactory.CreateObject(ObjectsEnum::BigAsteroidType, 300, 200, -1, -1, 1, 0.5f, 0);
+	_objectFactory.CreateObject(ObjectsEnum::BigAsteroidType, -110, 200, 1, -1, 1, -0.2f, 30);
+	// _objectFactory.CreateObject(ObjectsEnum::BigAsteroidType, -200, 200, 0, 0, 0, -0.2f, 30);
 	_objectFactory.CreateObject(ObjectsEnum::SmallAsteroidType, 300, -200, -1, 1, 1, -0.2f, 30);
-
 	_objectFactory.CreateObject(ObjectsEnum::BulletType, -300, -200, 1, 1, 1, -0.2f, 30);
-
-	/* // Test Field
-	PicTexture  testTexture;
-	testTexture.LoadFromFile("resourses/background.png", _window);
-	AbstractGameObject testObject(&_window, "resourses/big_asteroid.png", 100, 200,
-	-1, -1, 1, 0.5f, 0);
-	AbstractGameObject testObject2(&_window, "resourses/big_asteroid.png", -200, 200,
-	1, -1, 1, 0.5f, 0);
-	*/
 
 	while(_gameLoop)
 	{
@@ -51,7 +39,6 @@ void    GameManager::GameLoop()
 
 		// // All GameObjects Calculate Movement
 		// // All GameObjects Calculate Intersections
-		// if (testObject.CheckIntersect(&testObject2))
 		_objectFactory.CalculateMovementAll();
 		_objectFactory.CalculateIntersectionsAll();
 		
@@ -62,15 +49,17 @@ void    GameManager::GameLoop()
 		SDL_RenderPresent(_window.GetRender());
 	}
 
-	// _objectFactory.DestroyAsteroid(0);
 }
 
 
 
 void 	GameManager::Shoot()
 {
-	_objectFactory.CreateObject(ObjectsEnum::BulletType, -player->GetPosX(),
-	-player->GetPosY(), 1, 0, 2, 0, 0);
+	float angle = player->GetAngle() - 90;
+	_objectFactory.CreateObject(ObjectsEnum::BulletType,
+	-player->GetPosX(), -player->GetPosY(),
+	cos(angle * M_PI / 180.0f), sin(angle * M_PI / 180.0f),
+	5, 0, angle + 90);
 }
 
 // TODO Transfer this to another file

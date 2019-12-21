@@ -7,9 +7,9 @@ Player::Player(GameSDL_Window* window, PicTexture* newAvatar,
         speed, rotation, angle)
 {
 	_slowingSpeed = 0.1f;
-	_speed = 3;
-	_screenPosX = window->GetWidthHalf() + newAvatar->GetWidth() / 2;
-	_screenPosY = window->GetHeightHalf() + newAvatar->GetHeight() / 2;
+	_speed = 1;
+	_screenPosX = window->GetWidthHalf() + newAvatar->GetWidth() / 4;
+	_screenPosY = window->GetHeightHalf() + newAvatar->GetHeight() / 4;
 }
 
 Player::~Player()
@@ -19,12 +19,17 @@ Player::~Player()
 
 int Player::GetPosX()
 {
-	return _xPos;
+	return _xPos + _Avatar->GetWidth() / 2;
 }
 
 int Player::GetPosY()
 {
-	return _yPos;
+	return _yPos + _Avatar->GetHeight() / 2;
+}
+
+float Player::GetAngle()
+{
+	return _angle;
 }
 
 
@@ -86,5 +91,7 @@ void Player::CalculateAngle()
 	if (halfFlag)
 		_angle = 90.0 + (90.0 - _angle);
 	_angle += 180; // Reversing SpaceShip
+
+	std::cout << "Angle : " << _angle << std::endl;
 	return;
 }

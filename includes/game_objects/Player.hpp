@@ -22,7 +22,8 @@ public:
 
 	int GetPosX();
 	int GetPosY();
-
+	float GetAngle();
+	
 	
 	void CalculateAngle();
 	void MoveX(float xVec);

@@ -29,7 +29,8 @@ protected:
 
 public:
 	bool	IntersectCalculated; // For Optimization purposes
-
+	bool 	Intersecting;
+	
     AbstractGameObject(GameSDL_Window* window,
         PicTexture* newAvatar, int xPos, int yPos,
         float xVec, float yVec, float speed,

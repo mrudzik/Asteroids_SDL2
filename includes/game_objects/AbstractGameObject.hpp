@@ -20,6 +20,7 @@ protected:
     float   _rotationSpeed;
     float   _angle;
     // Size Radius;
+	float 	_maxSize;
     float   _sizeRadius;
     
     // Texture with sprite Avatar
@@ -28,7 +29,8 @@ protected:
     GameSDL_Window* _window;
 
 public:
-	bool	IntersectCalculated; // For Optimization purposes
+	bool	AllIntersectCalculated; // For Optimization purposes
+	bool	WasIntersecting;
 	bool 	Intersecting;
 	
     AbstractGameObject(GameSDL_Window* window,
@@ -39,6 +41,7 @@ public:
 
     void CalculateMovement();
     int CheckIntersect(AbstractGameObject* target);
+	void RestoreSize();
 
     void RenderOnWindow(int xPlayer, int yPlayer);
 

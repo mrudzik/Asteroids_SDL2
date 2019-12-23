@@ -7,16 +7,30 @@ void 	GameObjectFactory::CalculateIntersectionsAll()
 
 	for (int i = 0; i < (int)_bigAsteroids.size(); i++)
 	{// Asteroids
-		_bigAsteroids.at(i)->IntersectCalculated = false;
+		BigAsteroid* tempObject = _bigAsteroids.at(i);
+
+		tempObject->AllIntersectCalculated = false;
+		if (tempObject->Intersecting)
+			tempObject->WasIntersecting = true;
+		else
+			tempObject->WasIntersecting = false;
+		tempObject->Intersecting = false;
 	}
 	for (int i = 0; i < (int)_smallAsteroids.size(); i++)
 	{// Small Asteroids
-		_smallAsteroids.at(i)->IntersectCalculated = false;
+		SmallAsteroid* tempObject = _smallAsteroids.at(i);
+
+		tempObject->AllIntersectCalculated = false;
+		if (tempObject->Intersecting)
+			tempObject->WasIntersecting = true;
+		else
+			tempObject->WasIntersecting = false;
+		tempObject->Intersecting = false;
 	}
-	for (int i = 0; i < (int)_bullets.size(); i++)
-	{
-		_bullets.at(i)->IntersectCalculated = false;
-	}
+	// for (int i = 0; i < (int)_bullets.size(); i++)
+	// {
+	// 	_bullets.at(i)->AllIntersectCalculated = false;
+	// }
 
 
 
@@ -32,12 +46,12 @@ void 	GameObjectFactory::CalculateIntersectionsAll()
 			if (iTarg == i)
 				continue;// If same Asteroid
 			BigAsteroid* tempTarget = _bigAsteroids.at(iTarg);
-			if (tempTarget->IntersectCalculated == true)
+			if (tempTarget->AllIntersectCalculated == true)
 				continue;// If have calculated Intersection for this frame
 			if (tempObj->CheckIntersect(tempTarget) == 1)
 			{
-				// tempObj->IntersectCalculated = true;
-				// tempTarget->IntersectCalculated = true;
+				tempObj->Intersecting = true;
+				tempTarget->Intersecting = true;
 				tempObj->BounceRand();
 				tempTarget->BounceRand();
 				break;
@@ -46,12 +60,12 @@ void 	GameObjectFactory::CalculateIntersectionsAll()
 		for (int iTarg = 0; iTarg < (int)_smallAsteroids.size(); iTarg++)
 		{// Small Asteroids
 			SmallAsteroid* tempTarget = _smallAsteroids.at(iTarg);
-			if (tempTarget->IntersectCalculated == true)
+			if (tempTarget->AllIntersectCalculated == true)
 				continue;// If have calculated Intersection for this frame
 			if (tempObj->CheckIntersect(tempTarget) == 1)
 			{
-				// tempObj->IntersectCalculated = true;
-				// tempTarget->IntersectCalculated = true;
+				tempObj->Intersecting = true;
+				tempTarget->Intersecting = true;
 				tempObj->BounceRand();
 				tempTarget->BounceRand();
 				break;
@@ -61,7 +75,7 @@ void 	GameObjectFactory::CalculateIntersectionsAll()
 		// {
 		// 	_bullets.at(i)->IntersectCalculated = false;
 		// }
-		tempObj->IntersectCalculated = true; // No need to check this Object
+		tempObj->AllIntersectCalculated = true; // No need to check this Object
 	}
 
 
@@ -74,12 +88,12 @@ void 	GameObjectFactory::CalculateIntersectionsAll()
 		for (int iTarg = 0; iTarg < (int)_bigAsteroids.size(); iTarg++)
 		{// Big Asteroids
 			BigAsteroid* tempTarget = _bigAsteroids.at(iTarg);
-			if (tempTarget->IntersectCalculated == true)
+			if (tempTarget->AllIntersectCalculated == true)
 				continue;// If have calculated Intersection for this frame
 			if (tempObj->CheckIntersect(tempTarget) == 1)
 			{
-				// tempObj->IntersectCalculated = true;
-				// tempTarget->IntersectCalculated = true;
+				tempObj->Intersecting = true;
+				tempTarget->Intersecting = true;
 				tempObj->BounceRand();
 				tempTarget->BounceRand();
 				break;
@@ -90,12 +104,12 @@ void 	GameObjectFactory::CalculateIntersectionsAll()
 			if (iTarg == i)
 				continue;// If same Asteroid
 			SmallAsteroid* tempTarget = _smallAsteroids.at(iTarg);
-			if (tempTarget->IntersectCalculated == true)
+			if (tempTarget->AllIntersectCalculated == true)
 				continue;// If have calculated Intersection for this frame
 			if (tempObj->CheckIntersect(tempTarget) == 1)
 			{
-				// tempObj->IntersectCalculated = true;
-				// tempTarget->IntersectCalculated = true;
+				tempObj->Intersecting = true;
+				tempTarget->Intersecting = true;
 				tempObj->BounceRand();
 				tempTarget->BounceRand();
 				break;
@@ -105,7 +119,7 @@ void 	GameObjectFactory::CalculateIntersectionsAll()
 		// {
 		// 	_bullets.at(i)->IntersectCalculated = false;
 		// }
-		tempObj->IntersectCalculated = true; // No need to check this Object
+		tempObj->AllIntersectCalculated = true; // No need to check this Object
 	}
 	// for (int i = 0; i < (int)_bullets.size(); i++)
 	// {

@@ -17,6 +17,11 @@ AbstractGameObject::AbstractGameObject(GameSDL_Window* window,
     _rotationSpeed = rotation;
     _angle = angle;
     _sizeRadius = _Avatar->GetWidth() / 2.5f;
+	_maxSize = _sizeRadius;
+
+	AllIntersectCalculated = false;
+	WasIntersecting = false;
+	Intersecting = false;
     // _size = size;
 }
 
@@ -43,9 +48,20 @@ int AbstractGameObject::CheckIntersect(AbstractGameObject* target)
     float horDist = pow(_xPos - target->_xPos, 2.0f);
     float verDist = pow(_yPos - target->_yPos, 2.0f);
 
+	if (WasIntersecting)
+	{ // For handling stucks between 3 and more objects
+		_sizeRadius -= 0.1f;
+		if (_sizeRadius < 0)
+			_sizeRadius = 0;
+	}
+	else
+	{// This will restore size
+		_sizeRadius = _maxSize;
+	}
+
     if ((horDist + verDist) <= pow(_sizeRadius + target->_sizeRadius, 2.0f))
         return 1;
-    return 0;
+	return 0;
 }
 
 void AbstractGameObject::RenderOnWindow(int xPlayer, int yPlayer)

@@ -46,6 +46,7 @@ public:
     void RenderOnWindow(int xPlayer, int yPlayer);
 
     void StopMoving();
+	void BounceRand();
 
 };
 

@@ -44,12 +44,16 @@ public:
     ~GameObjectFactory();
 
 	void CalculateMovementAll();
-	void CalculateIntersectionsAll();
 	void RenderAll();
 
     void CreateObject(ObjectsEnum objType, int xPos, int yPos,
 		float xVec, float yVec, float speed, float rotationSpeed, float angle);
     void DestroyObject(ObjectsEnum objType, int index);
+
+
+	void CalculateIntersectionsAll();
+	void BigAsteroidSplit(Bullet* tempBullet, BigAsteroid* tempTarget);
+
 
 };
 

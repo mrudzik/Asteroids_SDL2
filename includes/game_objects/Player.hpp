@@ -19,11 +19,6 @@ public:
     int xPos, int yPos, float xVec, float yVec, float speed,
 	float rotation, float angle);
     ~Player();
-
-	int GetPosX();
-	int GetPosY();
-	float GetAngle();
-	
 	
 	void CalculateAngle();
 	void MoveX(float xVec);

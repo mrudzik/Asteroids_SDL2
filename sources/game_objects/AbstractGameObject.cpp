@@ -29,6 +29,54 @@ AbstractGameObject::~AbstractGameObject()
 { }
 
 
+
+int AbstractGameObject::GetPosX()
+{
+	return _xPos + _Avatar->GetWidth() / 2;
+}
+
+int AbstractGameObject::GetPosY()
+{
+	return _yPos + _Avatar->GetHeight() / 2;
+}
+
+float AbstractGameObject::GetVecX()
+{
+	return _xVec;
+}
+
+float AbstractGameObject::GetVecY()
+{
+	return _yVec;
+}
+
+float AbstractGameObject::GetSpeed()
+{
+	return _speed;
+}
+
+float AbstractGameObject::GetAngle()
+{
+	return _angle;
+}
+
+float AbstractGameObject::GetSize()
+{
+	return _maxSize;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 void AbstractGameObject::CalculateMovement()
 {
     // Calculate on Map Position
@@ -41,12 +89,9 @@ void AbstractGameObject::CalculateMovement()
 
 int AbstractGameObject::CheckIntersect(AbstractGameObject* target)
 {
-    // TODO Protection from multiple checks of intersection
-    // Something like flags
-
     // Formula to check distance between two dots
-    float horDist = pow(_xPos - target->_xPos, 2.0f);
-    float verDist = pow(_yPos - target->_yPos, 2.0f);
+    float horDist = pow(GetPosX() - target->GetPosX(), 2.0f);
+    float verDist = pow(GetPosY() - target->GetPosY(), 2.0f);
 
 	if (WasIntersecting)
 	{ // For handling stucks between 3 and more objects
@@ -81,35 +126,38 @@ void AbstractGameObject::StopMoving()
     _rotationSpeed = 0;
 }
 
-void 	AbstractGameObject::BounceRand()
-{
-	int random = rand() % 4;
-	float randDir = random / 10;
 
-	if (random == 0)
-	{
-		_rotationSpeed += 0.1f;
-	}
-	else if (random == 1)
-	{
-		_rotationSpeed += -0.1f;
-	}
-	else if (random == 2)
-	{
-		_rotationSpeed += -0.3f;
-		_xVec -= randDir;
-		_yVec += randDir;
-	}
-	else
-	{
-		_rotationSpeed += 0.2f;
-		_xVec += randDir;
-		_yVec -= randDir;
-	}
-	
-	_rotationSpeed *= -1;
-	_xVec *= -1;
-	_yVec *= -1;
+void AbstractGameObject::SetNewVec(float x, float y)
+{
+	_xVec = x;
+	_yVec = y;
+}
+
+void 	AbstractGameObject::BounceFrom(AbstractGameObject* bounceFrom)
+{
+	// Tangent Vector
+	float tangX = bounceFrom->GetPosY() - _yPos;
+	float tangY = -(bounceFrom->GetPosX() - _xPos);
+	// Normalizing Vector
+	float vectorLen = sqrt(pow(tangX, 2) + pow(tangY, 2));
+	tangX = tangX / vectorLen;
+	tangY = tangY / vectorLen;
+	// Relative Velocity
+	float relatX = _xVec - bounceFrom->GetVecX();
+	float relatY = _yVec - bounceFrom->GetVecY();
+	// Dot Product of Tangent and RelativeVel vectors
+	// Gives Length of Velocity Component parallel to the tangent
+	float length = tangX * relatX + tangY * relatY;
+	// Get the vector component parallel to the tangent
+	float tangVelX = tangX * length;
+	float tangVelY = tangY * length;
+	// Velocity perpendicular to tangent
+	float velPerpX = relatX - tangVelX;
+	float velPerpY = relatY - tangVelY;
+
+	SetNewVec(_xVec - velPerpX, _yVec - velPerpY);
+	bounceFrom->SetNewVec(bounceFrom->GetVecX() + velPerpX,
+		bounceFrom->GetVecY() + velPerpY);
 }
 
 

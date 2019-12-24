@@ -17,7 +17,7 @@ public:
 	float rotation, float angle);
     ~SmallAsteroid();
 
-	// void BounceRand();
+	// void BounceFrom();
 };
 
 

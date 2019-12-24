@@ -138,6 +138,7 @@ void    GameObjectFactory::DestroyObject(ObjectsEnum objType, int index)
 		_bigAsteroids.erase(_bigAsteroids.begin() + index);
 		// Deal with allocated data on that pointer
 		delete tempAsteroid;
+		tempAsteroid = NULL;
 	}
 	else if (objType == ObjectsEnum::SmallAsteroidType)
 	{
@@ -146,6 +147,7 @@ void    GameObjectFactory::DestroyObject(ObjectsEnum objType, int index)
 		_smallAsteroids.erase(_smallAsteroids.begin() + index);
 		// Deal with allocated data on that pointer
 		delete tempAsteroid;
+		tempAsteroid = NULL;
 	}
 	else if (objType == ObjectsEnum::BulletType)
 	{
@@ -154,6 +156,7 @@ void    GameObjectFactory::DestroyObject(ObjectsEnum objType, int index)
 		_bullets.erase(_bullets.begin() + index);
 		// Deal with allocated data on that pointer
 		delete tempBullet;
+		tempBullet = NULL;
 	}
 	
 

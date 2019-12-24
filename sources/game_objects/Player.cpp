@@ -17,23 +17,6 @@ Player::~Player()
 }
 
 
-int Player::GetPosX()
-{
-	return _xPos + _Avatar->GetWidth() / 2;
-}
-
-int Player::GetPosY()
-{
-	return _yPos + _Avatar->GetHeight() / 2;
-}
-
-float Player::GetAngle()
-{
-	return _angle;
-}
-
-
-
 void Player::MoveX(float xVec)
 {
 	_xVec = xVec;

@@ -39,6 +39,16 @@ public:
         float rotation, float angle);//, float size);
     ~AbstractGameObject();
 
+	int GetPosX();
+	int GetPosY();
+	float GetVecX();
+	float GetVecY();
+	float GetSpeed();
+	float GetAngle();
+	float GetSize();
+	
+
+
     void CalculateMovement();
     int CheckIntersect(AbstractGameObject* target);
 	void RestoreSize();
@@ -46,7 +56,9 @@ public:
     void RenderOnWindow(int xPlayer, int yPlayer);
 
     void StopMoving();
-	void BounceRand();
+	void SetNewVec(float x, float y);
+	void BounceFrom(AbstractGameObject* bounceFrom);
+
 
 };
 

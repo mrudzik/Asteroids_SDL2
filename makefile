@@ -10,14 +10,17 @@ SRC = 	main.cpp \
 		parser/ParserMessages.cpp	parser/ParserTools.cpp	\
 		GameManager.cpp				GameSDL_Window.cpp 	\
 		GameObjectFactory.cpp		GameObjectIntersections.cpp \
-		input/InputControl.cpp	\
-		input/KeyBehaviour.cpp		input/MouseBehaviour.cpp \
-		texture/PicTexture.cpp	\
+		input/InputControl.cpp		\
+		input/KeyBehaviour.cpp		\
+		input/MouseBehaviour.cpp 	\
+		\
+		texture/PicTexture.cpp			\
+		texture/BackGroundControl.cpp 	\
 		\
 		game_objects/AbstractGameObject.cpp \
-		game_objects/BigAsteroid.cpp	\
-		game_objects/SmallAsteroid.cpp	\
-		game_objects/Bullet.cpp			\
+		game_objects/BigAsteroid.cpp		\
+		game_objects/SmallAsteroid.cpp		\
+		game_objects/Bullet.cpp				\
 		game_objects/Player.cpp
 		
 

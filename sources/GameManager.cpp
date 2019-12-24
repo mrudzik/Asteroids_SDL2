@@ -1,6 +1,7 @@
 
 #include "GameManager.hpp"
 #include "InputControl.hpp"
+#include "BackGroundControl.hpp"
 #include "GameObjectFactory.hpp"
 
 
@@ -24,6 +25,7 @@ void    GameManager::GameLoop()
 {// Do Game stuff here
 
 	InputControl inputController(this);
+	BackGroundControl	backController(&_window);
 
 	_objectFactory.CreateObject(ObjectsEnum::BigAsteroidType, 300, 200, -1, -1, 1, 0.5f, 0);
 	_objectFactory.CreateObject(ObjectsEnum::BigAsteroidType, -110, 200, 1, -1, 1, -0.2f, 30);
@@ -44,6 +46,7 @@ void    GameManager::GameLoop()
 		
 		SDL_RenderClear(_window.GetRender());
 		// Render BackGround
+		backController.RenderAll(player->GetPosX(), player->GetPosY());
 		// Render Objects
 		_objectFactory.RenderAll();
 		SDL_RenderPresent(_window.GetRender());

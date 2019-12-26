@@ -27,12 +27,16 @@ private:
 	int 				_wind_H;
 	int 				_wind_H_half;
 
-	GameSDL_Window(){
+	GameSDL_Window(): mapSizeX(0), mapSizeY(0)
+	{
 		return;
 	}
 
 public:
 	
+	const int 	mapSizeX;
+	const int 	mapSizeY;
+
 	int 			GetWidth();
 	int 			GetWidthHalf();
 	
@@ -45,7 +49,7 @@ public:
 	// void 	 		DrawWindow(void);
 
 	GameSDL_Window(std::string str, int sizeX, int sizeY,
-	int win_pos_x, int win_pos_y);
+	int win_pos_x, int win_pos_y, int mapX, int mapY);
 	~GameSDL_Window();
 
 };

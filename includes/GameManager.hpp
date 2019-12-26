@@ -9,9 +9,10 @@
 class GameManager
 {
 private:
-	GameSDL_Window _window;
-	GameObjectFactory _objectFactory;
-	bool _gameLoop;
+	GameSDL_Window 		_window;
+	GameObjectFactory 	_objectFactory;
+	
+	bool 	_gameLoop;
 
 public:
 

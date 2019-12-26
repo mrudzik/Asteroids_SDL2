@@ -8,8 +8,8 @@ Player::Player(GameSDL_Window* window, PicTexture* newAvatar,
 {
 	_slowingSpeed = 0.1f;
 	_speed = 1;
-	_screenPosX = window->GetWidthHalf() + newAvatar->GetWidth() / 4;
-	_screenPosY = window->GetHeightHalf() + newAvatar->GetHeight() / 4;
+	_screenPosX = window->GetWidthHalf() - newAvatar->GetWidth() / 4;
+	_screenPosY = window->GetHeightHalf() - newAvatar->GetHeight() / 4;
 }
 
 Player::~Player()

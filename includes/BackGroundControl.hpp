@@ -10,12 +10,14 @@ class BackGroundControl
 private:
 	GameSDL_Window*	_window;
 	PicTexture* 	_backGroundTexture;
+
 public:
 
-	BackGroundControl(GameSDL_Window*	_window);
+	BackGroundControl(GameSDL_Window* window);
 	~BackGroundControl();
 
-	void RenderAll(int playerPosX, int playerPosY);
+	void RenderSpecific(int posX, int posY);
+	// void RenderAll(int playerPosX, int playerPosY);
 };
 
 

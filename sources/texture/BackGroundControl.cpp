@@ -5,7 +5,7 @@ BackGroundControl::BackGroundControl(GameSDL_Window* window)
 {
 	_window = window;
 	_backGroundTexture = new PicTexture();
-	_backGroundTexture->LoadFromFile("resourses/backgroundDebug.png", *_window);
+	_backGroundTexture->LoadFromFile("resourses/background.png", *_window);
 }
 
 BackGroundControl::~BackGroundControl()
@@ -15,7 +15,10 @@ BackGroundControl::~BackGroundControl()
 }
 
 
-void BackGroundControl::RenderAll(int playerPosX, int playerPosY)
+void BackGroundControl::RenderSpecific(int posX, int posY)
 {
-	_backGroundTexture->RenderPic(*_window, playerPosX, playerPosY, NULL, 0, NULL, SDL_FLIP_NONE);
+	_backGroundTexture->RenderPicResized(*_window,
+		posX - _window->mapSizeX, posY - _window->mapSizeY,
+		NULL, 0, NULL, SDL_FLIP_NONE,
+		_window->mapSizeX, _window->mapSizeY);
 }

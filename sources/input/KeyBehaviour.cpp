@@ -15,20 +15,22 @@ void InputControl::KeyboardEventInput()
 
 void InputControl::KeyboardScancodeInput()
 {
+	int inertia = 4;
+
     if (_keyState[SDL_SCANCODE_UP] || _keyState[SDL_SCANCODE_W])
     {
-		_game->player->MoveY(3);
+		_game->player->MoveY(inertia);
     }
     if (_keyState[SDL_SCANCODE_DOWN] || _keyState[SDL_SCANCODE_S])
     {
-		_game->player->MoveY(-3);
+		_game->player->MoveY(-inertia);
     }
     if (_keyState[SDL_SCANCODE_LEFT] || _keyState[SDL_SCANCODE_A])
     {
-		_game->player->MoveX(3);
+		_game->player->MoveX(inertia);
     }
     if (_keyState[SDL_SCANCODE_RIGHT] || _keyState[SDL_SCANCODE_D])
     {
-		_game->player->MoveX(-3);
+		_game->player->MoveX(-inertia);
     }
 }

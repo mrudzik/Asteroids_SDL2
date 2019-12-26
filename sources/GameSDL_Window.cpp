@@ -2,8 +2,10 @@
 #include<GameSDL_Window.hpp>
 
 GameSDL_Window::GameSDL_Window(std::string str, int sizeX, int sizeY,
-int win_pos_x, int win_pos_y): _wind_W(sizeX), _wind_W_half(sizeX / 2),
-	_wind_H(sizeY), _wind_H_half(sizeY / 2)
+int win_pos_x, int win_pos_y, int mapX, int mapY):
+	_wind_W(sizeX), _wind_W_half(sizeX / 2),
+	_wind_H(sizeY), _wind_H_half(sizeY / 2),
+	mapSizeX(mapX), mapSizeY(mapY)
 {
 	std::cout << "SDL Initializing everything" << std::endl;
 	SDL_Init(SDL_INIT_EVERYTHING);

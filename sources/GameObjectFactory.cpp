@@ -5,6 +5,7 @@ GameObjectFactory::GameObjectFactory(GameSDL_Window* window)
 {
     std::cout << "Game Object Factory Creation" << std::endl;
     _window = window;
+	_background = new BackGroundControl(_window);
 
     _bigAsteroidPic = new PicTexture();
     _bigAsteroidPic->LoadFromFile("resourses/big_asteroid.png", *_window);
@@ -23,6 +24,7 @@ GameObjectFactory::~GameObjectFactory()
 {// Deallocate all Objects
 	
 	delete player;
+	delete _background;
 
 	std::cout << "Deallocating Asteroids" << std::endl;
     for (int i = 0; i < (int)_bigAsteroids.size(); i++)
@@ -53,47 +55,31 @@ GameObjectFactory::~GameObjectFactory()
 
 void	GameObjectFactory::CalculateMovementAll()
 {
+	player->CalculateAngle();
+	player->CalculateMovement(_window->mapSizeX, _window->mapSizeY);
+	std::cout << "Player Pos: X " << player->GetPosX()
+		<< " Y " << player->GetPosY() << std::endl;
+	player->InertiaDampeners();
+
+
 	for (int i = 0; i < (int)_bigAsteroids.size(); i++)
 	{// Asteroids Movement
-		_bigAsteroids.at(i)->CalculateMovement();
+		_bigAsteroids.at(i)->CalculateMovement(_window->mapSizeX, _window->mapSizeY);
+		std::cout << "Asteroid Pos: X " << _bigAsteroids.at(i)->GetPosX()
+		<< " Y " << _bigAsteroids.at(i)->GetPosY() << std::endl;
 	}
 	for (int i = 0; i < (int)_smallAsteroids.size(); i++)
 	{// Small Asteroids
-		_smallAsteroids.at(i)->CalculateMovement();
+		_smallAsteroids.at(i)->CalculateMovement(_window->mapSizeX, _window->mapSizeY);
 	}
 	for (int i = 0; i < (int)_bullets.size(); i++)
 	{
-		_bullets.at(i)->CalculateMovement();
+		_bullets.at(i)->CalculateMovement(_window->mapSizeX, _window->mapSizeY);
 	}
-	player->CalculateAngle();
-	player->CalculateMovement();
-	player->InertiaDampeners();
-
 }
 
 
 
-
-void	GameObjectFactory::RenderAll()
-{
-	int playerX = player->GetPosX();
-	int playerY = player->GetPosY();
-
-	for (int i = 0; i < (int)_bigAsteroids.size(); i++)
-	{// Big Asteroids
-		_bigAsteroids.at(i)->RenderOnWindow(playerX, playerY);
-	}
-	for (int i = 0; i < (int)_smallAsteroids.size(); i++)
-	{// Small Asteroids
-		_smallAsteroids.at(i)->RenderOnWindow(playerX, playerY);
-	}
-	for (int i = 0; i < (int)_bullets.size(); i++)
-	{// Bullets
-		_bullets.at(i)->RenderOnWindow(playerX, playerY);
-	}
-	player->RenderOnWindow(-playerX, -playerY);
-
-}
 
 
 

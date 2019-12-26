@@ -6,6 +6,8 @@
 #include <vector>
 
 #include "GameSDL_Window.hpp"
+#include "BackGroundControl.hpp"
+
 #include "AbstractGameObject.hpp"
 #include "BigAsteroid.hpp"
 #include "SmallAsteroid.hpp"
@@ -23,7 +25,8 @@ enum ObjectsEnum
 class GameObjectFactory
 {
 private:
-    GameSDL_Window*  _window;
+    GameSDL_Window*  	_window;
+	BackGroundControl* 	_background;
 
     // Allocated and Saved Pictures
     PicTexture*     _bigAsteroidPic;
@@ -36,7 +39,7 @@ private:
 	std::vector<SmallAsteroid*>		_smallAsteroids;
 	std::vector<Bullet*>			_bullets;
 
-	
+	bool _zoneToRender[9];
 public:
 	Player*	player;
 
@@ -44,7 +47,12 @@ public:
     ~GameObjectFactory();
 
 	void CalculateMovementAll();
-	void RenderAll();
+
+	void 	RenderAll();
+	void 	CheckWarpZones(int playerX, int playerY);
+	void 	RenderBackground(int xDif, int yDif);
+	void 	RenderObjects(int playerX, int playerY);
+	void	RenderSpecific(int posX, int posY);
 
     void CreateObject(ObjectsEnum objType, int xPos, int yPos,
 		float xVec, float yVec, float speed, float rotationSpeed, float angle);

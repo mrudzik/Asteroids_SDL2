@@ -49,7 +49,7 @@ public:
 	
 
 
-    void CalculateMovement();
+    void CalculateMovement(int mapWidth, int mapHeight);
     int CheckIntersect(AbstractGameObject* target);
 	void RestoreSize();
 

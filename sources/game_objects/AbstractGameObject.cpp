@@ -77,13 +77,24 @@ float AbstractGameObject::GetSize()
 
 
 
-void AbstractGameObject::CalculateMovement()
+void AbstractGameObject::CalculateMovement(int mapWidth, int mapHeight)
 {
     // Calculate on Map Position
     _xPos += _xVec * _speed;
     _yPos += _yVec * _speed;
     // Calculate Rotation angle
     _angle += _rotationSpeed;
+
+	// Map Wrapping
+	if (_xPos >= mapWidth)
+		_xPos -= mapWidth;
+	if (_xPos < 0)
+		_xPos += mapWidth;
+	
+	if (_yPos >= mapHeight)
+		_yPos -= mapHeight;
+	if (_yPos < 0)
+		_yPos += mapHeight;
 
 }
 
@@ -111,8 +122,8 @@ int AbstractGameObject::CheckIntersect(AbstractGameObject* target)
 
 void AbstractGameObject::RenderOnWindow(int xPlayer, int yPlayer)
 {
-    int xDif = xPlayer + _xPos + _window->GetWidthHalf();
-    int yDif = yPlayer + _yPos + _window->GetHeightHalf();
+    int xDif = xPlayer - _xPos + _window->GetWidthHalf() - _Avatar->GetWidth();
+    int yDif = yPlayer - _yPos + _window->GetHeightHalf() - _Avatar->GetHeight();
 
     // TODO Protection to not render something that you cannot see
 

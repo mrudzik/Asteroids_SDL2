@@ -14,14 +14,18 @@ protected:
     // Movement Vector
     float   _xVec;
     float   _yVec;
+	// Acceleration vector
+	float 	_xAcc;
+	float	_yAcc;
     // Speed modificator
     float   _speed;
+
     // Rotation stuff
     float   _rotationSpeed;
     float   _angle;
     // Size Radius;
 	float 	_maxSize;
-    float   _sizeRadius;
+    // float   _sizeRadius;
     
     // Texture with sprite Avatar
     PicTexture*     _Avatar;
@@ -50,14 +54,18 @@ public:
 
 
     void CalculateMovement(int mapWidth, int mapHeight);
-    int CheckIntersect(AbstractGameObject* target);
+    int 	CheckIntersect(AbstractGameObject* target);
+	void 	StaticResolution(AbstractGameObject* target);
+	void	DynamicResolution(AbstractGameObject* target);
+	// void 	BounceFrom(AbstractGameObject* bounceFrom);
+
 	void RestoreSize();
 
     void RenderOnWindow(int xPlayer, int yPlayer);
 
     void StopMoving();
 	void SetNewVec(float x, float y);
-	void BounceFrom(AbstractGameObject* bounceFrom);
+	void SetNewPos(int x, int y);
 
 
 };

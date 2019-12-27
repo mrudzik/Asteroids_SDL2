@@ -19,10 +19,11 @@ int 	AsteroidCollisionHandle(AbstractGameObject* tempObj, AbstractGameObject* te
 {
 	if (tempObj->CheckIntersect(tempTarget) == 1)
 	{
-		tempObj->Intersecting = true;
-		tempTarget->Intersecting = true;
-		tempObj->BounceFrom(tempTarget);
-		tempTarget->BounceFrom(tempObj);
+		// tempObj->Intersecting = true;
+		// tempTarget->Intersecting = true;
+		
+		tempObj->StaticResolution(tempTarget);
+		tempObj->DynamicResolution(tempTarget);
 
 		tempObj->AllIntersectCalculated = true;
 		tempTarget->AllIntersectCalculated = true;

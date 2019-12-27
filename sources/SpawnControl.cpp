@@ -60,13 +60,13 @@ void 	SpawnControl::SpawnRandomAsteroid()
 	if (random == 0)
 		_objectFactory->CreateObject(ObjectsEnum::BigAsteroidType,
 			relatPosX + rand() % 50, relatPosY + rand() % 50,
-			vecX * 5, vecY * 5, // Moving Vectors
-			(5 + rand() % 19) / 10, (1 + rand() % 40) / 10, rand() % 360);
+			vecX * 3, vecY * 3, // Moving Vectors
+			1, (1 + rand() % 40) / 10, rand() % 360);
 	else
 		_objectFactory->CreateObject(ObjectsEnum::SmallAsteroidType,
 			relatPosX + rand() % 50, relatPosY + rand() % 50,
-			vecX * 5, vecY * 5, // Moving Vectors 
-			(5 + rand() % 19) / 10, (1 + rand() % 19) / 10, rand() % 360);
+			vecX * 3, vecY * 3, // Moving Vectors 
+			1, (1 + rand() % 19) / 10, rand() % 360);
 	// std::cout << "Spawn: Angle " << angle << " xPos " <<
 	// newPosX << " yPos " << newPosY << std::endl;
 }

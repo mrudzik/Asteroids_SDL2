@@ -14,6 +14,10 @@ private:
 	
 	bool 	_gameLoop;
 
+	const int _limitAsteroid;
+	const int _limitAmmo;
+	const int _abilityProbability;
+
 public:
 
 	Player*	player; // Allocated at Object Factory

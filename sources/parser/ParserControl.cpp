@@ -14,9 +14,9 @@ ParserControl::ParserControl(int argc, char** argv)// : _argc(argc), _argv(argv)
     //  Parsed data will just override current nums for customization purposes 
     _data.winSize_x = 1600;
     _data.winSize_y = 1000;
-    _data.mapSize_x = 3000;
-    _data.mapSize_y = 3000;
-    _data.asteroidNum = 10;
+    _data.mapSize_x = 2000;
+    _data.mapSize_y = 2000;
+    _data.asteroidNum = 30;
     _data.ammoNum = 30;
     _data.abilityProbability = 0.3;
 }

@@ -2,6 +2,7 @@
 #include "GameObjectFactory.hpp"
 
 GameObjectFactory::GameObjectFactory(GameSDL_Window* window)
+	: spawnRadius((window->GetWidth() > window->GetHeight()) ? window->GetWidth() : window->GetHeight())
 {
     std::cout << "Game Object Factory Creation" << std::endl;
     _window = window;
@@ -22,7 +23,7 @@ GameObjectFactory::GameObjectFactory(GameSDL_Window* window)
 
 GameObjectFactory::~GameObjectFactory()
 {// Deallocate all Objects
-	
+
 	delete player;
 	delete _background;
 
@@ -144,9 +145,15 @@ void    GameObjectFactory::DestroyObject(ObjectsEnum objType, int index)
 		delete tempBullet;
 		tempBullet = NULL;
 	}
-	
-
-
     
+}
+
+
+
+
+
+int 	GameObjectFactory::GetAsteroidCount()
+{
+	return (int)(_bigAsteroids.size() + _smallAsteroids.size());
 }
 

@@ -16,7 +16,7 @@ AbstractGameObject::AbstractGameObject(GameSDL_Window* window,
     _speed = speed;
     _rotationSpeed = rotation;
     _angle = angle;
-    _sizeRadius = _Avatar->GetWidth() / 2.5f;
+    _sizeRadius = _Avatar->GetWidth() / 2;
 	_maxSize = _sizeRadius;
 
 	AllIntersectCalculated = false;
@@ -146,6 +146,14 @@ void AbstractGameObject::SetNewVec(float x, float y)
 
 void 	AbstractGameObject::BounceFrom(AbstractGameObject* bounceFrom)
 {
+	// Moving 
+	float angle = atan2(bounceFrom->GetPosY() -_yPos, bounceFrom->GetPosX() - _xPos);
+	float moveDist = _maxSize + bounceFrom->GetSize() -
+		sqrt(pow(bounceFrom->GetPosX() - _xPos, 2) + pow(bounceFrom->GetPosY() - _yPos, 2));
+
+	_xPos = cos(angle) * moveDist;
+	_yPos = cos(angle) * moveDist;
+	// Bouncing Vector
 	// Tangent Vector
 	float tangX = bounceFrom->GetPosY() - _yPos;
 	float tangY = -(bounceFrom->GetPosX() - _xPos);
@@ -167,8 +175,8 @@ void 	AbstractGameObject::BounceFrom(AbstractGameObject* bounceFrom)
 	float velPerpY = relatY - tangVelY;
 
 	SetNewVec(_xVec - velPerpX, _yVec - velPerpY);
-	bounceFrom->SetNewVec(bounceFrom->GetVecX() + velPerpX,
-		bounceFrom->GetVecY() + velPerpY);
+	// bounceFrom->SetNewVec(bounceFrom->GetVecX() + velPerpX,
+	// 	bounceFrom->GetVecY() + velPerpY);
 }
 
 

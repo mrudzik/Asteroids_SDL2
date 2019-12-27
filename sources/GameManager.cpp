@@ -3,12 +3,13 @@
 #include "InputControl.hpp"
 #include "BackGroundControl.hpp"
 #include "GameObjectFactory.hpp"
-
+#include "SpawnControl.hpp"
 
 GameManager::GameManager(s_ParsedData parsedData) :
 _window("Asteroids", parsedData.winSize_x, parsedData.winSize_y, 300, 100,
 	parsedData.mapSize_x, parsedData.mapSize_y),
-_objectFactory(&_window)
+_objectFactory(&_window),
+_limitAsteroid(parsedData.asteroidNum), _limitAmmo(parsedData.ammoNum), _abilityProbability(parsedData.abilityProbability)
 {
 	srand(0); // Seeding Random
 
@@ -28,8 +29,10 @@ void    GameManager::GameLoop()
 {// Do Game stuff here
 
 	InputControl inputController(this);
+	SpawnControl spawnController(&_objectFactory, _limitAsteroid);
 
-
+	(void)_limitAmmo;
+	(void)_abilityProbability;
 	// _objectFactory.CreateObject(ObjectsEnum::BigAsteroidType, 300, 200, -1, -1, 1, 0.5f, 0);
 	_objectFactory.CreateObject(ObjectsEnum::BigAsteroidType, -110, 200, 1, -1, 1, -0.2f, 30);
 	_objectFactory.CreateObject(ObjectsEnum::BigAsteroidType, -200, 200, 0, 0, 0, -0.2f, 30);
@@ -38,12 +41,12 @@ void    GameManager::GameLoop()
 
 	while(_gameLoop)
 	{
+		if (spawnController.NeedToSpawnAsteroid())
+			spawnController.SpawnRandomAsteroid();
+		
 		inputController.ManageInput();
 		// GameLogic
 		// Some calculations where something positioned etc.
-
-		// // All GameObjects Calculate Movement
-		// // All GameObjects Calculate Intersections
 		_objectFactory.CalculateMovementAll();
 		_objectFactory.CalculateIntersectionsAll();
 		

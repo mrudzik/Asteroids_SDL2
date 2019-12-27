@@ -42,6 +42,7 @@ private:
 	bool _zoneToRender[9];
 public:
 	Player*	player;
+	int const 	spawnRadius;
 
     GameObjectFactory(GameSDL_Window* window);
     ~GameObjectFactory();
@@ -62,6 +63,8 @@ public:
 	void CalculateIntersectionsAll();
 	void BigAsteroidSplit(Bullet* tempBullet, BigAsteroid* tempTarget);
 
+
+	int GetAsteroidCount();
 
 };
 

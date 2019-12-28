@@ -8,20 +8,12 @@
 void 	ClearObjectFromFlags(AbstractGameObject* tempObject)
 {
 	tempObject->AllIntersectCalculated = false;
-	if (tempObject->Intersecting)
-		tempObject->WasIntersecting = true;
-	else
-		tempObject->WasIntersecting = false;
-	tempObject->Intersecting = false;
 }
 
 int 	AsteroidCollisionHandle(AbstractGameObject* tempObj, AbstractGameObject* tempTarget)
 {
 	if (tempObj->CheckIntersect(tempTarget) == 1)
 	{
-		// tempObj->Intersecting = true;
-		// tempTarget->Intersecting = true;
-		
 		tempObj->StaticResolution(tempTarget);
 		tempObj->DynamicResolution(tempTarget);
 
@@ -69,7 +61,6 @@ void	GameObjectFactory::BigAsteroidSplit(Bullet* tempBullet, BigAsteroid* tempTa
 			y2_Pos -= tempTarget->GetSize();
 		}
 	}
-				
 
 	switch (random)
 	{
@@ -82,8 +73,6 @@ void	GameObjectFactory::BigAsteroidSplit(Bullet* tempBullet, BigAsteroid* tempTa
 	default:
 		break;
 	}
-	
-	
 	CreateObject(SmallAsteroidType, x1_Pos, y1_Pos,
 		xVec, yVec, 1.2, -1, rand() % 360);
 	CreateObject(SmallAsteroidType, x2_Pos, y2_Pos,
@@ -91,23 +80,8 @@ void	GameObjectFactory::BigAsteroidSplit(Bullet* tempBullet, BigAsteroid* tempTa
 }
 
 
-void 	GameObjectFactory::CalculateIntersectionsAll()
+void 	GameObjectFactory::BulletIntersections()
 {
-	// Clear all Objects from calculated flag
-
-	for (int i = 0; i < (int)_bigAsteroids.size(); i++)
-	{// Asteroids
-		ClearObjectFromFlags(_bigAsteroids.at(i));
-	}
-	for (int i = 0; i < (int)_smallAsteroids.size(); i++)
-	{// Small Asteroids
-		ClearObjectFromFlags(_smallAsteroids.at(i));
-	}
-
-
-
-	std::cout << "Checking Intersections" << std::endl;
-
 	for (int i = (int)_bullets.size() - 1; i > -1; i--)
 	{// Checking all Bullets
 		Bullet* tempBullet = _bullets.at(i);
@@ -136,8 +110,10 @@ void 	GameObjectFactory::CalculateIntersectionsAll()
 			}
 		}
 	}
+}
 
-
+void 	GameObjectFactory::AsteroidsIntersections()
+{
 	// Checking intersections with all Asteroids
 	for (int i = 0; i < (int)_bigAsteroids.size(); i++)
 	{// Big Asteroids
@@ -190,7 +166,54 @@ void 	GameObjectFactory::CalculateIntersectionsAll()
 		}
 		tempObj->AllIntersectCalculated = true; // No need to check this Object
 	}
+}
+
+bool 	GameObjectFactory::PlayerIntersections()
+{
+	// Checking intersections with all Asteroids
+	for (int iTarg = 0; iTarg < (int)_bigAsteroids.size(); iTarg++)
+	{// Big Asteroids
+		BigAsteroid* tempTarget = _bigAsteroids.at(iTarg);
+		if (player->CheckIntersect(tempTarget))
+			return true;
+	}
 	
-	std::cout << "Intersection Check Over" << std::endl;
+	for (int iTarg = 0; iTarg < (int)_smallAsteroids.size(); iTarg++)
+	{// Small Asteroids
+		SmallAsteroid* tempTarget = _smallAsteroids.at(iTarg);
+		if (player->CheckIntersect(tempTarget))
+			return true;
+	}
+	return false;	
+}
+
+void 	GameObjectFactory::CalculateIntersectionsAll()
+{
+	// Clear all Objects from calculated flag
+
+	for (int i = 0; i < (int)_bigAsteroids.size(); i++)
+	{// Asteroids
+		ClearObjectFromFlags(_bigAsteroids.at(i));
+	}
+	for (int i = 0; i < (int)_smallAsteroids.size(); i++)
+	{// Small Asteroids
+		ClearObjectFromFlags(_smallAsteroids.at(i));
+	}
+
+
+
+	// std::cout << "Checking Intersections" << std::endl;
+	
+	BulletIntersections();
+	AsteroidsIntersections();
+
+	if (PlayerIntersections())
+	{
+		std::cout << "Spaceship Crashed" << std::endl;
+		SDL_Delay(2000);
+		RestartBehaviour();
+		player->RestartBehaviour();
+	}
+	// std::cout << "Intersection Check Over" << std::endl;
 
 }

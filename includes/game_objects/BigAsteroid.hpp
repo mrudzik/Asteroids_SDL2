@@ -4,7 +4,7 @@
 
 #include "AbstractGameObject.hpp"
 
-class BigAsteroid : public AbstractGameObject
+class BigAsteroid final : public AbstractGameObject
 {
 
 private:

@@ -17,6 +17,15 @@ Player::~Player()
 }
 
 
+void Player::RestartBehaviour()
+{
+	_xPos = 0;
+	_yPos = 0;
+	_xVec = 0;
+	_yVec = 0;
+	_speed = 1;
+}
+
 void Player::MoveX(float xVec)
 {
 	_xVec = xVec;
@@ -52,18 +61,13 @@ void Player::InertiaDampeners()
 }
 
 
-void Player::CalculateAngle()
+void Player::CalculateAngle(int mouseScreenPosX, int mouseScreenPosY)
 {
-	int 	mouseScreenPosX;
-	int 	mouseScreenPosY;
-
-	SDL_GetMouseState(&mouseScreenPosX, &mouseScreenPosY);
-
 	bool 	halfFlag = false;
 	if (mouseScreenPosY < _screenPosY)
 		halfFlag = true;
 
-	int vecx_A = _screenPosX - mouseScreenPosX;//  + (_picture.getWidth() / 2);
+	int vecx_A = _screenPosX - mouseScreenPosX;
 	int vecy_A = _screenPosY - mouseScreenPosY;
 	int vecx_B = 10;
 	int vecy_B = 0;
@@ -75,6 +79,16 @@ void Player::CalculateAngle()
 		_angle = 90.0 + (90.0 - _angle);
 	_angle += 180; // Reversing SpaceShip
 
-	std::cout << "Angle : " << _angle << std::endl;
+	// std::cout << "Angle : " << _angle << std::endl;
 	return;
+}
+
+void Player::RenderOnWindow(int xPlayer, int yPlayer)
+{
+	int xDif = xPlayer - _xPos + _window->GetWidthHalf() - _Avatar->GetWidth();
+    int yDif = yPlayer - _yPos + _window->GetHeightHalf() - _Avatar->GetHeight();
+
+    // TODO Protection to not render something that you cannot see
+
+    _Avatar->RenderPic(*_window, xDif, yDif, NULL, _angle, NULL, SDL_FLIP_NONE);
 }

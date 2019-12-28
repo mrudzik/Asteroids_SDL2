@@ -4,7 +4,7 @@
 
 #include "AbstractGameObject.hpp"
 
-class Bullet : public AbstractGameObject
+class Bullet final: public AbstractGameObject
 {
 
 private:

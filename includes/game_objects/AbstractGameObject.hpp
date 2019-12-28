@@ -34,8 +34,6 @@ protected:
 
 public:
 	bool	AllIntersectCalculated; // For Optimization purposes
-	bool	WasIntersecting;
-	bool 	Intersecting;
 	
     AbstractGameObject(GameSDL_Window* window,
         PicTexture* newAvatar, int xPos, int yPos,
@@ -61,7 +59,7 @@ public:
 
 	void RestoreSize();
 
-    void RenderOnWindow(int xPlayer, int yPlayer);
+    void virtual RenderOnWindow(int xPlayer, int yPlayer);
 
     void StopMoving();
 	void SetNewVec(float x, float y);

@@ -28,14 +28,17 @@ SRC = 	main.cpp \
 		game_objects/BigAsteroid.cpp		\
 		game_objects/SmallAsteroid.cpp		\
 		game_objects/Bullet.cpp				\
-		game_objects/Player.cpp
+		game_objects/Player.cpp				\
+		\
+		ui/Reticle.cpp
 		
 
 #	project object files
 OBJ =		$(addprefix $(OBJ_DIR), $(SRC:.cpp=.o))
 
 INCLUDES	=	-I $(INC_DIR) \
-				-I $(INC_DIR)/game_objects
+				-I $(INC_DIR)/game_objects	\
+				-I $(INC_DIR)/ui
 
 FRAMEWORKS	=	-w -lSDL2 -w -lSDL2_image
 

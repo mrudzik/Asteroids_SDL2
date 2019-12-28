@@ -3,7 +3,7 @@
 
 #include "AbstractGameObject.hpp"
 
-class Player : public AbstractGameObject
+class Player final: public AbstractGameObject
 {
 
 private:
@@ -20,11 +20,14 @@ public:
 	float rotation, float angle);
     ~Player();
 	
-	void CalculateAngle();
+	void CalculateAngle(int mousePosX, int mousePosY);
 	void MoveX(float xVec);
 	void MoveY(float yVec);
 	void InertiaDampeners();
 
+	void RestartBehaviour();
+
+	void RenderOnWindow(int xPlayer, int yPlayer);
 
 };
 

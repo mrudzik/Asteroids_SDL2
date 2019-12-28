@@ -17,6 +17,7 @@ _limitAsteroid(parsedData.asteroidNum), _limitAmmo(parsedData.ammoNum), _ability
 
 	std::cout << "Starting Game Loop" << std::endl;
 	_gameLoop = true;
+	
 	GameLoop();
 }
 
@@ -30,14 +31,12 @@ void    GameManager::GameLoop()
 
 	InputControl inputController(this);
 	SpawnControl spawnController(&_objectFactory, _limitAsteroid);
+	Reticle mouseReticle(&_window, 100, 1);
 
-	(void)_limitAmmo;
 	(void)_abilityProbability;
-	// _objectFactory.CreateObject(ObjectsEnum::BigAsteroidType, 300, 200, -1, -1, 1, 0.5f, 0);
-	_objectFactory.CreateObject(ObjectsEnum::BigAsteroidType, -110, 200, 1, -1, 1, -0.2f, 30);
-	_objectFactory.CreateObject(ObjectsEnum::BigAsteroidType, -200, 200, 0, 0, 0, -0.2f, 30);
-	// _objectFactory.CreateObject(ObjectsEnum::SmallAsteroidType, 300, -200, -1, 1, 1, -0.2f, 30);
-	// _objectFactory.CreateObject(ObjectsEnum::BulletType, -300, -200, 1, 1, 1, -0.2f, 30);
+
+	_objectFactory.RestartBehaviour();
+	player->RestartBehaviour();
 
 	while(_gameLoop)
 	{
@@ -53,6 +52,7 @@ void    GameManager::GameLoop()
 		SDL_RenderClear(_window.GetRender());
 		// Render Objects and Background
 		_objectFactory.RenderAll();
+		mouseReticle.Render(_objectFactory.mousePosX, _objectFactory.mousePosY);
 		SDL_RenderPresent(_window.GetRender());
 	}
 
@@ -62,10 +62,11 @@ void    GameManager::GameLoop()
 
 void 	GameManager::Shoot()
 {
+	_objectFactory.BulletReload(_limitAmmo);
 	float angle = player->GetAngle() + 90;
 	_objectFactory.CreateObject(ObjectsEnum::BulletType,
 	player->GetPosX(), player->GetPosY(),
-	cos(angle * M_PI / 180.0f), sin(angle * M_PI / 180.0f),
+	cos(angle * M_PI / 180.0f) * 2, sin(angle * M_PI / 180.0f) * 2,
 	5, 0, angle - 90);
 }
 

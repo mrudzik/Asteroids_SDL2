@@ -5,6 +5,7 @@
 #include "ParserControl.hpp"
 #include "GameSDL_Window.hpp"
 #include "GameObjectFactory.hpp"
+#include "Reticle.hpp"
 
 class GameManager
 {

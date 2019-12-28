@@ -20,8 +20,8 @@ AbstractGameObject::AbstractGameObject(GameSDL_Window* window,
 	_maxSize = _Avatar->GetWidth() / 2;//= _sizeRadius;
 
 	AllIntersectCalculated = false;
-	WasIntersecting = false;
-	Intersecting = false;
+	// WasIntersecting = false;
+	// Intersecting = false;
     // _size = size;
 }
 
@@ -116,8 +116,8 @@ void AbstractGameObject::CalculateMovement(int mapWidth, int mapHeight)
 
 void AbstractGameObject::RenderOnWindow(int xPlayer, int yPlayer)
 {
-    int xDif = xPlayer - _xPos + _window->GetWidthHalf() - _Avatar->GetWidth();
-    int yDif = yPlayer - _yPos + _window->GetHeightHalf() - _Avatar->GetHeight();
+    int xDif = xPlayer - _xPos + _window->GetWidthHalf() - _Avatar->GetWidth() - 10;
+    int yDif = yPlayer - _yPos + _window->GetHeightHalf() - _Avatar->GetHeight() - 15;
 
     // TODO Protection to not render something that you cannot see
 
@@ -187,6 +187,8 @@ void 	AbstractGameObject::StaticResolution(AbstractGameObject* target)
 	// Displace target ball
 	target->SetNewPos(target->GetPosX() + (overlapDistHalf * (_xPos - target->GetPosX()) / dist) + 10,
 		target->GetPosY() + (overlapDistHalf * (_yPos - target->GetPosY()) / dist) + 10);
+	
+	
 	
 }
 

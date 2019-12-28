@@ -23,6 +23,7 @@ int win_pos_x, int win_pos_y, int mapX, int mapY):
 			// SDL_Delay( 2000 );
 		}
 	}
+	SDL_ShowCursor(SDL_DISABLE); // This should hide cursor
 	std::cout << "Window Initialized" << std::endl;
 	return;
 }

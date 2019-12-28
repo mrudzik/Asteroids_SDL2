@@ -43,28 +43,37 @@ private:
 public:
 	Player*	player;
 	int const 	spawnRadius;
+	int mousePosX;
+	int mousePosY;
 
     GameObjectFactory(GameSDL_Window* window);
     ~GameObjectFactory();
 
 	void CalculateMovementAll();
-
-	void 	RenderAll();
-	void 	CheckWarpZones(int playerX, int playerY);
-	void 	RenderBackground(int xDif, int yDif);
-	void 	RenderObjects(int playerX, int playerY);
-	void	RenderSpecific(int posX, int posY);
-
     void CreateObject(ObjectsEnum objType, int xPos, int yPos,
 		float xVec, float yVec, float speed, float rotationSpeed, float angle);
     void DestroyObject(ObjectsEnum objType, int index);
+	void DeallocateAllObjects();
+	
+	int GetAsteroidCount();
+	void BulletReload(int const bulletLimit);
+	void RestartBehaviour();
 
 
+	// In GameObjectsRender.cpp
+	void RenderAll();
+	void CheckWarpZones(int playerX, int playerY);
+	void RenderBackground(int xDif, int yDif);
+	void RenderObjects(int playerX, int playerY);
+	void RenderSpecific(int posX, int posY);
+
+	// In GameObjectsIntersections.cpp
 	void CalculateIntersectionsAll();
+	void BulletIntersections();
+	void AsteroidsIntersections();
+	bool PlayerIntersections();
 	void BigAsteroidSplit(Bullet* tempBullet, BigAsteroid* tempTarget);
 
-
-	int GetAsteroidCount();
 
 };
 

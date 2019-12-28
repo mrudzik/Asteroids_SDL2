@@ -27,22 +27,7 @@ GameObjectFactory::~GameObjectFactory()
 	delete player;
 	delete _background;
 
-	std::cout << "Deallocating Asteroids" << std::endl;
-    for (int i = 0; i < (int)_bigAsteroids.size(); i++)
-    {// Deallocating Asteroids
-		delete _bigAsteroids.at(i);
-		_bigAsteroids.at(i) = NULL;
-    }
-	for (int i = 0; i < (int)_smallAsteroids.size(); i++)
-	{// Small Asteroids
-		delete _smallAsteroids.at(i);
-		_smallAsteroids.at(i) = NULL;
-	}
-	for (int i = 0; i < (int)_bullets.size(); i++)
-	{// Small Asteroids
-		delete _bullets.at(i);
-		_bullets.at(i) = NULL;
-	}
+	DeallocateAllObjects();
 
 	// Deallocate all saved Pictures
     delete _bigAsteroidPic;
@@ -53,21 +38,46 @@ GameObjectFactory::~GameObjectFactory()
 	std::cout << "Game Object Factory is destucted" << std::endl;
 }
 
+void 	GameObjectFactory::DeallocateAllObjects()
+{
+	std::cout << "Deallocating Objects" << std::endl;
+    for (int i = 0; i < (int)_bigAsteroids.size(); i++)
+    {// Deallocating Asteroids
+		delete _bigAsteroids.at(i);
+		_bigAsteroids.at(i) = NULL;
+    }
+	_bigAsteroids.clear();
+	for (int i = 0; i < (int)_smallAsteroids.size(); i++)
+	{// Small Asteroids
+		delete _smallAsteroids.at(i);
+		_smallAsteroids.at(i) = NULL;
+	}
+	_smallAsteroids.clear();
+	for (int i = 0; i < (int)_bullets.size(); i++)
+	{// Bullets
+		delete _bullets.at(i);
+		_bullets.at(i) = NULL;
+	}
+	_bullets.clear();
+}
+
+
 
 void	GameObjectFactory::CalculateMovementAll()
 {
-	player->CalculateAngle();
+	SDL_GetMouseState(&mousePosX, &mousePosY);
+	player->CalculateAngle(mousePosX, mousePosY);
 	player->CalculateMovement(_window->mapSizeX, _window->mapSizeY);
-	std::cout << "Player Pos: X " << player->GetPosX()
-		<< " Y " << player->GetPosY() << std::endl;
+	// std::cout << "Player Pos: X " << player->GetPosX()
+		// << " Y " << player->GetPosY() << std::endl;
 	player->InertiaDampeners();
 
 
 	for (int i = 0; i < (int)_bigAsteroids.size(); i++)
 	{// Asteroids Movement
 		_bigAsteroids.at(i)->CalculateMovement(_window->mapSizeX, _window->mapSizeY);
-		std::cout << "Asteroid Pos: X " << _bigAsteroids.at(i)->GetPosX()
-		<< " Y " << _bigAsteroids.at(i)->GetPosY() << std::endl;
+		// std::cout << "Asteroid Pos: X " << _bigAsteroids.at(i)->GetPosX()
+		// << " Y " << _bigAsteroids.at(i)->GetPosY() << std::endl;
 	}
 	for (int i = 0; i < (int)_smallAsteroids.size(); i++)
 	{// Small Asteroids
@@ -157,3 +167,18 @@ int 	GameObjectFactory::GetAsteroidCount()
 	return (int)(_bigAsteroids.size() + _smallAsteroids.size());
 }
 
+void 	GameObjectFactory::BulletReload(int const bulletLimit)
+{
+	if ((int)_bullets.size() < bulletLimit)
+		return;
+	DestroyObject(ObjectsEnum::BulletType, 0);
+}
+
+void 	GameObjectFactory::RestartBehaviour()
+{
+	DeallocateAllObjects();
+
+	CreateObject(ObjectsEnum::BigAsteroidType, -110, 200, 1, -1, 1, -0.2f, 30);
+	CreateObject(ObjectsEnum::BigAsteroidType, -200, 200, 0, 0, 0, -0.2f, 30);
+
+}

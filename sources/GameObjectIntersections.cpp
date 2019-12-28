@@ -200,12 +200,11 @@ void 	GameObjectFactory::CalculateIntersectionsAll()
 		ClearObjectFromFlags(_smallAsteroids.at(i));
 	}
 
-
-
 	// std::cout << "Checking Intersections" << std::endl;
 	
 	BulletIntersections();
-	AsteroidsIntersections();
+	if (brownianMotion) // Asteroid bouncing can be turned on/off
+		AsteroidsIntersections();
 
 	if (PlayerIntersections())
 	{

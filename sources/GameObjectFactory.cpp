@@ -1,8 +1,9 @@
 
 #include "GameObjectFactory.hpp"
 
-GameObjectFactory::GameObjectFactory(GameSDL_Window* window)
-	: spawnRadius((window->GetWidth() > window->GetHeight()) ? window->GetWidth() : window->GetHeight())
+GameObjectFactory::GameObjectFactory(GameSDL_Window* window, bool brownMotion)
+	: spawnRadius((window->GetWidth() > window->GetHeight()) ? window->GetWidth() : window->GetHeight()),
+	brownianMotion(brownMotion)
 {
     std::cout << "Game Object Factory Creation" << std::endl;
     _window = window;

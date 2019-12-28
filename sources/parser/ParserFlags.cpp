@@ -45,3 +45,11 @@ int ParserControl::Find_AbilityProbability(std::string flag, std::string param)
         return -1;
     return 1;
 }
+
+int ParserControl::Find_BrownianMotion(std::string flag)
+{
+	if (flag.compare("-brown_motion") != 0)
+		return 0;
+	_data.brownianMotion = true;
+	return 1;
+}

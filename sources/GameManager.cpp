@@ -8,7 +8,7 @@
 GameManager::GameManager(s_ParsedData parsedData) :
 _window("Asteroids", parsedData.winSize_x, parsedData.winSize_y, 300, 100,
 	parsedData.mapSize_x, parsedData.mapSize_y),
-_objectFactory(&_window),
+_objectFactory(&_window, parsedData.brownianMotion),
 _limitAsteroid(parsedData.asteroidNum), _limitAmmo(parsedData.ammoNum), _abilityProbability(parsedData.abilityProbability)
 {
 	srand(0); // Seeding Random

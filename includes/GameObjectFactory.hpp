@@ -46,7 +46,9 @@ public:
 	int mousePosX;
 	int mousePosY;
 
-    GameObjectFactory(GameSDL_Window* window);
+	bool const brownianMotion;
+
+    GameObjectFactory(GameSDL_Window* window, bool brownMotion);
     ~GameObjectFactory();
 
 	void CalculateMovementAll();

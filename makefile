@@ -40,7 +40,7 @@ INCLUDES	=	-I $(INC_DIR) \
 				-I $(INC_DIR)/game_objects	\
 				-I $(INC_DIR)/ui
 
-FRAMEWORKS	=	-w -lSDL2 -w -lSDL2_image
+FRAMEWORKS	=	-w -lSDL2 -w -lSDL2_image -w -lSDL2_ttf
 
 
 

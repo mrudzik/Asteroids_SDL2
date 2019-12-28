@@ -9,7 +9,7 @@ int win_pos_x, int win_pos_y, int mapX, int mapY):
 {
 	std::cout << "SDL Initializing everything" << std::endl;
 	SDL_Init(SDL_INIT_EVERYTHING);
-
+	TTF_Init();
 
 	std::cout << "Window Start" << std::endl;
 	if ((window = SDL_CreateWindow(str.c_str(),
@@ -20,7 +20,8 @@ int win_pos_x, int win_pos_y, int mapX, int mapY):
 		SDL_RENDERER_PRESENTVSYNC)))
 		{
 			std::cout << "Renderer Created" << std::endl;
-			// SDL_Delay( 2000 );
+			std::cout << "Loading Fonts" << std::endl;
+			font_ArialRegular = TTF_OpenFont("resourses/fonts/ArialRegular.ttf", 12);
 		}
 	}
 	SDL_ShowCursor(SDL_DISABLE); // This should hide cursor
@@ -31,6 +32,11 @@ int win_pos_x, int win_pos_y, int mapX, int mapY):
 
 GameSDL_Window::~GameSDL_Window()
 {
+	std::cout << "Cleaning Fonts" << std::endl;
+	TTF_CloseFont(font_ArialRegular);
+
+	TTF_Quit();
+
 	std::cout << "Destructing Window" << std::endl;
 	if (texture != NULL)
 	{
@@ -106,25 +112,67 @@ SDL_Renderer*	GameSDL_Window::GetRender()
 // 	SDL_FreeSurface(font_surf);
 // }
 
-// void 	 		GameSDL_Window::DrawWindow(void)
-// {
-// 	SDL_RenderClear(renderer);
-// 	// SDL_UpdateTexture(texture, NULL, _img_buff, _wind_W << 2);
-// 	SDL_RenderCopy(renderer, texture, NULL, NULL);
-	
-// 	// int x;
-// 	// int y;
+SDL_Color 	GameSDL_Window::GetColor(ColorEnum colorName)
+{
+	SDL_Color tempColor;
+	// Basic Black
+	tempColor.r = 0;
+	tempColor.g = 0;
+	tempColor.b = 0;
 
-// 	// y = 0;
-// 	// while (y < _wind_H)
-// 	// {
-// 	// 	x = 0;
-// 	// 	while (x < _wind_W)
-// 	// 	{
-// 	// 		_img_buff[y][x] = 0x333333;
-// 	// 		x++;
-// 	// 	}
-// 	// 	y++;
-// 	// }
-// }
+	switch (colorName)
+	{
+	case ColorEnum::Red:
+		tempColor.r = 255;
+		return tempColor;
+
+	case ColorEnum::Green:
+		tempColor.g = 255;
+		return tempColor;
+
+	case ColorEnum::Blue:
+		tempColor.b = 255;
+		return tempColor;
+
+	case ColorEnum::White:
+		tempColor.r = 255;
+		tempColor.g = 255;
+		tempColor.b = 255;
+		return tempColor;
+
+	case ColorEnum::Black:
+		return tempColor;
+
+	default:
+		break;
+	}
+
+	return tempColor;
+}
+
+
+void 	GameSDL_Window::DrawText(const char* text, int x, int y, SDL_Color color)
+{
+	SDL_Surface	*fontSurface;
+	SDL_Texture	*fontTexture;
+	SDL_Rect	fontRect;
+	// Texture Width and Height
+	int tW, tH;
+	
+	// Render Text to Surface
+	fontSurface = TTF_RenderText_Solid(font_ArialRegular, text, color);
+	// Converting that Surface to Texture
+	fontTexture = SDL_CreateTextureFromSurface(renderer, fontSurface);
+	// Query the attributes of a texture
+	SDL_QueryTexture(fontTexture, NULL, NULL, &tW, &tH);
+	fontRect.x = x;
+	fontRect.y = y;
+	fontRect.w = tW;
+	fontRect.h = tH;
+	SDL_RenderCopy(renderer, fontTexture, NULL, &fontRect);
+	// Clearing
+	SDL_DestroyTexture(fontTexture);
+	SDL_FreeSurface(fontSurface);
+
+}
 

@@ -20,7 +20,7 @@ struct s_ParsedData
 
 #define WINDOW_MAXSIZE 	2000
 #define WINDOW_MINSIZE 	200
-#define WINDOW_STANDART	1200
+#define WINDOW_STANDART	1000
 #define MAP_MAXSIZE  6000
 #define MAP_MINSIZE  1500
 #define MAP_STANDART 2000

@@ -5,22 +5,22 @@
 #include "ParserControl.hpp"
 #include "GameSDL_Window.hpp"
 #include "GameObjectFactory.hpp"
-#include "Reticle.hpp"
-#include "Informer.hpp"
 
+#include "UI_Control.hpp"
 
 class GameManager
 {
 private:
 	GameSDL_Window 		_window;
 	GameObjectFactory 	_objectFactory;
-	Informer 			_informer;
+	UI_Control			_uiController;
 
 	bool 	_gameLoop;
 
 	const int _limitAsteroid;
 	const int _limitAmmo;
 	const int _abilityProbability;
+
 
 public:
 

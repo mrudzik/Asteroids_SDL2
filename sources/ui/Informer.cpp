@@ -4,9 +4,9 @@
 Informer::Informer(GameSDL_Window* window)
 	: _window(window)
 {
-	text1 = new TextHolder(_window, "Hello there from Informer",
+	text1 = new TextHolder(_window, " Asteroids. Powered by SDL2 on C++\n Created by Max Rudzik",
 		_window->font_ArialRegular, _window->GetColor(ColorEnum::White),
-		100, 100);
+		5, 5);
 }
 
 Informer::~Informer()

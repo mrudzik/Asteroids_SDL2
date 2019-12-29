@@ -58,6 +58,8 @@ public:
 	void DeallocateAllObjects();
 	
 	int GetAsteroidCount();
+	int GetBulletCount();
+	
 	void BulletReload(int const bulletLimit);
 	void RestartBehaviour();
 

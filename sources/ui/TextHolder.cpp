@@ -13,7 +13,7 @@ TextHolder::TextHolder(GameSDL_Window* window,
 	int tW, tH;
 	
 	// Render Text to Surface
-	fontSurface = TTF_RenderText_Solid(font, str, color);
+	fontSurface = TTF_RenderText_Blended_Wrapped(font, str, color, _window->GetWidth());
 	// Converting that Surface to Texture
 	_fontTexture = SDL_CreateTextureFromSurface(_window->GetRender(), fontSurface);
 	// Query the attributes of a texture

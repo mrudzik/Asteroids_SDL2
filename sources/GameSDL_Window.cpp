@@ -160,7 +160,7 @@ void 	GameSDL_Window::DrawText(const char* text, int x, int y, SDL_Color color)
 	int tW, tH;
 	
 	// Render Text to Surface
-	fontSurface = TTF_RenderText_Solid(font_ArialRegular, text, color);
+	fontSurface = TTF_RenderText_Blended_Wrapped(font_ArialRegular, text, color, _wind_W);
 	// Converting that Surface to Texture
 	fontTexture = SDL_CreateTextureFromSurface(renderer, fontSurface);
 	// Query the attributes of a texture

@@ -6,9 +6,10 @@
 #include <sstream>
 
 class FPS_Timer
-{
-private:
+{// Light FPS Timer
+// Counts real frames from real second
 
+private:
 
 	Uint32 timerStart;
 	Uint32 timerCurrent;

@@ -167,6 +167,10 @@ int 	GameObjectFactory::GetAsteroidCount()
 {
 	return (int)(_bigAsteroids.size() + _smallAsteroids.size());
 }
+int 	GameObjectFactory::GetBulletCount()
+{
+	return (int)_bullets.size();
+}
 
 void 	GameObjectFactory::BulletReload(int const bulletLimit)
 {

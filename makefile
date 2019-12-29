@@ -3,7 +3,6 @@ NAME = asteroids
 SRC_DIR :=	./sources/
 OBJ_DIR :=	./objects/
 INC_DIR :=	./includes/
-# LIB_DIR :=	./Library/
 
 SRC = 	main.cpp \
 		parser/ParserControl.cpp	\
@@ -33,6 +32,7 @@ SRC = 	main.cpp \
 		game_objects/Bullet.cpp				\
 		game_objects/Player.cpp				\
 		\
+		ui/UI_Control.cpp	\
 		ui/Reticle.cpp		\
 		ui/Informer.cpp 	\
 		ui/TextHolder.cpp	\
@@ -48,10 +48,9 @@ INCLUDES	=	-I $(INC_DIR) \
 
 FRAMEWORKS	=	-w -lSDL2 -w -lSDL2_image -w -lSDL2_ttf
 
-
-
 CC_FLAGS := -Wall -Wextra -Werror -O3
 CC = clang++
+
 all:
 	make $(NAME)
 
@@ -65,11 +64,9 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.cpp
 	$(CC) -c $< -o $@ $(CC_FLAGS) $(HEADER_FLAGS) $(INCLUDES)
 
 clean:
-	# make clean -C $(LIBFT_DIR)
 	/bin/rm -f $(OBJ)
 
 fclean: clean
-	# make fclean -C $(LIBFT_DIR)
 	/bin/rm -f $(NAME)
 
 re: fclean all

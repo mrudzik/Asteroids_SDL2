@@ -5,6 +5,9 @@
 #include "GameObjectFactory.hpp"
 #include "SpawnControl.hpp"
 
+#include "FPS_Timer.hpp"
+
+
 GameManager::GameManager(s_ParsedData parsedData) :
 _window("Asteroids", parsedData.winSize_x, parsedData.winSize_y, 300, 100,
 	parsedData.mapSize_x, parsedData.mapSize_y),
@@ -34,6 +37,7 @@ void    GameManager::GameLoop()
 	InputControl inputController(this);
 	SpawnControl spawnController(&_objectFactory, _limitAsteroid);
 	Reticle mouseReticle(&_window, 100, 1);
+	FPS_Timer fpsTimer;
 
 	(void)_abilityProbability; // To silence warning
 
@@ -42,15 +46,15 @@ void    GameManager::GameLoop()
 
 	while(_gameLoop)
 	{
+		// Game Logic
 		if (spawnController.NeedToSpawnAsteroid())
 			spawnController.SpawnRandomAsteroid();
-		
 		inputController.ManageInput();
-		// GameLogic
 		// Some calculations where something positioned etc.
 		_objectFactory.CalculateMovementAll();
 		_objectFactory.CalculateIntersectionsAll();
 		
+		// Rendering Logic
 		SDL_RenderClear(_window.GetRender());
 		// Render Objects and Background
 		_objectFactory.RenderAll();
@@ -58,6 +62,11 @@ void    GameManager::GameLoop()
 		// Render Text
 		// _window.DrawText("Hello there", 100, 100, _window.GetColor(ColorEnum::White));
 		_informer.RenderText(InfoEnum::MakersSign);
+
+
+		_window.DrawText(fpsTimer.TextFrames().c_str(),
+		50, 50, _window.GetColor(ColorEnum::White));
+
 		SDL_RenderPresent(_window.GetRender());
 	}
 

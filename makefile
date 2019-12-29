@@ -33,9 +33,10 @@ SRC = 	main.cpp \
 		game_objects/Bullet.cpp				\
 		game_objects/Player.cpp				\
 		\
-		ui/Reticle.cpp	\
-		ui/Informer.cpp \
-		ui/TextHolder.cpp
+		ui/Reticle.cpp		\
+		ui/Informer.cpp 	\
+		ui/TextHolder.cpp	\
+		ui/FPS_Timer.cpp
 		
 
 #	project object files

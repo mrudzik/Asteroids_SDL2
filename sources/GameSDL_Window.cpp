@@ -176,3 +176,4 @@ void 	GameSDL_Window::DrawText(const char* text, int x, int y, SDL_Color color)
 
 }
 
+

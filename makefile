@@ -6,8 +6,11 @@ INC_DIR :=	./includes/
 # LIB_DIR :=	./Library/
 
 SRC = 	main.cpp \
-		parser/ParserControl.cpp	parser/ParserFlags.cpp	\
-		parser/ParserMessages.cpp	parser/ParserTools.cpp	\
+		parser/ParserControl.cpp	\
+		parser/ParserFlags.cpp		\
+		parser/ParserMessages.cpp	\
+		parser/ParserTools.cpp		\
+		\
 		GameManager.cpp				\
 		GameSDL_Window.cpp 			\
 		\
@@ -30,7 +33,9 @@ SRC = 	main.cpp \
 		game_objects/Bullet.cpp				\
 		game_objects/Player.cpp				\
 		\
-		ui/Reticle.cpp
+		ui/Reticle.cpp	\
+		ui/Informer.cpp \
+		ui/TextHolder.cpp
 		
 
 #	project object files

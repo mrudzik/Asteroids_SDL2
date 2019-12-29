@@ -6,13 +6,16 @@
 #include "GameSDL_Window.hpp"
 #include "GameObjectFactory.hpp"
 #include "Reticle.hpp"
+#include "Informer.hpp"
+
 
 class GameManager
 {
 private:
 	GameSDL_Window 		_window;
 	GameObjectFactory 	_objectFactory;
-	
+	Informer 			_informer;
+
 	bool 	_gameLoop;
 
 	const int _limitAsteroid;

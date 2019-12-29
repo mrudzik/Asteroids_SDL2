@@ -9,7 +9,9 @@ GameManager::GameManager(s_ParsedData parsedData) :
 _window("Asteroids", parsedData.winSize_x, parsedData.winSize_y, 300, 100,
 	parsedData.mapSize_x, parsedData.mapSize_y),
 _objectFactory(&_window, parsedData.brownianMotion),
-_limitAsteroid(parsedData.asteroidNum), _limitAmmo(parsedData.ammoNum), _abilityProbability(parsedData.abilityProbability)
+_informer(&_window),
+_limitAsteroid(parsedData.asteroidNum), _limitAmmo(parsedData.ammoNum),
+_abilityProbability(parsedData.abilityProbability)
 {
 	srand(0); // Seeding Random
 
@@ -33,7 +35,7 @@ void    GameManager::GameLoop()
 	SpawnControl spawnController(&_objectFactory, _limitAsteroid);
 	Reticle mouseReticle(&_window, 100, 1);
 
-	(void)_abilityProbability;
+	(void)_abilityProbability; // To silence warning
 
 	_objectFactory.RestartBehaviour();
 	player->RestartBehaviour();
@@ -55,7 +57,7 @@ void    GameManager::GameLoop()
 		mouseReticle.Render(_objectFactory.mousePosX, _objectFactory.mousePosY);
 		// Render Text
 		// _window.DrawText("Hello there", 100, 100, _window.GetColor(ColorEnum::White));
-
+		_informer.RenderText(InfoEnum::MakersSign);
 		SDL_RenderPresent(_window.GetRender());
 	}
 

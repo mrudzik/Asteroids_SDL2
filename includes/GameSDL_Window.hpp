@@ -30,7 +30,7 @@ private:
 	SDL_Renderer		*renderer;
 	SDL_Texture			*texture;
 
-	TTF_Font			*font_ArialRegular;
+
 	
 
 	int 				_wind_W;
@@ -38,13 +38,9 @@ private:
 	int 				_wind_H;
 	int 				_wind_H_half;
 
-	GameSDL_Window(): mapSizeX(0), mapSizeY(0)
-	{
-		return;
-	}
-
 public:
-	
+	TTF_Font			*font_ArialRegular;
+
 	const int 	mapSizeX;
 	const int 	mapSizeY;
 

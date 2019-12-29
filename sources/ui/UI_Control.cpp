@@ -17,7 +17,7 @@ UI_Control::~UI_Control()
 void UI_Control::RenderBulletStatus(int const curBullets, int const limBullets)
 {
 	_strBuilder.str("");
-	_strBuilder << "Bullets in Space: " << curBullets << "/" << limBullets;
+	_strBuilder << "Bullets : " << curBullets << " / " << limBullets;
 
 	_window->DrawText(_strBuilder.str().c_str(),
 		_window->GetWidthHalf() + 20, _window->GetHeightHalf() - 20,

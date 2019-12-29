@@ -5,7 +5,7 @@ BackGroundControl::BackGroundControl(GameSDL_Window* window)
 {
 	_window = window;
 	_backGroundTexture = new PicTexture();
-	_backGroundTexture->LoadFromFile("resourses/background.png", *_window);
+	_backGroundTexture->LoadFromFile("resourses/background_FromInternet2.png", *_window);
 }
 
 BackGroundControl::~BackGroundControl()

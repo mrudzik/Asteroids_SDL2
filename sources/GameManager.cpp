@@ -54,7 +54,7 @@ void    GameManager::GameLoop()
 		_objectFactory.RenderAll();
 		mouseReticle.Render(_objectFactory.mousePosX, _objectFactory.mousePosY);
 		// Render Text
-		_window.DrawText("Hello there", 100, 100, _window.GetColor(ColorEnum::White));
+		// _window.DrawText("Hello there", 100, 100, _window.GetColor(ColorEnum::White));
 
 		SDL_RenderPresent(_window.GetRender());
 	}

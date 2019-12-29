@@ -12,6 +12,8 @@
 // # include "SDL_ttf.h"
 // # include "SDL_net.h"
 
+#define RENDER_TRESHOLD 50
+
 enum ColorEnum
 {// Just Collection of often used collors
 	White, Black, // Basic Colors

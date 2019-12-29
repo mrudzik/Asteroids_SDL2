@@ -4,11 +4,10 @@
 
 AbstractGameObject::AbstractGameObject(GameSDL_Window* window,
     PicTexture* newAvatar, int xPos, int yPos, float xVec, float yVec,
-    float speed, float rotation, float angle)   //, float size)
+    float speed, float rotation, float angle)
 {
     _window = window;
     _Avatar = newAvatar;
-    //.LoadFromFile(spritePath, *_window);
     _xPos = xPos;
     _yPos = yPos;
     _xVec = xVec;
@@ -16,13 +15,13 @@ AbstractGameObject::AbstractGameObject(GameSDL_Window* window,
     _speed = speed;
     _rotationSpeed = rotation;
     _angle = angle;
-    // _sizeRadius = _Avatar->GetWidth() / 2;
-	_maxSize = _Avatar->GetWidth() / 2;//= _sizeRadius;
+	_maxSize = _Avatar->GetWidth() / 2;
 
+	// Will be used on Intersection Calculation
 	AllIntersectCalculated = false;
-	// WasIntersecting = false;
-	// Intersecting = false;
-    // _size = size;
+	// Will be used on Rendering
+	_xShift = _window->GetWidthHalf() - _Avatar->GetWidth() - 10;
+	_yShift = _window->GetHeightHalf() - _Avatar->GetHeight() - 15;
 }
 
 AbstractGameObject::~AbstractGameObject()
@@ -79,15 +78,6 @@ float AbstractGameObject::GetSize()
 
 void AbstractGameObject::CalculateMovement(int mapWidth, int mapHeight)
 {
-	// // Normalising vectors and adjusting speed
-	// float vecLen = sqrt(_xVec * _xVec + _yVec * _yVec);
-	// if (vecLen > 1)
-	// { // if Object is moving
-	// 	_xVec /= vecLen;
-	// 	_yVec /= vecLen;
-	// 	_speed += vecLen;
-	// }
-
 	if (fabs(_xVec * _xVec + _yVec * _yVec) < 0.1f)
 	{// If Scalar speed is very low
 		_xVec = 0;
@@ -116,16 +106,16 @@ void AbstractGameObject::CalculateMovement(int mapWidth, int mapHeight)
 
 void AbstractGameObject::RenderOnWindow(int xPlayer, int yPlayer)
 {
-    int xDif = xPlayer - _xPos + _window->GetWidthHalf() - _Avatar->GetWidth() - 10;
-    int yDif = yPlayer - _yPos + _window->GetHeightHalf() - _Avatar->GetHeight() - 15;
+    int xDif = xPlayer - _xPos + _xShift;
+    int yDif = yPlayer - _yPos + _yShift;
 
-    // TODO Protection to not render something that you cannot see
+    // Protection to not render something that you cannot see
+	if (xDif < 0 - RENDER_TRESHOLD || _window->GetWidth() + RENDER_TRESHOLD < xDif)
+		return;
+	if (yDif < 0 - RENDER_TRESHOLD || _window->GetHeight() + RENDER_TRESHOLD < yDif)
+		return;
 
     _Avatar->RenderPic(*_window, xDif, yDif, NULL, _angle, NULL, SDL_FLIP_NONE);
-	// _Avatar->RenderPicResized(*_window,
-	// 	xDif, yDif,
-	// 	NULL, _angle, NULL, SDL_FLIP_NONE,
-	// 	5, 5);
 }
 
 void AbstractGameObject::StopMoving()
@@ -153,17 +143,6 @@ int AbstractGameObject::CheckIntersect(AbstractGameObject* target)
     // Formula to check distance between two dots
     float horDist = pow(GetPosX() - target->GetPosX(), 2.0f);
     float verDist = pow(GetPosY() - target->GetPosY(), 2.0f);
-
-	// if (WasIntersecting)
-	// { // For handling stucks between 3 and more objects
-	// 	_sizeRadius -= 0.1f;
-	// 	if (_sizeRadius < 0)
-	// 		_sizeRadius = 0;
-	// }
-	// else
-	// {// This will restore size
-	// 	_sizeRadius = _maxSize;
-	// }
 
     if ((horDist + verDist) <= pow(_maxSize + target->GetSize(), 2.0f))
         return 1;

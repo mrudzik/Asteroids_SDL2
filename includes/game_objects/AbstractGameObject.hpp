@@ -14,18 +14,18 @@ protected:
     // Movement Vector
     float   _xVec;
     float   _yVec;
-	// Acceleration vector
-	float 	_xAcc;
-	float	_yAcc;
     // Speed modificator
     float   _speed;
-
     // Rotation stuff
     float   _rotationSpeed;
     float   _angle;
     // Size Radius;
 	float 	_maxSize;
-    // float   _sizeRadius;
+ 
+	// This shifts for optimization purposes
+	// Used on Rendering
+	int _xShift;
+	int _yShift;
     
     // Texture with sprite Avatar
     PicTexture*     _Avatar;

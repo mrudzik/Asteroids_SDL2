@@ -14,26 +14,31 @@ UI_Control::~UI_Control()
 
 
 
-void UI_Control::RenderBulletStatus(int const curBullets, int const limBullets)
+void UI_Control::RenderObjectsStatus(int const curBullets, int const limBullets,
+	int const curAsteroids, int const limAsteroids)
 {
 	_strBuilder.str("");
-	_strBuilder << "Bullets : " << curBullets << " / " << limBullets;
+	_strBuilder << "Objects"
+		<< "\nBullets : " << curBullets << " / " << limBullets
+		<< "\nAsteroids : " << curAsteroids << " / " << limAsteroids;
 
 	_window->DrawText(_strBuilder.str().c_str(),
 		_window->GetWidthHalf() + 20, _window->GetHeightHalf() - 20,
 		_window->GetColor(ColorEnum::Green));
 }
 
-void UI_Control::RenderAll(int const mousePosX, int const mousePosY,
-	int const curBullets, int const limBullets)
+void UI_Control::RenderAll(s_UIData const data)
 {
 	// Mouse Reticle Rendering
-	_mouseReticle.Render(mousePosX, mousePosY);
+	_mouseReticle.Render(data.mousePosX, data.mousePosY);
 	// This will draw some information
 	_informer.RenderText(InfoEnum::MakersSign);
 	// FPS Counter and Drawer
 	_window->DrawText(_fpsTimer.TextFrames().c_str(),
 		10, 100, _window->GetColor(ColorEnum::White));
-	RenderBulletStatus(curBullets, limBullets);
+
+
+	RenderObjectsStatus(data.bullets, data.limBullets,
+		data.asteroids, data.limAsteroids);
 }
 

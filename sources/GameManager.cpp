@@ -8,7 +8,7 @@
 
 
 GameManager::GameManager(s_ParsedData parsedData) :
-_window("Asteroids", parsedData.winSize_x, parsedData.winSize_y, 300, 100,
+_window("Asteroids", parsedData.winSize_x, parsedData.winSize_y, 300, 5,
 	parsedData.mapSize_x, parsedData.mapSize_y),
 _objectFactory(&_window, parsedData.brownianMotion),
 _uiController(&_window),
@@ -16,12 +16,14 @@ _limitAsteroid(parsedData.asteroidNum), _limitAmmo(parsedData.ammoNum),
 _abilityProbability(parsedData.abilityProbability)
 {
 	srand(0); // Seeding Random
-
+	// Seting UI Data limits
+	_uiData.limAsteroids = parsedData.asteroidNum;
+	_uiData.limBullets = parsedData.ammoNum;
+	// Setuping player
 	player = _objectFactory.player;
-
+	// Starting Game Loop
 	std::cout << "Starting Game Loop" << std::endl;
 	_gameLoop = true;
-	
 	GameLoop();
 }
 
@@ -50,14 +52,16 @@ void    GameManager::GameLoop()
 		// Some calculations where something positioned etc.
 		_objectFactory.CalculateMovementAll();
 		_objectFactory.CalculateIntersectionsAll();
-		
+		// Refreshing UI Data
+		RefreshUIData();
 		// Rendering Logic
 		SDL_RenderClear(_window.GetRender());
 		// Render Objects and Background
 		_objectFactory.RenderAll();
 		// Rendering UI
-		_uiController.RenderAll(_objectFactory.mousePosX, _objectFactory.mousePosY,
-			_objectFactory.GetBulletCount(), _limitAmmo);
+		_uiController.RenderAll(_uiData);
+			// _objectFactory.mousePosX, _objectFactory.mousePosY,
+			// _objectFactory.GetBulletCount(), _limitAmmo);
 
 		SDL_RenderPresent(_window.GetRender());
 	}
@@ -81,6 +85,18 @@ void    GameManager::QuitGame()
 {
 	_gameLoop = false;
 	std::cout << "End of Game Loop" << std::endl;
+}
+
+void 	GameManager::RefreshUIData()
+{
+	// Mouse Position
+	_uiData.mousePosX = _objectFactory.mousePosX;
+	_uiData.mousePosY = _objectFactory.mousePosY;
+	// Bullet Count
+	_uiData.bullets = _objectFactory.GetBulletCount();
+	// Asteroid Count
+	_uiData.asteroids = _objectFactory.GetAsteroidCount();
+
 }
 
 

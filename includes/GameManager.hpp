@@ -14,6 +14,7 @@ private:
 	GameSDL_Window 		_window;
 	GameObjectFactory 	_objectFactory;
 	UI_Control			_uiController;
+	s_UIData			_uiData;
 
 	bool 	_gameLoop;
 
@@ -33,6 +34,7 @@ public:
 
 	void 	Shoot();
 	void 	QuitGame();
+	void	RefreshUIData();
 };
 
 #endif

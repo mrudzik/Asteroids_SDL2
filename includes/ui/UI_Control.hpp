@@ -5,6 +5,17 @@
 #include "Informer.hpp"
 #include "FPS_Timer.hpp"
 
+struct s_UIData
+{
+	int limBullets;
+	int limAsteroids;
+
+	int bullets;
+	int asteroids;
+
+	int mousePosX;
+	int mousePosY;
+};
 
 class UI_Control
 {
@@ -21,10 +32,9 @@ public:
 	UI_Control(GameSDL_Window* window);
 	~UI_Control();
 
-	void 	RenderAll(int const mousePosX, int const mousePosY,
-		int const curBullets, int const limBullets);
-	
-	void 	RenderBulletStatus(int const curBullets, int const limBullets);
+	void 	RenderAll(s_UIData data);
+	void 	RenderObjectsStatus(int const curBullets, int const limBullets,
+		int const curAsteroids, int const limAsteroids);
 	
 };
 

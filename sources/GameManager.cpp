@@ -16,9 +16,10 @@ _limitAsteroid(parsedData.asteroidNum), _limitAmmo(parsedData.ammoNum),
 _abilityProbability(parsedData.abilityProbability)
 {
 	srand(0); // Seeding Random
-	// Seting UI Data limits
+	// Seting UI Data
 	_uiData.limAsteroids = parsedData.asteroidNum;
 	_uiData.limBullets = parsedData.ammoNum;
+	_uiData.HideAll();
 	// Setuping player
 	player = _objectFactory.player;
 	// Starting Game Loop
@@ -87,8 +88,36 @@ void    GameManager::QuitGame()
 	std::cout << "End of Game Loop" << std::endl;
 }
 
+void 	GameManager::ShowHelp(InfoEnum textType)
+{
+	if (textType == InfoEnum::HelpText)
+	{
+		if (!_uiData.showHelp)
+			_uiData.HideAll();
+		_uiData.showHelp = !_uiData.showHelp;
+	}
+	if (textType == InfoEnum::CheatText)
+	{
+		if (!_uiData.showCheatHelp)
+			_uiData.HideAll();
+		_uiData.showCheatHelp = !_uiData.showCheatHelp;
+	}
+}
+
+void 	GameManager::ShowCheat(int cheatNum)
+{
+	if (cheatNum == 1)
+		_uiData.showPlayerStatus = !_uiData.showPlayerStatus;
+	if (cheatNum == 2)
+		_uiData.showObjectsStatus = !_uiData.showObjectsStatus;
+	
+}
+
 void 	GameManager::RefreshUIData()
 {
+	// Player Position
+	_uiData.playerPosX = player->GetPosX();
+	_uiData.playerPosY = player->GetPosY();
 	// Mouse Position
 	_uiData.mousePosX = _objectFactory.mousePosX;
 	_uiData.mousePosY = _objectFactory.mousePosY;

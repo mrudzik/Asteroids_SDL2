@@ -13,8 +13,24 @@ struct s_UIData
 	int bullets;
 	int asteroids;
 
+	int playerPosX;
+	int playerPosY;
 	int mousePosX;
 	int mousePosY;
+
+	bool showHelp;
+	bool showCheatHelp;
+	bool showPlayerStatus;
+	bool showObjectsStatus;
+
+	void HideAll()
+	{
+		showHelp = false;
+		showCheatHelp = false;
+
+		showPlayerStatus = false;
+		showObjectsStatus = false;
+	}
 };
 
 class UI_Control
@@ -33,6 +49,8 @@ public:
 	~UI_Control();
 
 	void 	RenderAll(s_UIData data);
+	void	RenderPlayerStatus(int const mousePosX, int const mousePosY,
+		int const playerPosX, int const playerPosY);
 	void 	RenderObjectsStatus(int const curBullets, int const limBullets,
 		int const curAsteroids, int const limAsteroids);
 	

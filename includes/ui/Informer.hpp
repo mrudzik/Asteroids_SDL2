@@ -7,7 +7,9 @@
 
 enum InfoEnum
 {
-	MakersSign
+	MakersSign,
+	HelpText,
+	CheatText
 };
 
 class Informer
@@ -19,6 +21,8 @@ private:
 	GameSDL_Window* _window;
 
 	TextHolder* text1;
+	TextHolder* text2;
+	TextHolder* text3;
 
 
 

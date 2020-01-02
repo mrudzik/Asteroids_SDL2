@@ -22,6 +22,7 @@ public:
     
     void KeyboardEventInput();
     void KeyboardScancodeInput();
+    void MovementScancodeInput();
     
     void MouseEventInput();
 

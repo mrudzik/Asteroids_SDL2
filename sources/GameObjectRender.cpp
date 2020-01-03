@@ -24,8 +24,8 @@ void 	GameObjectFactory::RenderSpecific(int posX, int posY)
 	}
 	
 
-	// Rendering player precise at his position
-	player->RenderOnWindow(posX - 15, posY - 15);
+	// // Rendering player precise at his position
+	// player->RenderOnWindow(posX - 15, posY - 15);
 
 }
 
@@ -118,5 +118,8 @@ void	GameObjectFactory::RenderAll()
 
 	// Render all stuff
 	RenderBackground(xDif, yDif);
-	RenderObjects(playerX, playerY);	
+	RenderObjects(playerX, playerY);
+
+	// Rendering player precise at his position
+	player->RenderOnWindow(playerX - 15, playerY - 15);
 }

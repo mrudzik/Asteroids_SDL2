@@ -1,8 +1,9 @@
 #include "Player.hpp"
 
 Player::Player(GameSDL_Window* window, PicTexture* newAvatar,
-    int xPos, int yPos, float xVec, float yVec, float speed, float rotation,
-    float angle) : 
+    int xPos, int yPos, float xVec, float yVec,
+	float speed, float rotation, float angle,
+	PicTexture* newShieldPic) : 
         AbstractGameObject(window, newAvatar, xPos, yPos, xVec, yVec,
         speed, rotation, angle)
 {
@@ -11,6 +12,10 @@ Player::Player(GameSDL_Window* window, PicTexture* newAvatar,
 	_screenPosX = window->GetWidthHalf() - newAvatar->GetWidth() / 4;
 	_screenPosY = window->GetHeightHalf() - newAvatar->GetHeight() / 4;
 	_score = 0;
+
+	// Shield stuff
+	_shieldPic = newShieldPic;
+	_isShielded = false;
 }
 
 Player::~Player()
@@ -20,6 +25,10 @@ Player::~Player()
 int Player::GetScore()
 {
 	return _score;
+}
+bool Player::IsShielded()
+{
+	return _isShielded;
 }
 
 void Player::RestartBehaviour()
@@ -91,12 +100,18 @@ void Player::CalculateAngle(int mouseScreenPosX, int mouseScreenPosY)
 
 void Player::RenderOnWindow(int xPlayer, int yPlayer)
 {
-	int xDif = xPlayer - _xPos + _window->GetWidthHalf() - _Avatar->GetWidth();
-    int yDif = yPlayer - _yPos + _window->GetHeightHalf() - _Avatar->GetHeight();
+	int xDif = xPlayer - _xPos + _window->GetWidthHalf();
+    int yDif = yPlayer - _yPos + _window->GetHeightHalf();
 
     // TODO Protection to not render something that you cannot see
 
-    _Avatar->RenderPic(*_window, xDif, yDif, NULL, _angle, NULL, SDL_FLIP_NONE);
+	if (_isShielded)
+		_shieldPic->RenderPic(*_window,
+		xDif - _shieldPic->GetWidth() / 1.5, yDif - _shieldPic->GetHeight() / 1.5,
+		NULL, 0, NULL, SDL_FLIP_NONE);
+    _Avatar->RenderPic(*_window,
+		xDif - _Avatar->GetWidth(), yDif - _Avatar->GetHeight(),
+		NULL, _angle, NULL, SDL_FLIP_NONE);
 }
 
 
@@ -111,4 +126,9 @@ void Player::RetrieveCollectable(ObjectsEnum type)
 		_score += 25;
 	if (type == ObjectsEnum::CrystalPurpleType)
 		_score += 40;
+}
+
+void Player::SetShieldActive(bool state)
+{
+	_isShielded = state;
 }

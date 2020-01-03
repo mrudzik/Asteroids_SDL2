@@ -28,9 +28,14 @@ GameObjectFactory::GameObjectFactory(GameSDL_Window* window, bool brownMotion)
 	_crystalPurplePic = new PicTexture();
 	_crystalPurplePic->LoadFromFile("resourses/crystals/crystal_purple_small.png", *_window);
 
+	// Shield pics
+	_shieldPic = new PicTexture();
+	_shieldPic->LoadFromFile("resourses/ShieldCircle.png", *_window);
 
 	std::cout << "Creating Player" << std::endl;
-	player = new Player(_window, _spaceShipPic, 0, 0, 0, 0, 0, 0, 0);
+	player = new Player(_window, _spaceShipPic, 0, 0, 0, 0, 0, -1.0f, 0,
+		_shieldPic);
+	// player->isShielded = true;
 }
 
 GameObjectFactory::~GameObjectFactory()
@@ -51,6 +56,8 @@ GameObjectFactory::~GameObjectFactory()
 	delete _crystalGreenPic;
 	delete _crystalBluePic;
 	delete _crystalPurplePic;
+
+	delete _shieldPic;
 
 	std::cout << "Game Object Factory is destucted" << std::endl;
 }

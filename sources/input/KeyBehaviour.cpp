@@ -11,14 +11,17 @@ void InputControl::KeyboardEventInput()
             std::cout << "Closing by Escape" << std::endl;
             _game->QuitGame();
         }
-		if (_event.key.keysym.sym == SDLK_F1)
-			_game->ShowHelp(InfoEnum::HelpText);
-		if (_event.key.keysym.sym == SDLK_F2)
-			_game->ShowHelp(InfoEnum::CheatText);
-		if (_event.key.keysym.sym == SDLK_KP_1)
-			_game->ShowCheat(1);
-		if (_event.key.keysym.sym == SDLK_KP_2)
-			_game->ShowCheat(2);
+      if (_event.key.keysym.sym == SDLK_F1)
+        _game->ShowHelp(InfoEnum::HelpText);
+      if (_event.key.keysym.sym == SDLK_F2)
+        _game->ShowHelp(InfoEnum::CheatText);
+      if (_event.key.keysym.sym == SDLK_KP_1)
+        _game->ShowCheat(1);
+      if (_event.key.keysym.sym == SDLK_KP_2)
+        _game->ShowCheat(2);
+
+      if (_event.key.keysym.sym == SDLK_1)
+        _game->player->SetShieldActive(!_game->player->IsShielded());
     }
 }
 

@@ -188,6 +188,21 @@ void 	GameObjectFactory::AsteroidsIntersections()
 
 bool 	GameObjectFactory::PlayerIntersections()
 {
+
+	// Checking Intersections with all collectables
+	for (int i = (int)_collectables.size() - 1; i > -1; i--)
+	{
+		Collectable* tempTarget = _collectables.at(i);
+		if (player->CheckIntersect(tempTarget))
+		{// If Picked object Logic
+			player->RetrieveCollectable(tempTarget->type);
+			DestroyObject(tempTarget->type, i);
+		}
+	}
+
+	if (player->IsShielded())
+		return false; // Shield protection from lethal damage
+
 	// Checking intersections with all Asteroids
 	for (int iTarg = 0; iTarg < (int)_bigAsteroids.size(); iTarg++)
 	{// Big Asteroids
@@ -203,15 +218,7 @@ bool 	GameObjectFactory::PlayerIntersections()
 			return true; // Ship Crashed
 	}
 
-	for (int i = (int)_collectables.size() - 1; i > -1; i--)
-	{
-		Collectable* tempTarget = _collectables.at(i);
-		if (player->CheckIntersect(tempTarget))
-		{// If Picked object Logic
-			player->RetrieveCollectable(tempTarget->type);
-			DestroyObject(tempTarget->type, i);
-		}
-	}
+	
 
 	return false; // Ship Alive
 }

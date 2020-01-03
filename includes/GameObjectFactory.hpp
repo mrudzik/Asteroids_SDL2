@@ -33,6 +33,8 @@ private:
 	PicTexture* 	_crystalBluePic;
 	PicTexture*		_crystalPurplePic;
 
+	PicTexture* 	_shieldPic;
+	
     // Allocated Objects
     std::vector<BigAsteroid*>		_bigAsteroids;
 	std::vector<SmallAsteroid*>		_smallAsteroids;

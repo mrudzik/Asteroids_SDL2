@@ -25,6 +25,9 @@ struct s_UIData
 	bool showPlayerStatus;
 	bool showObjectsStatus;
 
+	// bool isShielded;
+
+
 	void HideAll()
 	{
 		showHelp = false;

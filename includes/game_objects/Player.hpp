@@ -7,20 +7,27 @@ class Player final: public AbstractGameObject
 {
 
 private:
+	PicTexture* _shieldPic;
+
 	float _slowingSpeed;
 	int _screenPosX;
 	int _screenPosY;
 
 	int _score;
 
+	bool _isShielded;
+
+
 public:
 
     Player(GameSDL_Window* window, PicTexture* newAvatar,
     int xPos, int yPos, float xVec, float yVec, float speed,
-	float rotation, float angle);
+	float rotation, float angle,
+	PicTexture* shieldPic);
     ~Player();
 	
-	int GetScore();
+	int 	GetScore();
+	bool 	IsShielded();
 
 	void CalculateAngle(int mousePosX, int mousePosY);
 	void MoveX(float xVec);
@@ -32,7 +39,7 @@ public:
 	void RenderOnWindow(int xPlayer, int yPlayer);
 
 	void RetrieveCollectable(ObjectsEnum type);
-
+	void SetShieldActive(bool state);
 };
 
 

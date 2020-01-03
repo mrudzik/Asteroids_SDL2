@@ -90,6 +90,11 @@ void 	GameObjectFactory::BulletIntersections()
 			SmallAsteroid* tempTarget = _smallAsteroids.at(iTarg);
 			if (tempBullet->CheckIntersect(tempTarget))
 			{// Only Destroy both
+				// Create Resource here
+				CreateObject(ObjectsEnum::CrystalWhiteType,
+					tempTarget->GetPosX(), tempTarget->GetPosY(), 0, 0, 0,
+					1.0f, rand() % 360);
+
 				DestroyObject(ObjectsEnum::BulletType, i);
 				DestroyObject(ObjectsEnum::SmallAsteroidType, iTarg);
 				break;

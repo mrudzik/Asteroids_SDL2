@@ -31,6 +31,7 @@ SRC = 	main.cpp \
 		game_objects/SmallAsteroid.cpp		\
 		game_objects/Bullet.cpp				\
 		game_objects/Player.cpp				\
+		game_objects/Collectable.cpp		\
 		\
 		ui/UI_Control.cpp	\
 		ui/Reticle.cpp		\

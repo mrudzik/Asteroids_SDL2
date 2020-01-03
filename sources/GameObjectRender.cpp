@@ -4,6 +4,12 @@
 
 void 	GameObjectFactory::RenderSpecific(int posX, int posY)
 {// This will render objects relative to position
+	
+	for (int i = 0; i < (int)_collectables.size(); i++)
+	{// Collectables
+		if (_collectables.at(i)->IsShowable())
+			_collectables.at(i)->RenderOnWindow(posX, posY);
+	}
 	for (int i = 0; i < (int)_bigAsteroids.size(); i++)
 	{// Big Asteroids
 		_bigAsteroids.at(i)->RenderOnWindow(posX, posY);
@@ -16,6 +22,8 @@ void 	GameObjectFactory::RenderSpecific(int posX, int posY)
 	{// Bullets
 		_bullets.at(i)->RenderOnWindow(posX, posY);
 	}
+	
+
 	// Rendering player precise at his position
 	player->RenderOnWindow(posX - 15, posY - 15);
 

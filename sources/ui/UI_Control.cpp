@@ -20,9 +20,9 @@ void UI_Control::RenderPlayerStatus(int const mousePosX, int const mousePosY,
 	_strBuilder.str("");
 	_strBuilder
 		<< "\n " << _fpsTimer.TextFrames()
-		<< "\n\n Player World Position"
+		<< "\n Player World Position"
 		<< "\n X:" << playerPosX << " Y:" << playerPosY
-		<< "\n\n Mouse Screen Position"
+		<< "\n Mouse Screen Position"
 		<< "\n X:" << mousePosX << " Y:" << mousePosY;
 
 	_window->DrawText(_strBuilder.str().c_str(),
@@ -39,8 +39,7 @@ void UI_Control::RenderObjectsStatus(int const curBullets, int const limBullets,
 		<< "\nAsteroids : " << curAsteroids << " / " << limAsteroids;
 
 	_window->DrawText(_strBuilder.str().c_str(),
-		_window->GetWidthHalf() + 20, _window->GetHeightHalf() - 20,
-		_window->GetColor(ColorEnum::Green));
+		5, 200, _window->GetColor(ColorEnum::Green));
 }
 
 void UI_Control::RenderAll(s_UIData const data)

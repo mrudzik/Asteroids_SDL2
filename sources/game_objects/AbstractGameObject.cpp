@@ -118,6 +118,7 @@ void AbstractGameObject::RenderOnWindow(int xPlayer, int yPlayer)
     _Avatar->RenderPic(*_window, xDif, yDif, NULL, _angle, NULL, SDL_FLIP_NONE);
 }
 
+
 void AbstractGameObject::StopMoving()
 {
     _xVec = 0;

@@ -13,13 +13,18 @@
 #include "SmallAsteroid.hpp"
 #include "Bullet.hpp"
 #include "Player.hpp"
+#include "Collectable.hpp"
 
 enum ObjectsEnum
 {
 	BigAsteroidType,
 	SmallAsteroidType,
 	BulletType,
-	PlayerType
+	PlayerType,
+	CrystalWhiteType,
+	CrystalGreenType,
+	CrystalBlueType,
+	CrystalPurpleType
 };
 
 class GameObjectFactory
@@ -34,10 +39,16 @@ private:
     PicTexture*     _spaceShipPic;
     PicTexture*     _bulletPic;
 
+	PicTexture* 	_crystalWhitePic;
+	PicTexture* 	_crystalGreenPic;
+	PicTexture* 	_crystalBluePic;
+	PicTexture*		_crystalPurplePic;
+
     // Allocated Objects
     std::vector<BigAsteroid*>		_bigAsteroids;
 	std::vector<SmallAsteroid*>		_smallAsteroids;
 	std::vector<Bullet*>			_bullets;
+	std::vector<Collectable*>		_collectables;
 
 	bool _zoneToRender[9];
 public:

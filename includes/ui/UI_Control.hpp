@@ -15,6 +15,7 @@ struct s_UIData
 
 	int playerPosX;
 	int playerPosY;
+	int playerScore;
 	int mousePosX;
 	int mousePosY;
 
@@ -49,11 +50,16 @@ public:
 	~UI_Control();
 
 	void 	RenderAll(s_UIData data);
+	// Cheats
 	void	RenderPlayerStatus(int const mousePosX, int const mousePosY,
 		int const playerPosX, int const playerPosY);
 	void 	RenderObjectsStatus(int const curBullets, int const limBullets,
 		int const curAsteroids, int const limAsteroids);
 	
+	// UI
+	void 	RenderPlayerUI(int const score);
+
+
 };
 
 

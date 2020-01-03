@@ -6,7 +6,6 @@
 class Collectable final: public AbstractGameObject
 {
 private:
-
     Uint32 	_timeSpawn;
     Uint32 	_timeLive;
 	Uint32 	_timeBlinkStart;
@@ -14,6 +13,8 @@ private:
 
     bool	_isShowable;
 public:
+	ObjectsEnum	type;
+
     Collectable(GameSDL_Window* window, PicTexture* newAvatar,
         int xPos, int yPos, float xVec, float yVec, float speed,
         float rotation, float angle);

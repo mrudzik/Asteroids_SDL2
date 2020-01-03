@@ -115,6 +115,8 @@ void 	GameManager::ShowCheat(int cheatNum)
 
 void 	GameManager::RefreshUIData()
 {
+	// Player Score
+	_uiData.playerScore = player->GetScore();
 	// Player Position
 	_uiData.playerPosX = player->GetPosX();
 	_uiData.playerPosY = player->GetPosY();

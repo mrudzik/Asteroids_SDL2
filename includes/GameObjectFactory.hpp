@@ -15,17 +15,6 @@
 #include "Player.hpp"
 #include "Collectable.hpp"
 
-enum ObjectsEnum
-{
-	BigAsteroidType,
-	SmallAsteroidType,
-	BulletType,
-	PlayerType,
-	CrystalWhiteType,
-	CrystalGreenType,
-	CrystalBlueType,
-	CrystalPurpleType
-};
 
 class GameObjectFactory
 {
@@ -88,7 +77,7 @@ public:
 	void AsteroidsIntersections();
 	bool PlayerIntersections();
 	void BigAsteroidSplit(Bullet* tempBullet, BigAsteroid* tempTarget);
-
+	void CreateResource(int posX, int posY);
 
 };
 

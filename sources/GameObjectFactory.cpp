@@ -112,7 +112,6 @@ void	GameObjectFactory::CalculateMovementAll()
 		_bullets.at(i)->CalculateMovement(_window->mapSizeX, _window->mapSizeY);
 	}
 	for (int i = (int)_collectables.size() - 1; i > -1; i--)
-	// for (int i = 0; i < (int)_collectables.size(); i++)
 	{
 		_collectables.at(i)->CalculateMovement(_window->mapSizeX, _window->mapSizeY);
 		if (_collectables.at(i)->DestroyTimer())
@@ -155,11 +154,26 @@ float xVec, float yVec, float speed, float rotationSpeed, float angle)
 			xVec, yVec, speed, rotationSpeed, angle);
 		_bullets.push_back(tempObject);
 	}
-	else if (objType == ObjectsEnum::CrystalWhiteType)
+	else if (objType == ObjectsEnum::CrystalWhiteType ||
+		objType == ObjectsEnum::CrystalGreenType ||
+		objType == ObjectsEnum::CrystalBlueType ||
+		objType == ObjectsEnum::CrystalPurpleType)
 	{
+		PicTexture* tempPic;
+
+		if (objType == ObjectsEnum::CrystalWhiteType)
+			tempPic = _crystalWhitePic;
+		if (objType == ObjectsEnum::CrystalGreenType)
+			tempPic = _crystalGreenPic;
+		if (objType == ObjectsEnum::CrystalBlueType)
+			tempPic = _crystalBluePic;
+		if (objType == ObjectsEnum::CrystalPurpleType)
+			tempPic = _crystalPurplePic;
+
 		Collectable* tempObject =
-			new Collectable(_window, _crystalWhitePic, xPos, yPos,
+			new Collectable(_window, tempPic, xPos, yPos,
 			xVec, yVec, speed, rotationSpeed, angle);
+		tempObject->type = objType; // Important for scoring
 		_collectables.push_back(tempObject);
 	}
 }

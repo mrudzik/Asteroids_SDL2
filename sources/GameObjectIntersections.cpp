@@ -24,6 +24,27 @@ int 	AsteroidCollisionHandle(AbstractGameObject* tempObj, AbstractGameObject* te
 	return 0;
 }
 
+
+void 	GameObjectFactory::CreateResource(int posX, int posY)
+{
+	ObjectsEnum tempType;
+
+	int random = rand() % 4;
+	if (random == 0)
+		tempType = ObjectsEnum::CrystalWhiteType;
+	if (random == 1)
+		tempType = ObjectsEnum::CrystalGreenType;
+	if (random == 2)
+		tempType = ObjectsEnum::CrystalBlueType;
+	if (random == 3)
+		tempType = ObjectsEnum::CrystalPurpleType;
+
+	CreateObject(tempType, posX, posY,
+		0, 0, 0, 1.0f, rand() % 360);
+}
+
+
+
 void	GameObjectFactory::BigAsteroidSplit(Bullet* tempBullet, BigAsteroid* tempTarget)
 {
 	int random = rand() % 2;
@@ -89,12 +110,10 @@ void 	GameObjectFactory::BulletIntersections()
 		{// Small Asteroids
 			SmallAsteroid* tempTarget = _smallAsteroids.at(iTarg);
 			if (tempBullet->CheckIntersect(tempTarget))
-			{// Only Destroy both
+			{
 				// Create Resource here
-				CreateObject(ObjectsEnum::CrystalWhiteType,
-					tempTarget->GetPosX(), tempTarget->GetPosY(), 0, 0, 0,
-					1.0f, rand() % 360);
-
+				CreateResource(tempTarget->GetPosX(), tempTarget->GetPosY());
+				// Destroy both
 				DestroyObject(ObjectsEnum::BulletType, i);
 				DestroyObject(ObjectsEnum::SmallAsteroidType, iTarg);
 				break;
@@ -108,6 +127,8 @@ void 	GameObjectFactory::BulletIntersections()
 			if (tempBullet->CheckIntersect(tempTarget))
 			{// Create two small Asteroids
 				BigAsteroidSplit(tempBullet, tempTarget);
+				// Create Resource here
+				CreateResource(tempTarget->GetPosX(), tempTarget->GetPosY());
 				// Destroy Both
 				DestroyObject(ObjectsEnum::BulletType, i);
 				DestroyObject(ObjectsEnum::BigAsteroidType, iTarg);
@@ -150,15 +171,7 @@ void 	GameObjectFactory::AsteroidsIntersections()
 	for (int i = 0; i < (int)_smallAsteroids.size(); i++)
 	{// Small Asteroids
 		SmallAsteroid* tempObj = _smallAsteroids.at(i);
-
-		// for (int iTarg = 0; iTarg < (int)_bigAsteroids.size(); iTarg++)
-		// {// Big Asteroids
-		// 	BigAsteroid* tempTarget = _bigAsteroids.at(iTarg);
-		// 	if (tempTarget->AllIntersectCalculated == true)
-		// 		continue;// If have calculated Intersection for this frame
-		// 	if (AsteroidCollisionHandle(tempObj, tempTarget))
-		// 		break;
-		// }
+		
 		for (int iTarg = 0; iTarg < (int)_smallAsteroids.size(); iTarg++)
 		{// Small Asteroids
 			if (iTarg == i)
@@ -195,8 +208,8 @@ bool 	GameObjectFactory::PlayerIntersections()
 		Collectable* tempTarget = _collectables.at(i);
 		if (player->CheckIntersect(tempTarget))
 		{// If Picked object Logic
-			std::cout << "Picked Object" << std::endl;
-			DestroyObject(ObjectsEnum::CrystalWhiteType, i);
+			player->RetrieveCollectable(tempTarget->type);
+			DestroyObject(tempTarget->type, i);
 		}
 	}
 

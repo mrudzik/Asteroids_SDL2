@@ -7,11 +7,11 @@ class Player final: public AbstractGameObject
 {
 
 private:
-
-    /* data */
 	float _slowingSpeed;
 	int _screenPosX;
 	int _screenPosY;
+
+	int _score;
 
 public:
 
@@ -20,6 +20,8 @@ public:
 	float rotation, float angle);
     ~Player();
 	
+	int GetScore();
+
 	void CalculateAngle(int mousePosX, int mousePosY);
 	void MoveX(float xVec);
 	void MoveY(float yVec);
@@ -28,6 +30,8 @@ public:
 	void RestartBehaviour();
 
 	void RenderOnWindow(int xPlayer, int yPlayer);
+
+	void RetrieveCollectable(ObjectsEnum type);
 
 };
 

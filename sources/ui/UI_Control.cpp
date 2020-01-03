@@ -42,6 +42,17 @@ void UI_Control::RenderObjectsStatus(int const curBullets, int const limBullets,
 		5, 200, _window->GetColor(ColorEnum::Green));
 }
 
+void UI_Control::RenderPlayerUI(int const score)
+{
+	_strBuilder.str("");
+	_strBuilder
+		<< "Score : " << score;
+	
+	_window->DrawText(_strBuilder.str().c_str(),
+		_window->GetWidthHalf() + 20, _window->GetHeightHalf() - 20,
+		_window->GetColor(ColorEnum::White)); // TODO Change to yellow and digital font
+}
+
 void UI_Control::RenderAll(s_UIData const data)
 {
 	// Mouse Reticle Rendering
@@ -58,5 +69,7 @@ void UI_Control::RenderAll(s_UIData const data)
 	if (data.showPlayerStatus)
 		RenderPlayerStatus(data.mousePosX, data.mousePosY,
 			data.playerPosX, data.playerPosY);
+
+	RenderPlayerUI(data.playerScore);
 }
 

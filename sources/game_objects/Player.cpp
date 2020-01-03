@@ -10,12 +10,17 @@ Player::Player(GameSDL_Window* window, PicTexture* newAvatar,
 	_speed = 1;
 	_screenPosX = window->GetWidthHalf() - newAvatar->GetWidth() / 4;
 	_screenPosY = window->GetHeightHalf() - newAvatar->GetHeight() / 4;
+	_score = 0;
 }
 
 Player::~Player()
 {
 }
 
+int Player::GetScore()
+{
+	return _score;
+}
 
 void Player::RestartBehaviour()
 {
@@ -24,6 +29,7 @@ void Player::RestartBehaviour()
 	_xVec = 0;
 	_yVec = 0;
 	_speed = 1;
+	_score = 0;
 }
 
 void Player::MoveX(float xVec)
@@ -91,4 +97,18 @@ void Player::RenderOnWindow(int xPlayer, int yPlayer)
     // TODO Protection to not render something that you cannot see
 
     _Avatar->RenderPic(*_window, xDif, yDif, NULL, _angle, NULL, SDL_FLIP_NONE);
+}
+
+
+
+void Player::RetrieveCollectable(ObjectsEnum type)
+{
+	if (type == ObjectsEnum::CrystalWhiteType)
+		_score += 10;
+	if (type == ObjectsEnum::CrystalGreenType)
+		_score += 15;
+	if (type == ObjectsEnum::CrystalBlueType)
+		_score += 25;
+	if (type == ObjectsEnum::CrystalPurpleType)
+		_score += 40;
 }

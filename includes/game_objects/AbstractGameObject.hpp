@@ -4,6 +4,19 @@
 
 #include "PicTexture.hpp"
 
+enum ObjectsEnum
+{
+	BigAsteroidType,
+	SmallAsteroidType,
+	BulletType,
+	PlayerType,
+	CrystalWhiteType,
+	CrystalGreenType,
+	CrystalBlueType,
+	CrystalPurpleType
+};
+
+
 class AbstractGameObject
 {
 

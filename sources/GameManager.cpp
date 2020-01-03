@@ -123,10 +123,10 @@ void 	GameManager::RefreshUIData()
 	// Mouse Position
 	_uiData.mousePosX = _objectFactory.mousePosX;
 	_uiData.mousePosY = _objectFactory.mousePosY;
-	// Bullet Count
+	// Object Counters
 	_uiData.bullets = _objectFactory.GetBulletCount();
-	// Asteroid Count
 	_uiData.asteroids = _objectFactory.GetAsteroidCount();
+	_uiData.collectables = _objectFactory.GetCollectableCount();
 
 }
 

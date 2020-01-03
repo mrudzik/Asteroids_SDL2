@@ -59,6 +59,7 @@ public:
 	
 	int GetAsteroidCount();
 	int GetBulletCount();
+	int GetCollectableCount();
 	
 	void BulletReload(int const bulletLimit);
 	void RestartBehaviour();

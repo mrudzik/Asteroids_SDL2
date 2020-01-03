@@ -57,6 +57,8 @@ GameObjectFactory::~GameObjectFactory()
 
 void 	GameObjectFactory::DeallocateAllObjects()
 {
+
+
 	std::cout << "Deallocating Objects" << std::endl;
     for (int i = 0; i < (int)_bigAsteroids.size(); i++)
     {// Deallocating Asteroids
@@ -232,6 +234,11 @@ int 	GameObjectFactory::GetBulletCount()
 {
 	return (int)_bullets.size();
 }
+int 	GameObjectFactory::GetCollectableCount()
+{
+	return (int)_collectables.size();
+}
+
 
 void 	GameObjectFactory::BulletReload(int const bulletLimit)
 {

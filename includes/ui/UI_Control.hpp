@@ -12,6 +12,7 @@ struct s_UIData
 
 	int bullets;
 	int asteroids;
+	int collectables;
 
 	int playerPosX;
 	int playerPosY;
@@ -54,7 +55,8 @@ public:
 	void	RenderPlayerStatus(int const mousePosX, int const mousePosY,
 		int const playerPosX, int const playerPosY);
 	void 	RenderObjectsStatus(int const curBullets, int const limBullets,
-		int const curAsteroids, int const limAsteroids);
+		int const curAsteroids, int const limAsteroids,
+		int const curCollectables);
 	
 	// UI
 	void 	RenderPlayerUI(int const score);

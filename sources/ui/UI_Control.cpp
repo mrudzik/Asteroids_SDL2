@@ -30,11 +30,13 @@ void UI_Control::RenderPlayerStatus(int const mousePosX, int const mousePosY,
 }
 
 void UI_Control::RenderObjectsStatus(int const curBullets, int const limBullets,
-	int const curAsteroids, int const limAsteroids)
+	int const curAsteroids, int const limAsteroids,
+	int const curCollectables)
 {
 	_strBuilder.str("");
 	_strBuilder 
 		<< "Objects"
+		<< "\nCollectables : " << curCollectables
 		<< "\nBullets : " << curBullets << " / " << limBullets
 		<< "\nAsteroids : " << curAsteroids << " / " << limAsteroids;
 
@@ -65,7 +67,8 @@ void UI_Control::RenderAll(s_UIData const data)
 		_informer.RenderText(InfoEnum::CheatText);
 	if (data.showObjectsStatus)
 		RenderObjectsStatus(data.bullets, data.limBullets,
-			data.asteroids, data.limAsteroids);
+			data.asteroids, data.limAsteroids,
+			data.collectables);
 	if (data.showPlayerStatus)
 		RenderPlayerStatus(data.mousePosX, data.mousePosY,
 			data.playerPosX, data.playerPosY);

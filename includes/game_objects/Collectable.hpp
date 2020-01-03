@@ -6,6 +6,7 @@
 class Collectable final: public AbstractGameObject
 {
 private:
+
     Uint32 	_timeSpawn;
     Uint32 	_timeLive;
 	Uint32 	_timeBlinkStart;
@@ -19,6 +20,7 @@ public:
     ~Collectable();
 
     bool DestroyTimer();
+
 	bool IsShowable();
 };
 

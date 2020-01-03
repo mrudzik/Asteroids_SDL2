@@ -180,16 +180,27 @@ bool 	GameObjectFactory::PlayerIntersections()
 	{// Big Asteroids
 		BigAsteroid* tempTarget = _bigAsteroids.at(iTarg);
 		if (player->CheckIntersect(tempTarget))
-			return true;
+			return true; // Ship Crashed
 	}
 	
 	for (int iTarg = 0; iTarg < (int)_smallAsteroids.size(); iTarg++)
 	{// Small Asteroids
 		SmallAsteroid* tempTarget = _smallAsteroids.at(iTarg);
 		if (player->CheckIntersect(tempTarget))
-			return true;
+			return true; // Ship Crashed
 	}
-	return false;	
+
+	for (int i = (int)_collectables.size() - 1; i > -1; i--)
+	{
+		Collectable* tempTarget = _collectables.at(i);
+		if (player->CheckIntersect(tempTarget))
+		{// If Picked object Logic
+			std::cout << "Picked Object" << std::endl;
+			DestroyObject(ObjectsEnum::CrystalWhiteType, i);
+		}
+	}
+
+	return false; // Ship Alive
 }
 
 void 	GameObjectFactory::CalculateIntersectionsAll()

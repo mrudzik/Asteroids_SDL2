@@ -22,7 +22,24 @@ void InputControl::KeyboardEventInput()
 
       if (_event.key.keysym.sym == SDLK_1)
         _game->player->SetShieldActive(!_game->player->IsShielded());
+      if (_event.key.keysym.sym == SDLK_2
+        && !_holdingLock) // Lock Torpedo
+      {
+        _game->LockTorpedo();
+        _holdingLock = true;
+      }
+       
     }
+    if (_event.type == SDL_KEYUP)
+    {
+      if (_event.key.keysym.sym == SDLK_2
+        && _holdingLock)
+      {
+        _game->LaunchTorpedo();
+        _holdingLock = false;
+      } // Launch Torpedo
+    }
+
 }
 
 

@@ -27,7 +27,8 @@ int main(int argc, char** argv)
     if (Parsing(argc, argv, &parsedData) == 0)
         return 0;
     
-    GameManager gameManager(parsedData);
-	// std::cout << "End of Programm" << std::endl;
+    GameManager* gameManager = new GameManager(parsedData);
+	std::cout << "End of Programm" << std::endl;
+    delete gameManager;
 
 }

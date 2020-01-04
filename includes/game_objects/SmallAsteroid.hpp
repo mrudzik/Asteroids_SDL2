@@ -2,14 +2,13 @@
 #ifndef SMALLASTEROID_HPP
 #define SMALLASTEROID_HPP
 
-#include "AbstractGameObject.hpp"
+#include "Asteroid.hpp"
 
-class SmallAsteroid final: public AbstractGameObject
+class SmallAsteroid final:
+    public Asteroid
 {
-
 private:
 
-    /* data */
 public:
 
     SmallAsteroid(GameSDL_Window* window, PicTexture* newAvatar,

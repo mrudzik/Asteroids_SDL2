@@ -68,7 +68,6 @@ public:
     int 	CheckIntersect(AbstractGameObject* target);
 	void 	StaticResolution(AbstractGameObject* target);
 	void	DynamicResolution(AbstractGameObject* target);
-	// void 	BounceFrom(AbstractGameObject* bounceFrom);
 
 	void RestoreSize();
 

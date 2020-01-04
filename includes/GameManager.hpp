@@ -22,6 +22,7 @@ private:
 	const int _limitAmmo;
 	const int _abilityProbability;
 
+	Asteroid* _lockedAsteroid;
 
 public:
 
@@ -32,7 +33,11 @@ public:
 
 	void 	GameLoop();
 
+	// Projectiles
 	void 	Shoot();
+	void 	LockTorpedo();
+	void 	LaunchTorpedo();
+
 	void 	QuitGame();
 
 	void	RefreshUIData();

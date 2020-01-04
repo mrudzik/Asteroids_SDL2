@@ -27,17 +27,19 @@ SRC = 	main.cpp \
 		texture/BackGroundControl.cpp 	\
 		\
 		game_objects/AbstractGameObject.cpp \
+		game_objects/Asteroid.cpp			\
 		game_objects/BigAsteroid.cpp		\
 		game_objects/SmallAsteroid.cpp		\
 		game_objects/Bullet.cpp				\
 		game_objects/Player.cpp				\
 		game_objects/Collectable.cpp		\
 		\
-		ui/UI_Control.cpp	\
-		ui/Reticle.cpp		\
-		ui/Informer.cpp 	\
-		ui/TextHolder.cpp	\
-		ui/FPS_Timer.cpp
+		ui/UI_Control.cpp		\
+		ui/Reticle.cpp			\
+		ui/Informer.cpp 		\
+		ui/TextHolder.cpp		\
+		ui/FPS_Timer.cpp		\
+		ui/LockableObject.cpp 	\
 		
 
 #	project object files

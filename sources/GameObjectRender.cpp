@@ -12,11 +12,21 @@ void 	GameObjectFactory::RenderSpecific(int posX, int posY)
 	}
 	for (int i = 0; i < (int)_bigAsteroids.size(); i++)
 	{// Big Asteroids
-		_bigAsteroids.at(i)->RenderOnWindow(posX, posY);
+		BigAsteroid* tempObj = _bigAsteroids.at(i);
+		if (tempObj->IsLocked())
+			tempObj->ShowLock(_window,
+				tempObj->GetPosX(), tempObj->GetPosY(),
+				posX, posY);
+		tempObj->RenderOnWindow(posX, posY);
 	}
 	for (int i = 0; i < (int)_smallAsteroids.size(); i++)
 	{// Small Asteroids
-		_smallAsteroids.at(i)->RenderOnWindow(posX, posY);
+		SmallAsteroid* tempObj = _smallAsteroids.at(i);
+		if (tempObj->IsLocked())
+			tempObj->ShowLock(_window,
+				tempObj->GetPosX(), tempObj->GetPosY(),
+				posX, posY);
+		tempObj->RenderOnWindow(posX, posY);
 	}
 	for (int i = 0; i < (int)_bullets.size(); i++)
 	{// Bullets

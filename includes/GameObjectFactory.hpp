@@ -34,7 +34,9 @@ private:
 	PicTexture*		_crystalPurplePic;
 
 	PicTexture* 	_shieldPic;
-	
+	PicTexture* 	_torpedoPic;
+	PicTexture*		_lockPic;
+
     // Allocated Objects
     std::vector<BigAsteroid*>		_bigAsteroids;
 	std::vector<SmallAsteroid*>		_smallAsteroids;
@@ -58,6 +60,9 @@ public:
 		float xVec, float yVec, float speed, float rotationSpeed, float angle);
     void DestroyObject(ObjectsEnum objType, int index);
 	void DeallocateAllObjects();
+	
+
+	Asteroid* GetClosestAsteroid(int posX, int posY);
 	
 	int GetAsteroidCount();
 	int GetBulletCount();

@@ -53,16 +53,17 @@ void    GameManager::GameLoop()
 		// Some calculations where something positioned etc.
 		_objectFactory.CalculateMovementAll();
 		_objectFactory.CalculateIntersectionsAll();
+		
+		
 		// Refreshing UI Data
 		RefreshUIData();
 		// Rendering Logic
 		SDL_RenderClear(_window.GetRender());
+
 		// Render Objects and Background
 		_objectFactory.RenderAll();
 		// Rendering UI
 		_uiController.RenderAll(_uiData);
-			// _objectFactory.mousePosX, _objectFactory.mousePosY,
-			// _objectFactory.GetBulletCount(), _limitAmmo);
 
 		SDL_RenderPresent(_window.GetRender());
 	}
@@ -80,6 +81,39 @@ void 	GameManager::Shoot()
 	cos(angle * M_PI / 180.0f) * 2, sin(angle * M_PI / 180.0f) * 2,
 	5, 0, angle - 90);
 }
+
+void 	GameManager::LockTorpedo()
+{
+	int worldPosX = (_objectFactory.mousePosX - _window.GetWidthHalf()) * -1
+		+ player->GetPosX();
+	int worldPosY = (_objectFactory.mousePosY - _window.GetHeightHalf()) * -1
+		+ player->GetPosY();
+
+	_lockedAsteroid = NULL;
+	_lockedAsteroid = _objectFactory.GetClosestAsteroid(worldPosX, worldPosY);
+	if (_lockedAsteroid == NULL)
+		return; // Protection
+
+	_lockedAsteroid->SetLock(true);
+	std::cout << "SetLock" << std::endl;
+}
+
+void 	GameManager::LaunchTorpedo()
+{
+	if (_lockedAsteroid == NULL)
+		return; // Protection
+	std::cout << "Lock Unlock" << std::endl;
+	_lockedAsteroid->SetLock(false);
+
+	
+}
+
+
+
+
+
+
+
 
 // TODO Transfer this to another file
 void    GameManager::QuitGame()

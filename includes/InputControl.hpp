@@ -14,6 +14,7 @@ private:
 
     GameManager*    _game;
 
+    bool    _holdingLock = false;
 public:
     InputControl(GameManager* gameManager);
     ~InputControl();

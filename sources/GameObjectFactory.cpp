@@ -17,7 +17,6 @@ GameObjectFactory::GameObjectFactory(GameSDL_Window* window, bool brownMotion)
     _spaceShipPic->LoadFromFile("resourses/spaceship.png", *_window);
     _bulletPic = new PicTexture();
     _bulletPic->LoadFromFile("resourses/bullet.png", *_window);
-
 	// Crystal sprites
 	_crystalWhitePic = new PicTexture();
 	_crystalWhitePic->LoadFromFile("resourses/crystals/crystal_white_small.png", *_window);
@@ -27,11 +26,18 @@ GameObjectFactory::GameObjectFactory(GameSDL_Window* window, bool brownMotion)
 	_crystalBluePic->LoadFromFile("resourses/crystals/crystal_blue_small.png", *_window);
 	_crystalPurplePic = new PicTexture();
 	_crystalPurplePic->LoadFromFile("resourses/crystals/crystal_purple_small.png", *_window);
-
 	// Shield pics
 	_shieldPic = new PicTexture();
 	_shieldPic->LoadFromFile("resourses/ShieldCircle.png", *_window);
+	// Torpedo pics
+	_torpedoPic = new PicTexture();
+	_torpedoPic->LoadFromFile("resourses/torpedos/Torpedo2_small.png", *_window);
+	// Locking pics
+	_lockPic = new PicTexture();
+	_lockPic->LoadFromFile("resourses/torpedos/target.png", *_window);
 
+
+	// Creating Player
 	std::cout << "Creating Player" << std::endl;
 	player = new Player(_window, _spaceShipPic, 0, 0, 0, 0, 0, -1.0f, 0,
 		_shieldPic);
@@ -58,14 +64,14 @@ GameObjectFactory::~GameObjectFactory()
 	delete _crystalPurplePic;
 
 	delete _shieldPic;
-
+	delete _torpedoPic;
+	delete _lockPic;
+	
 	std::cout << "Game Object Factory is destucted" << std::endl;
 }
 
 void 	GameObjectFactory::DeallocateAllObjects()
 {
-
-
 	std::cout << "Deallocating Objects" << std::endl;
     for (int i = 0; i < (int)_bigAsteroids.size(); i++)
     {// Deallocating Asteroids
@@ -95,6 +101,16 @@ void 	GameObjectFactory::DeallocateAllObjects()
 	}
 	_collectables.clear();
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -147,6 +163,7 @@ float xVec, float yVec, float speed, float rotationSpeed, float angle)
 		BigAsteroid* tempObject =
 			new BigAsteroid(_window, _bigAsteroidPic, xPos, yPos,
 			xVec, yVec, speed, rotationSpeed, angle);
+		tempObject->SetLockPic(_lockPic);
 		_bigAsteroids.push_back(tempObject);
 	}
 	else if (objType == ObjectsEnum::SmallAsteroidType)
@@ -154,6 +171,7 @@ float xVec, float yVec, float speed, float rotationSpeed, float angle)
 		SmallAsteroid* tempObject =
 			new SmallAsteroid(_window, _smallAsteroidPic, xPos, yPos,
 			xVec, yVec, speed, rotationSpeed, angle);
+		tempObject->SetLockPic(_lockPic);
 		_smallAsteroids.push_back(tempObject);
 	}
     else if (objType == ObjectsEnum::BulletType)
@@ -233,6 +251,48 @@ void    GameObjectFactory::DestroyObject(ObjectsEnum objType, int index)
 
 
 
+Asteroid* GameObjectFactory::GetClosestAsteroid(int posX, int posY)
+{
+	Asteroid* tempResult = NULL;
+	if (GetAsteroidCount() <= 0)
+		return tempResult;
+	
+	float closestDist = -1;
+	// Check for closest dist
+	for (int i = 0; i < (int)_bigAsteroids.size(); i++)
+	{	// Big Asteroids
+		BigAsteroid* tempTarget = _bigAsteroids.at(i);
+
+		if (tempTarget->IsLocked())
+			continue;
+
+		float dist = ((posX - tempTarget->GetPosX()) * (posX - tempTarget->GetPosX()))
+			+ ((posY - tempTarget->GetPosY()) * (posY - tempTarget->GetPosY()));
+		if (tempResult == NULL || closestDist > dist)
+		{
+			closestDist = dist;
+			tempResult = tempTarget;
+		}
+	}
+	for (int i = 0; i < (int)_smallAsteroids.size(); i++)
+	{	// Small Asteroids
+		SmallAsteroid* tempTarget = _smallAsteroids.at(i);
+		if (tempTarget->IsLocked())
+			continue;
+		
+		float dist = ((posX - tempTarget->GetPosX()) * (posX - tempTarget->GetPosX()))
+			+ ((posY - tempTarget->GetPosY()) * (posY - tempTarget->GetPosY()));
+		if (tempResult == NULL || closestDist > dist)
+		{
+			closestDist = dist;
+			tempResult = tempTarget;
+		}
+	}
+	return tempResult;
+}
+
+
+
 int 	GameObjectFactory::GetAsteroidCount()
 {
 	return (int)(_bigAsteroids.size() + _smallAsteroids.size());
@@ -245,6 +305,11 @@ int 	GameObjectFactory::GetCollectableCount()
 {
 	return (int)_collectables.size();
 }
+
+
+
+
+
 
 
 void 	GameObjectFactory::BulletReload(int const bulletLimit)

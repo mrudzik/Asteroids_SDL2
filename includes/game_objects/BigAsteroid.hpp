@@ -2,9 +2,10 @@
 #ifndef BIGASTEROID_HPP
 #define BIGASTEROID_HPP
 
-#include "AbstractGameObject.hpp"
+#include "Asteroid.hpp"
 
-class BigAsteroid final : public AbstractGameObject
+class BigAsteroid final :
+    public Asteroid
 {
 
 private:

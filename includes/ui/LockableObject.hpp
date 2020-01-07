@@ -13,16 +13,20 @@ private:
 	float _rotationSpeed;
 
 	PicTexture* _lockPic;
+	int 		_id;
 
 public:
-	LockableObject(/* args */);
+
+	LockableObject();
 	~LockableObject();
 
 	void SetLock(bool state);
-	void SetLockPic(PicTexture* newPic);
+	void SetLockData(PicTexture* newPic, int id);
 
 	void ShowLock(GameSDL_Window* window, int posX, int posY, int plX, int plY);
 	bool IsLocked();
+	int	GetID();
+
 };
 
 

@@ -155,7 +155,7 @@ void	GameObjectFactory::CalculateMovementAll()
 	for (int i = (int)_torpedos.size() - 1; i > -1; i--)
 	{
 		if (!_torpedos.at(i)->AimTarget(
-			_bigAsteroids.at(1).get()))
+			GetAsteroidByID(_torpedos.at(i)->GetTargetID())))
 		{
 			DestroyObject(ObjectsEnum::TorpedoType, i);
 			continue;
@@ -173,7 +173,40 @@ void	GameObjectFactory::CalculateMovementAll()
 
 
 
+int 	GameObjectFactory::GenerateUniqueID()
+{
+	bool idReady = false;
+	int result;
 
+	while (!idReady)
+	{
+		result = rand();
+		idReady = true;
+
+		// Just In case
+		// Checking all asteroids if they have same id
+		for (int i = 0; i < (int)_bigAsteroids.size(); i++)
+		{
+			if (result == _bigAsteroids.at(i)->lockObj.GetID())
+			{
+				idReady = false;
+				break;
+			}
+		}
+		if (!idReady)
+			continue;
+		for (int i = 0; i < (int)_smallAsteroids.size(); i++)
+		{
+			if (result == _smallAsteroids.at(i)->lockObj.GetID())
+			{
+				idReady = false;
+				break;
+			}
+		}
+	}
+
+	return result;
+}
 
 
 void    GameObjectFactory::CreateObject(ObjectsEnum objType, int xPos, int yPos,
@@ -188,7 +221,7 @@ float xVec, float yVec, float speed, float rotationSpeed, float angle)
 		// BigAsteroid* tempObject =
 		// 	new BigAsteroid(_window, _bigAsteroidPic, xPos, yPos,
 		// 	xVec, yVec, speed, rotationSpeed, angle);
-		tempObject->lockObj.SetLockPic(_lockPic);
+		tempObject->lockObj.SetLockData(_lockPic, GenerateUniqueID());
 		_bigAsteroids.push_back(tempObject);
 	}
 	else if (objType == ObjectsEnum::SmallAsteroidType)
@@ -200,7 +233,7 @@ float xVec, float yVec, float speed, float rotationSpeed, float angle)
 		// SmallAsteroid* tempObject =
 		// 	new SmallAsteroid(_window, _smallAsteroidPic, xPos, yPos,
 		// 	xVec, yVec, speed, rotationSpeed, angle);
-		tempObject->lockObj.SetLockPic(_lockPic);
+		tempObject->lockObj.SetLockData(_lockPic, GenerateUniqueID());
 		_smallAsteroids.push_back(tempObject);
 	}
     else if (objType == ObjectsEnum::BulletType)
@@ -217,7 +250,8 @@ float xVec, float yVec, float speed, float rotationSpeed, float angle)
 		
 		Torpedo* tempObject =
 			new Torpedo(_window, _torpedoPic, xPos, yPos,
-			xVec, yVec, speed, rotationSpeed, angle);
+			xVec, yVec, speed, rotationSpeed, angle,
+			player->lockedObject->lockObj.GetID());
 
 		_torpedos.push_back(tempObject);
 	}
@@ -278,8 +312,12 @@ void    GameObjectFactory::DestroyObject(ObjectsEnum objType, int index)
 	}
 	else if (objType == ObjectsEnum::TorpedoType)
 	{
-		std::cout << "Erasing Torpedo" << std::endl;
 		Torpedo* tempObj = _torpedos.at(index);
+
+		Asteroid* tempAst = GetAsteroidByID(tempObj->GetTargetID());
+		if (tempAst != NULL) // Release lock
+			tempAst->lockObj.SetLock(false);
+
 		_torpedos.erase(_torpedos.begin() + index);
 		delete tempObj;
 		tempObj = NULL;
@@ -341,6 +379,23 @@ Asteroid* GameObjectFactory::GetClosestAsteroid(int posX, int posY)
 	return tempResult;
 }
 
+Asteroid* GameObjectFactory::GetAsteroidByID(int targetID)
+{
+	if (GetAsteroidCount() <= 0)
+		return NULL; // Protection
+	
+	for (int i = 0; i < (int)_bigAsteroids.size(); i++)
+	{	// Big Asteroids
+		if (_bigAsteroids.at(i)->lockObj.GetID() == targetID)
+			return _bigAsteroids.at(i).get();
+	}
+	for (int i = 0; i < (int)_smallAsteroids.size(); i++)
+	{	// Small Asteroids
+		if (_smallAsteroids.at(i)->lockObj.GetID() == targetID)
+			return _smallAsteroids.at(i).get();
+	}
+	return NULL;
+}
 
 
 int 	GameObjectFactory::GetAsteroidCount()

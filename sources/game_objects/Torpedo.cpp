@@ -5,11 +5,12 @@
 
 Torpedo::Torpedo(GameSDL_Window* window, PicTexture* newAvatar,
     int xPos, int yPos, float xVec, float yVec,
-	float speed, float rotation, float angle) : 
+	float speed, float rotation, float angle,
+	int targetID) : 
         AbstractGameObject(window, newAvatar, xPos, yPos, xVec, yVec,
         speed, rotation, angle)
 {
-	// _maxSize = 5;
+	_targetID = targetID;
 }
 
 Torpedo::~Torpedo()
@@ -18,6 +19,10 @@ Torpedo::~Torpedo()
 	// 	_target->lockObj.TorpedoDestroyed();
 }
 
+int Torpedo::GetTargetID()
+{
+	return _targetID;
+}
 // void Torpedo::TargetDestroyed()
 // {
 // 	_target = NULL;
@@ -31,8 +36,18 @@ bool Torpedo::AimTarget(Asteroid* target)
 	// std::shared_ptr<Asteroid> tempObj = _target.lock();
 
 	CalculateAngle(target->GetPosX(), target->GetPosY());
-	_xVec = cos(_angle * M_PI / 180.0f) * 2;
-	_yVec = sin(_angle * M_PI / 180.0f) * 2;
+
+	// My "Cold Siberia" formula
+	float x_vec = fabs(_xPos - target->GetPosX());
+	float y_vec = fabs(_yPos - target->GetPosY());
+	float dist = sqrt((x_vec * x_vec) + (y_vec * y_vec));
+	float len = _speed;
+	_xVec = -1 * (_xPos - (_xPos + (target->GetPosX() - _xPos) * (len / dist)));
+	_yVec = -1 * (_yPos - (_yPos + (target->GetPosY() - _yPos) * (len / dist)));
+
+
+	// _xVec = 1;//cos(_angle + 90 * M_PI / 180.0f) * 2;
+	// _yVec = 1;//sin(_angle + 90 * M_PI / 180.0f) * 2;
 	std::cout << "Vec x: " << _xVec << " y: " << _yVec
 		<< "\nPos x: " << _xPos << " y: " << _yPos
 		<< std::endl;
@@ -62,5 +77,5 @@ void Torpedo::CalculateAngle(int targX, int targY)
 	_angle = 90.0 - acos(angle_cos) * (180.0 / M_PI);
 	if (halfFlag)
 		_angle = 90.0 + (90.0 - _angle);
-	_angle += 90; // Reversing SpaceShip
+	// _angle += 90; // Reversing SpaceShip
 }

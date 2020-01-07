@@ -1,30 +1,26 @@
 
 #include "LockableObject.hpp"
 
-LockableObject::LockableObject(/* args */)
+LockableObject::LockableObject()
 {
 	_isLocked = false;
 	_lockPic = NULL;
 	_rotationSpeed = 1.0f;
-	// _torpedo = NULL;
+	_id = -1;
 }
 
 LockableObject::~LockableObject()
 {
-	// if (_torpedo != NULL)
-	// 	_torpedo->TargetDestroyed();
 }
-
-// void LockableObject::TorpedoDestroyed()
-// {
-// 	_torpedo = NULL;
-// 	SetLock(false);
-// }
-
 
 bool LockableObject::IsLocked()
 {
 	return _isLocked;
+}
+
+int LockableObject::GetID()
+{
+	return _id;
 }
 
 void LockableObject::SetLock(bool state)
@@ -33,9 +29,10 @@ void LockableObject::SetLock(bool state)
 	_angle = 0;
 }
 
-void LockableObject::SetLockPic(PicTexture* newPic)
+void LockableObject::SetLockData(PicTexture* newPic, int id)
 {
 	_lockPic = newPic;
+	_id = id;
 }
 
 

@@ -112,7 +112,7 @@ void 	GameManager::LaunchTorpedo()
 		return; // Protection
 	
 	_objectFactory.CreateObject(ObjectsEnum::TorpedoType,
-		player->GetPosX(), player->GetPosY(), 0, 0, 1, 0, 0);
+		player->GetPosX(), player->GetPosY(), 0, 0, 2.0f, 0, 0);
 
 	// LockTorpedo(false);
 	// std::cout << "Lock Unlock" << std::endl;

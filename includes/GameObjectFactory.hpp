@@ -58,6 +58,7 @@ public:
     ~GameObjectFactory();
 
 	void CalculateMovementAll();
+	int GenerateUniqueID();
     void CreateObject(ObjectsEnum objType, int xPos, int yPos,
 		float xVec, float yVec, float speed, float rotationSpeed, float angle);
     void DestroyObject(ObjectsEnum objType, int index);
@@ -65,7 +66,8 @@ public:
 	
 
 	Asteroid* GetClosestAsteroid(int posX, int posY);
-	
+	Asteroid* GetAsteroidByID(int targetID);
+
 	int GetAsteroidCount();
 	int GetBulletCount();
 	int GetCollectableCount();

@@ -75,15 +75,17 @@ void 	GameObjectFactory::DeallocateAllObjects()
 	std::cout << "Deallocating Objects" << std::endl;
     for (int i = 0; i < (int)_bigAsteroids.size(); i++)
     {// Deallocating Asteroids
-		delete _bigAsteroids.at(i);
-		_bigAsteroids.at(i) = NULL;
+		_bigAsteroids.at(i).reset();
+		// delete _bigAsteroids.at(i);
+		// _bigAsteroids.at(i) = NULL;
     }
 	_bigAsteroids.clear();
 
 	for (int i = 0; i < (int)_smallAsteroids.size(); i++)
 	{// Small Asteroids
-		delete _smallAsteroids.at(i);
-		_smallAsteroids.at(i) = NULL;
+		_smallAsteroids.at(i).reset();
+		// delete _smallAsteroids.at(i);
+		// _smallAsteroids.at(i) = NULL;
 	}
 	_smallAsteroids.clear();
 
@@ -100,6 +102,13 @@ void 	GameObjectFactory::DeallocateAllObjects()
 		_collectables.at(i) = NULL;
 	}
 	_collectables.clear();
+
+	for (int i = 0; i < (int)_torpedos.size(); i++)
+    {// Deallocating Torpedos
+		delete _torpedos.at(i);
+		_torpedos.at(i) = NULL;
+    }
+	_torpedos.clear();
 }
 
 
@@ -142,6 +151,18 @@ void	GameObjectFactory::CalculateMovementAll()
 		if (_collectables.at(i)->DestroyTimer())
 			DestroyObject(ObjectsEnum::CrystalWhiteType, i);
 	}
+
+	for (int i = (int)_torpedos.size() - 1; i > -1; i--)
+	{
+		if (!_torpedos.at(i)->AimTarget(
+			_bigAsteroids.at(1).get()))
+		{
+			DestroyObject(ObjectsEnum::TorpedoType, i);
+			continue;
+		}
+		_torpedos.at(i)->CalculateMovement(_window->mapSizeX, _window->mapSizeY);
+	}
+
 }
 
 
@@ -160,18 +181,26 @@ float xVec, float yVec, float speed, float rotationSpeed, float angle)
 {
 	if (objType == ObjectsEnum::BigAsteroidType)
 	{
-		BigAsteroid* tempObject =
-			new BigAsteroid(_window, _bigAsteroidPic, xPos, yPos,
-			xVec, yVec, speed, rotationSpeed, angle);
-		tempObject->SetLockPic(_lockPic);
+		std::shared_ptr<BigAsteroid> tempObject =
+			std::make_shared<BigAsteroid>(_window, _bigAsteroidPic,
+			xPos, yPos, xVec, yVec,
+			speed, rotationSpeed, angle);
+		// BigAsteroid* tempObject =
+		// 	new BigAsteroid(_window, _bigAsteroidPic, xPos, yPos,
+		// 	xVec, yVec, speed, rotationSpeed, angle);
+		tempObject->lockObj.SetLockPic(_lockPic);
 		_bigAsteroids.push_back(tempObject);
 	}
 	else if (objType == ObjectsEnum::SmallAsteroidType)
 	{
-		SmallAsteroid* tempObject =
-			new SmallAsteroid(_window, _smallAsteroidPic, xPos, yPos,
-			xVec, yVec, speed, rotationSpeed, angle);
-		tempObject->SetLockPic(_lockPic);
+		std::shared_ptr<SmallAsteroid> tempObject =
+			std::make_shared<SmallAsteroid>(_window, _smallAsteroidPic,
+			xPos, yPos, xVec, yVec,
+			speed, rotationSpeed, angle);
+		// SmallAsteroid* tempObject =
+		// 	new SmallAsteroid(_window, _smallAsteroidPic, xPos, yPos,
+		// 	xVec, yVec, speed, rotationSpeed, angle);
+		tempObject->lockObj.SetLockPic(_lockPic);
 		_smallAsteroids.push_back(tempObject);
 	}
     else if (objType == ObjectsEnum::BulletType)
@@ -180,6 +209,17 @@ float xVec, float yVec, float speed, float rotationSpeed, float angle)
 			new Bullet(_window, _bulletPic, xPos, yPos,
 			xVec, yVec, speed, rotationSpeed, angle);
 		_bullets.push_back(tempObject);
+	}
+	else if (objType == ObjectsEnum::TorpedoType)
+	{
+		if (player->lockedObject == NULL)
+			return; // Protection
+		
+		Torpedo* tempObject =
+			new Torpedo(_window, _torpedoPic, xPos, yPos,
+			xVec, yVec, speed, rotationSpeed, angle);
+
+		_torpedos.push_back(tempObject);
 	}
 	else if (objType == ObjectsEnum::CrystalWhiteType ||
 		objType == ObjectsEnum::CrystalGreenType ||
@@ -209,21 +249,23 @@ void    GameObjectFactory::DestroyObject(ObjectsEnum objType, int index)
 {
 	if (objType == ObjectsEnum::BigAsteroidType)
 	{
-		BigAsteroid* tempAsteroid = _bigAsteroids.at(index);
+		_bigAsteroids.at(index).reset();	
+		// BigAsteroid* tempAsteroid = _bigAsteroids.at(index);
 		// Erase that pointer from vector
 		_bigAsteroids.erase(_bigAsteroids.begin() + index);
 		// Deal with allocated data on that pointer
-		delete tempAsteroid;
-		tempAsteroid = NULL;
+		// delete tempAsteroid;
+		// tempAsteroid = NULL;
 	}
 	else if (objType == ObjectsEnum::SmallAsteroidType)
 	{
-		SmallAsteroid* tempAsteroid = _smallAsteroids.at(index);
+		_smallAsteroids.at(index).reset();
+		// SmallAsteroid* tempAsteroid = _smallAsteroids.at(index);
 		// Erase that pointer from vector
 		_smallAsteroids.erase(_smallAsteroids.begin() + index);
 		// Deal with allocated data on that pointer
-		delete tempAsteroid;
-		tempAsteroid = NULL;
+		// delete tempAsteroid;
+		// tempAsteroid = NULL;
 	}
 	else if (objType == ObjectsEnum::BulletType)
 	{
@@ -233,6 +275,14 @@ void    GameObjectFactory::DestroyObject(ObjectsEnum objType, int index)
 		// Deal with allocated data on that pointer
 		delete tempBullet;
 		tempBullet = NULL;
+	}
+	else if (objType == ObjectsEnum::TorpedoType)
+	{
+		std::cout << "Erasing Torpedo" << std::endl;
+		Torpedo* tempObj = _torpedos.at(index);
+		_torpedos.erase(_torpedos.begin() + index);
+		delete tempObj;
+		tempObj = NULL;
 	}
 	else if (objType == ObjectsEnum::CrystalWhiteType ||
 		objType == ObjectsEnum::CrystalGreenType ||
@@ -261,9 +311,9 @@ Asteroid* GameObjectFactory::GetClosestAsteroid(int posX, int posY)
 	// Check for closest dist
 	for (int i = 0; i < (int)_bigAsteroids.size(); i++)
 	{	// Big Asteroids
-		BigAsteroid* tempTarget = _bigAsteroids.at(i);
+		BigAsteroid* tempTarget = _bigAsteroids.at(i).get();
 
-		if (tempTarget->IsLocked())
+		if (tempTarget->lockObj.IsLocked())
 			continue;
 
 		float dist = ((posX - tempTarget->GetPosX()) * (posX - tempTarget->GetPosX()))
@@ -276,8 +326,8 @@ Asteroid* GameObjectFactory::GetClosestAsteroid(int posX, int posY)
 	}
 	for (int i = 0; i < (int)_smallAsteroids.size(); i++)
 	{	// Small Asteroids
-		SmallAsteroid* tempTarget = _smallAsteroids.at(i);
-		if (tempTarget->IsLocked())
+		SmallAsteroid* tempTarget = _smallAsteroids.at(i).get();
+		if (tempTarget->lockObj.IsLocked())
 			continue;
 		
 		float dist = ((posX - tempTarget->GetPosX()) * (posX - tempTarget->GetPosX()))

@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <vector>
+#include <memory>
 
 #include "GameSDL_Window.hpp"
 #include "BackGroundControl.hpp"
@@ -14,7 +15,7 @@
 #include "Bullet.hpp"
 #include "Player.hpp"
 #include "Collectable.hpp"
-
+#include "Torpedo.hpp"
 
 class GameObjectFactory
 {
@@ -38,10 +39,11 @@ private:
 	PicTexture*		_lockPic;
 
     // Allocated Objects
-    std::vector<BigAsteroid*>		_bigAsteroids;
-	std::vector<SmallAsteroid*>		_smallAsteroids;
+    std::vector<std::shared_ptr<BigAsteroid>>		_bigAsteroids;
+	std::vector<std::shared_ptr<SmallAsteroid>>		_smallAsteroids;
 	std::vector<Bullet*>			_bullets;
 	std::vector<Collectable*>		_collectables;
+	std::vector<Torpedo*> 			_torpedos;
 
 	bool _zoneToRender[9];
 public:
@@ -82,9 +84,10 @@ public:
 	// In GameObjectsIntersections.cpp
 	void CalculateIntersectionsAll();
 	void BulletIntersections();
+	void TorpedoIntersections();
 	void AsteroidsIntersections();
 	bool PlayerIntersections();
-	void BigAsteroidSplit(Bullet* tempBullet, BigAsteroid* tempTarget);
+	void BigAsteroidSplit(AbstractGameObject* tempBullet, BigAsteroid* tempTarget);
 	void CreateResource(int posX, int posY);
 
 };

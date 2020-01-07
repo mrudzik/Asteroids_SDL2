@@ -4,7 +4,6 @@
 
 #include "PicTexture.hpp"
 #include "GameSDL_Window.hpp"
-// #include "AbstractObject.hpp"
 
 class LockableObject
 {
@@ -14,7 +13,6 @@ private:
 	float _rotationSpeed;
 
 	PicTexture* _lockPic;
-	// AbstractObject* _gameObj;
 
 public:
 	LockableObject(/* args */);
@@ -24,7 +22,6 @@ public:
 	void SetLockPic(PicTexture* newPic);
 
 	void ShowLock(GameSDL_Window* window, int posX, int posY, int plX, int plY);
-
 	bool IsLocked();
 };
 

@@ -22,8 +22,6 @@ private:
 	const int _limitAmmo;
 	const int _abilityProbability;
 
-	Asteroid* _lockedAsteroid;
-
 public:
 
 	Player*	player; // Allocated at Object Factory
@@ -35,7 +33,7 @@ public:
 
 	// Projectiles
 	void 	Shoot();
-	void 	LockTorpedo();
+	void 	LockTorpedo(bool state);
 	void 	LaunchTorpedo();
 
 	void 	QuitGame();

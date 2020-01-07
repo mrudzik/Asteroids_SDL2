@@ -82,28 +82,41 @@ void 	GameManager::Shoot()
 	5, 0, angle - 90);
 }
 
-void 	GameManager::LockTorpedo()
+void 	GameManager::LockTorpedo(bool state)
 {
+	if (!state)
+	{
+		if (player->lockedObject == NULL)
+			return; // Protection
+		player->lockedObject->lockObj.SetLock(false);
+		return;
+	}
+
 	int worldPosX = (_objectFactory.mousePosX - _window.GetWidthHalf()) * -1
 		+ player->GetPosX();
 	int worldPosY = (_objectFactory.mousePosY - _window.GetHeightHalf()) * -1
 		+ player->GetPosY();
 
-	_lockedAsteroid = NULL;
-	_lockedAsteroid = _objectFactory.GetClosestAsteroid(worldPosX, worldPosY);
-	if (_lockedAsteroid == NULL)
+	player->lockedObject = NULL;
+	player->lockedObject = _objectFactory.GetClosestAsteroid(worldPosX, worldPosY);
+	if (player->lockedObject == NULL)
 		return; // Protection
 
-	_lockedAsteroid->SetLock(true);
+	player->lockedObject->lockObj.SetLock(true);
 	std::cout << "SetLock" << std::endl;
 }
 
 void 	GameManager::LaunchTorpedo()
 {
-	if (_lockedAsteroid == NULL)
+	if (player->lockedObject == NULL)
 		return; // Protection
-	std::cout << "Lock Unlock" << std::endl;
-	_lockedAsteroid->SetLock(false);
+	
+	_objectFactory.CreateObject(ObjectsEnum::TorpedoType,
+		player->GetPosX(), player->GetPosY(), 0, 0, 1, 0, 0);
+
+	// LockTorpedo(false);
+	// std::cout << "Lock Unlock" << std::endl;
+	// _lockedAsteroid->SetLock(false);
 
 	
 }

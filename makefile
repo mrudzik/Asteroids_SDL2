@@ -31,6 +31,7 @@ SRC = 	main.cpp \
 		game_objects/BigAsteroid.cpp		\
 		game_objects/SmallAsteroid.cpp		\
 		game_objects/Bullet.cpp				\
+		game_objects/Torpedo.cpp 			\
 		game_objects/Player.cpp				\
 		game_objects/Collectable.cpp		\
 		\

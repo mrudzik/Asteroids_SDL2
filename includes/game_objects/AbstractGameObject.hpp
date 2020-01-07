@@ -13,7 +13,8 @@ enum ObjectsEnum
 	CrystalWhiteType,
 	CrystalGreenType,
 	CrystalBlueType,
-	CrystalPurpleType
+	CrystalPurpleType,
+	TorpedoType
 };
 
 

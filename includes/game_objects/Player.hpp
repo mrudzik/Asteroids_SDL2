@@ -2,12 +2,14 @@
 #define PLAYER_HPP
 
 #include "AbstractGameObject.hpp"
+#include "Asteroid.hpp"
 
 class Player final: public AbstractGameObject
 {
 
 private:
 	PicTexture* _shieldPic;
+	bool _isShielded;
 
 	float _slowingSpeed;
 	int _screenPosX;
@@ -15,10 +17,9 @@ private:
 
 	int _score;
 
-	bool _isShielded;
-
-
 public:
+
+	Asteroid* lockedObject;
 
     Player(GameSDL_Window* window, PicTexture* newAvatar,
     int xPos, int yPos, float xVec, float yVec, float speed,

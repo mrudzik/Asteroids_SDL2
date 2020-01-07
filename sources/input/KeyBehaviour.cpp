@@ -23,9 +23,9 @@ void InputControl::KeyboardEventInput()
       if (_event.key.keysym.sym == SDLK_1)
         _game->player->SetShieldActive(!_game->player->IsShielded());
       if (_event.key.keysym.sym == SDLK_2
-        && !_holdingLock) // Lock Torpedo
+        && !_holdingLock) // Lock Target
       {
-        _game->LockTorpedo();
+        _game->LockTorpedo(true);
         _holdingLock = true;
       }
        
@@ -34,10 +34,10 @@ void InputControl::KeyboardEventInput()
     {
       if (_event.key.keysym.sym == SDLK_2
         && _holdingLock)
-      {
-        _game->LaunchTorpedo();
+      { // Unlock Target
+        _game->LockTorpedo(false);
         _holdingLock = false;
-      } // Launch Torpedo
+      }
     }
 
 }

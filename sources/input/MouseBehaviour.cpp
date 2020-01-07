@@ -10,5 +10,14 @@ void    InputControl::MouseEventInput()
         {
 			_game->Shoot();
         }
+        if (_event.button.button == SDL_BUTTON_RIGHT)
+        {
+            if (_holdingLock)
+            {
+                _game->LaunchTorpedo();
+                _holdingLock = false;
+            }
+                // std::cout << "Torpedo!" << std::endl;
+        }
     }
 }

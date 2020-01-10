@@ -16,6 +16,7 @@ Player::Player(GameSDL_Window* window, PicTexture* newAvatar,
 	// Shield stuff
 	_shieldPic = newShieldPic;
 	_isShielded = false;
+	_shieldAngle = 0;
 }
 
 Player::~Player()
@@ -39,6 +40,8 @@ void Player::RestartBehaviour()
 	_yVec = 0;
 	_speed = 1;
 	_score = 0;
+
+	_shieldAngle = 0;
 }
 
 void Player::MoveX(float xVec)
@@ -106,9 +109,12 @@ void Player::RenderOnWindow(int xPlayer, int yPlayer)
     // TODO Protection to not render something that you cannot see
 
 	if (_isShielded)
+	{
+		_shieldAngle += _rotationSpeed;
 		_shieldPic->RenderPic(*_window,
 		xDif - _shieldPic->GetWidth() / 1.5, yDif - _shieldPic->GetHeight() / 1.5,
-		NULL, 0, NULL, SDL_FLIP_NONE);
+		NULL, _shieldAngle, NULL, SDL_FLIP_NONE);
+	}
     _Avatar->RenderPic(*_window,
 		xDif - _Avatar->GetWidth(), yDif - _Avatar->GetHeight(),
 		NULL, _angle, NULL, SDL_FLIP_NONE);

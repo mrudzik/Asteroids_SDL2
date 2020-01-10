@@ -10,7 +10,8 @@ class Player final: public AbstractGameObject
 private:
 	PicTexture* _shieldPic;
 	bool _isShielded;
-
+	float _shieldAngle;
+	
 	float _slowingSpeed;
 	int _screenPosX;
 	int _screenPosY;

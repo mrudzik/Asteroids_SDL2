@@ -39,6 +39,7 @@ private:
 	PicTexture*		_lockPic;
 
     // Allocated Objects
+	// TODO make them all unique ptr
     std::vector<std::shared_ptr<BigAsteroid>>		_bigAsteroids;
 	std::vector<std::shared_ptr<SmallAsteroid>>		_smallAsteroids;
 	std::vector<Bullet*>			_bullets;
@@ -51,6 +52,8 @@ public:
 	int const 	spawnRadius;
 	int mousePosX;
 	int mousePosY;
+	int mouseWorldPosX;
+	int mouseWorldPosY;
 
 	bool const brownianMotion;
 
@@ -71,6 +74,7 @@ public:
 	int GetAsteroidCount();
 	int GetBulletCount();
 	int GetCollectableCount();
+	int GetTorpedoCount();
 	
 	void BulletReload(int const bulletLimit);
 	void RestartBehaviour();

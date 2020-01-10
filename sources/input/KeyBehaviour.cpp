@@ -23,20 +23,20 @@ void InputControl::KeyboardEventInput()
       if (_event.key.keysym.sym == SDLK_1)
         _game->player->SetShieldActive(!_game->player->IsShielded());
       if (_event.key.keysym.sym == SDLK_2
-        && !_holdingLock) // Lock Target
+        && !_game->holdingLock) // Lock Target
       {
         _game->LockTorpedo(true);
-        _holdingLock = true;
+        _game->holdingLock = true;
       }
        
     }
     if (_event.type == SDL_KEYUP)
     {
       if (_event.key.keysym.sym == SDLK_2
-        && _holdingLock)
+        && _game->holdingLock)
       { // Unlock Target
         _game->LockTorpedo(false);
-        _holdingLock = false;
+        _game->holdingLock = false;
       }
     }
 

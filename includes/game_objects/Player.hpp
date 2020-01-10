@@ -8,10 +8,19 @@ class Player final: public AbstractGameObject
 {
 
 private:
+	// Shield Stuff
 	PicTexture* _shieldPic;
-	bool _isShielded;
-	float _shieldAngle;
+	bool	_isShielded;
+	int		_shieldCapacity;
+	int		_shieldEnergy;
+	int 	_shieldUsage;
+	float	_shieldAngle;
 
+	// Torpedo Stuff
+	int 	_torpedoCapacity;
+	int 	_torpedoCount;
+
+	// Moving and Showing
 	float _slowingSpeed;
 	int _screenPosX;
 	int _screenPosY;
@@ -30,6 +39,12 @@ public:
 	
 	int 	GetScore();
 	bool 	IsShielded();
+	int 	GetShieldCap();
+	int 	GetShieldEn();
+	void 	RechargeShield(int fuelCount);
+	int 	GetTorpedoCap();
+	int 	GetTorpedoCount();
+	void 	RechargeTorpedo(int count);
 
 	void CalculateAngle(int mousePosX, int mousePosY);
 	void MoveX(float xVec);
@@ -42,6 +57,7 @@ public:
 
 	void RetrieveCollectable(ObjectsEnum type);
 	void SetShieldActive(bool state);
+	void CalculateShield();
 };
 
 

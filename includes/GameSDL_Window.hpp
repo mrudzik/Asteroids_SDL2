@@ -17,8 +17,9 @@
 enum ColorEnum
 {// Just Collection of often used collors
 	White, Black, // Basic Colors
-	Red, Green, Blue // Standart Colors
-
+	Red, Green, Blue, // Standart Colors
+	Yellow,
+	Cyan
 };
 
 class GameSDL_Window

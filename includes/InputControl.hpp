@@ -13,8 +13,6 @@ private:
     const Uint8*    _keyState;
 
     GameManager*    _game;
-
-    bool    _holdingLock = false;
     
 public:
     InputControl(GameManager* gameManager);

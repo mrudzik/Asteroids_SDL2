@@ -23,6 +23,7 @@ private:
 	const int _abilityProbability;
 
 public:
+	bool    holdingLock = false;
 
 	Player*	player; // Allocated at Object Factory
 

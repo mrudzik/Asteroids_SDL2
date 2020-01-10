@@ -92,10 +92,8 @@ void 	GameManager::LockTorpedo(bool state)
 		return;
 	}
 
-	int worldPosX = (_objectFactory.mousePosX - _window.GetWidthHalf()) * -1
-		+ player->GetPosX();
-	int worldPosY = (_objectFactory.mousePosY - _window.GetHeightHalf()) * -1
-		+ player->GetPosY();
+	int worldPosX = _objectFactory.mouseWorldPosX;
+	int worldPosY = _objectFactory.mouseWorldPosY;
 
 	player->lockedObject = NULL;
 	player->lockedObject = _objectFactory.GetClosestAsteroid(worldPosX, worldPosY);
@@ -109,7 +107,12 @@ void 	GameManager::LaunchTorpedo()
 {
 	if (player->lockedObject == NULL)
 		return; // Protection
-	
+	if (player->GetTorpedoCount() <= 0)
+	{
+		player->lockedObject->lockObj.SetLock(false);
+		return;
+	}
+	player->RechargeTorpedo(-1);
 	_objectFactory.CreateObject(ObjectsEnum::TorpedoType,
 		player->GetPosX(), player->GetPosY(), 0, 0, 2.0f, 0, 0);
 
@@ -169,10 +172,22 @@ void 	GameManager::RefreshUIData()
 	// Mouse Position
 	_uiData.mousePosX = _objectFactory.mousePosX;
 	_uiData.mousePosY = _objectFactory.mousePosY;
+	// Mouse World Position
+	_uiData.mousePosX_world = _objectFactory.mouseWorldPosX;
+	_uiData.mousePosY_world = _objectFactory.mouseWorldPosY;
 	// Object Counters
 	_uiData.bullets = _objectFactory.GetBulletCount();
 	_uiData.asteroids = _objectFactory.GetAsteroidCount();
 	_uiData.collectables = _objectFactory.GetCollectableCount();
+	_uiData.torpedos = _objectFactory.GetTorpedoCount();
+	// Shield Stuff
+	_uiData.shieldCapacity = player->GetShieldCap();
+	_uiData.shieldEnergy = player->GetShieldEn();
+	_uiData.isShielded = player->IsShielded();
+	// Torpedo Stuff
+	_uiData.torpedoCapacity = player->GetTorpedoCap();
+	_uiData.torpedoCount = player->GetTorpedoCount();
+	_uiData.isLockingTorpedo = holdingLock;
 
 }
 

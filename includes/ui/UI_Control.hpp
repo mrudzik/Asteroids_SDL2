@@ -13,20 +13,28 @@ struct s_UIData
 	int bullets;
 	int asteroids;
 	int collectables;
+	int torpedos;
 
 	int playerPosX;
 	int playerPosY;
 	int playerScore;
 	int mousePosX;
 	int mousePosY;
+	int mousePosX_world;
+	int mousePosY_world;
 
 	bool showHelp;
 	bool showCheatHelp;
 	bool showPlayerStatus;
 	bool showObjectsStatus;
 
-	// bool isShielded;
+	bool isShielded;
+	int shieldCapacity;
+	int shieldEnergy;
 
+	bool isLockingTorpedo;
+	int torpedoCapacity;
+	int torpedoCount;
 
 	void HideAll()
 	{
@@ -55,14 +63,28 @@ public:
 
 	void 	RenderAll(s_UIData data);
 	// Cheats
-	void	RenderPlayerStatus(int const mousePosX, int const mousePosY,
+	void	RenderPlayerStatus(
+		int const screenX, int const screenY,
+		int const mousePosX, int const mousePosY,
+		int const mousePosX_world, int const mousePosY_world,
 		int const playerPosX, int const playerPosY);
-	void 	RenderObjectsStatus(int const curBullets, int const limBullets,
+	void 	RenderObjectsStatus(int const screenX, int const screenY,
+		int const curBullets, int const limBullets,
 		int const curAsteroids, int const limAsteroids,
-		int const curCollectables);
+		int const curCollectables,
+		int const curTorpedos);
 	
 	// UI
-	void 	RenderPlayerUI(int const score);
+	void 	RenderPlayerUI(
+		int const screenX, int const screenY,
+		int const score);
+	void 	RenderShieldUI(
+		int const screenX, int const screenY,
+		int const shieldCap, int const shieldEn,
+		bool const isShielded);
+	void 	RenderTorpedoUI(
+		int const screenX, int const screenY,
+		int const torpCap, int const torpCount, bool const isLocking);
 
 
 };

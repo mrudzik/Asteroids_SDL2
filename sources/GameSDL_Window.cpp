@@ -135,12 +135,18 @@ SDL_Color 	GameSDL_Window::GetColor(ColorEnum colorName)
 		return tempColor;
 
 	case ColorEnum::White:
-		tempColor.r = 255;
-		tempColor.g = 255;
-		tempColor.b = 255;
+		tempColor.r = 255; tempColor.g = 255; tempColor.b = 255;
 		return tempColor;
 
 	case ColorEnum::Black:
+		return tempColor;
+	
+	case ColorEnum::Yellow:
+		tempColor.r = 255; tempColor.g = 215; tempColor.b = 54;
+		return tempColor;
+
+	case ColorEnum::Cyan:
+		tempColor.r = 50; tempColor.g = 190; tempColor.b = 245;
 		return tempColor;
 
 	default:

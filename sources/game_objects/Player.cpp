@@ -17,6 +17,13 @@ Player::Player(GameSDL_Window* window, PicTexture* newAvatar,
 	_shieldPic = newShieldPic;
 	_isShielded = false;
 	_shieldAngle = 0;
+	_shieldCapacity = 60 * 8;
+	_shieldEnergy = _shieldCapacity;
+	_shieldUsage = 1;
+
+	// Torpedo stuff
+	_torpedoCapacity = 5;
+	_torpedoCount = _torpedoCapacity;
 }
 
 Player::~Player()
@@ -32,6 +39,25 @@ bool Player::IsShielded()
 	return _isShielded;
 }
 
+int Player::GetShieldCap()
+{
+	return _shieldCapacity;
+}
+int Player::GetShieldEn()
+{
+	return _shieldEnergy;
+}
+int Player::GetTorpedoCap()
+{
+	return _torpedoCapacity;
+}
+int Player::GetTorpedoCount()
+{
+	return _torpedoCount;
+}
+
+
+
 void Player::RestartBehaviour()
 {
 	_xPos = 0;
@@ -42,6 +68,8 @@ void Player::RestartBehaviour()
 	_score = 0;
 
 	_shieldAngle = 0;
+	_shieldEnergy = _shieldCapacity;
+	_torpedoCount = _torpedoCapacity;
 }
 
 void Player::MoveX(float xVec)
@@ -101,6 +129,20 @@ void Player::CalculateAngle(int mouseScreenPosX, int mouseScreenPosY)
 	return;
 }
 
+void Player::CalculateShield()
+{
+	if (!_isShielded)
+		return;
+
+	_shieldAngle += _rotationSpeed;
+	_shieldEnergy -= _shieldUsage;
+	if (_shieldEnergy < 0)
+	{
+		_shieldEnergy = 0;
+		_isShielded = false;
+	}
+}
+
 void Player::RenderOnWindow(int xPlayer, int yPlayer)
 {
 	int xDif = xPlayer - _xPos + _window->GetWidthHalf();
@@ -110,7 +152,6 @@ void Player::RenderOnWindow(int xPlayer, int yPlayer)
 
 	if (_isShielded)
 	{
-		_shieldAngle += _rotationSpeed;
 		_shieldPic->RenderPic(*_window,
 		xDif - _shieldPic->GetWidth() / 1.5, yDif - _shieldPic->GetHeight() / 1.5,
 		NULL, _shieldAngle, NULL, SDL_FLIP_NONE);
@@ -136,5 +177,30 @@ void Player::RetrieveCollectable(ObjectsEnum type)
 
 void Player::SetShieldActive(bool state)
 {
+	if (_shieldEnergy == 0)
+	{
+		_isShielded = false;
+		return;
+	}
 	_isShielded = state;
+}
+
+void Player::RechargeShield(int fuelCount)
+{
+	if (fuelCount <= 0)
+		return;
+
+	_shieldEnergy += fuelCount;
+	if (_shieldEnergy > _shieldCapacity)
+		_shieldEnergy = _shieldCapacity;
+}
+
+void Player::RechargeTorpedo(int count)
+{
+	_torpedoCount += count;
+	
+	if (_torpedoCount < 0)
+		_torpedoCount = 0;
+	if (_torpedoCount > _torpedoCapacity)
+		_torpedoCount = _torpedoCapacity;
 }

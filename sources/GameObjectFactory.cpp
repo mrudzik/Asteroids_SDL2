@@ -126,11 +126,17 @@ void 	GameObjectFactory::DeallocateAllObjects()
 void	GameObjectFactory::CalculateMovementAll()
 {
 	SDL_GetMouseState(&mousePosX, &mousePosY);
+	mouseWorldPosX = (mousePosX - _window->GetWidthHalf()) * -1
+		+ player->GetPosX();
+	mouseWorldPosY = (mousePosY - _window->GetHeightHalf()) * -1
+		+ player->GetPosY();
+
+
+
 	player->CalculateAngle(mousePosX, mousePosY);
 	player->CalculateMovement(_window->mapSizeX, _window->mapSizeY);
-	// std::cout << "Player Pos: X " << player->GetPosX()
-		// << " Y " << player->GetPosY() << std::endl;
 	player->InertiaDampeners();
+	player->CalculateShield();
 
 
 	for (int i = 0; i < (int)_bigAsteroids.size(); i++)
@@ -411,7 +417,10 @@ int 	GameObjectFactory::GetCollectableCount()
 {
 	return (int)_collectables.size();
 }
-
+int 	GameObjectFactory::GetTorpedoCount()
+{
+	return (int)_torpedos.size();
+}
 
 
 

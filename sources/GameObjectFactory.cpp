@@ -41,7 +41,7 @@ GameObjectFactory::GameObjectFactory(GameSDL_Window* window, bool brownMotion)
 	std::cout << "Creating Player" << std::endl;
 	player = new Player(_window, _spaceShipPic, 0, 0, 0, 0, 0, -1.0f, 0,
 		_shieldPic);
-	// player->isShielded = true;
+
 }
 
 GameObjectFactory::~GameObjectFactory()
@@ -155,7 +155,8 @@ void	GameObjectFactory::CalculateMovementAll()
 	for (int i = (int)_torpedos.size() - 1; i > -1; i--)
 	{
 		if (!_torpedos.at(i)->AimTarget(
-			GetAsteroidByID(_torpedos.at(i)->GetTargetID())))
+			GetAsteroidByID(_torpedos.at(i)->GetTargetID()),
+			_window->mapSizeX, _window->mapSizeY))
 		{
 			DestroyObject(ObjectsEnum::TorpedoType, i);
 			continue;

@@ -103,7 +103,6 @@ void 	GameManager::LockTorpedo(bool state)
 		return; // Protection
 
 	player->lockedObject->lockObj.SetLock(true);
-	std::cout << "SetLock" << std::endl;
 }
 
 void 	GameManager::LaunchTorpedo()

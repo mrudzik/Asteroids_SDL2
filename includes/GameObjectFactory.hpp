@@ -34,6 +34,10 @@ private:
 	PicTexture* 	_crystalBluePic;
 	PicTexture*		_crystalPurplePic;
 
+	PicTexture* 	_shieldAbilPic;
+	PicTexture* 	_torpedoAbilPic;
+
+
 	PicTexture* 	_shieldPic;
 	PicTexture* 	_torpedoPic;
 	PicTexture*		_lockPic;
@@ -46,6 +50,8 @@ private:
 	std::vector<Collectable*>		_collectables;
 	std::vector<Torpedo*> 			_torpedos;
 
+	float const _abilityProb;
+
 	bool _zoneToRender[9];
 public:
 	Player*	player;
@@ -57,7 +63,8 @@ public:
 
 	bool const brownianMotion;
 
-    GameObjectFactory(GameSDL_Window* window, bool brownMotion);
+    GameObjectFactory(GameSDL_Window* window,
+		bool brownMotion, float abilProb);
     ~GameObjectFactory();
 
 	void CalculateMovementAll();
@@ -75,7 +82,7 @@ public:
 	int GetBulletCount();
 	int GetCollectableCount();
 	int GetTorpedoCount();
-	
+
 	void BulletReload(int const bulletLimit);
 	void RestartBehaviour();
 

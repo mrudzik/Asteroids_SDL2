@@ -10,10 +10,9 @@
 GameManager::GameManager(s_ParsedData parsedData) :
 _window("Asteroids", parsedData.winSize_x, parsedData.winSize_y, 300, 5,
 	parsedData.mapSize_x, parsedData.mapSize_y),
-_objectFactory(&_window, parsedData.brownianMotion),
+_objectFactory(&_window, parsedData.brownianMotion, parsedData.abilityProbability),
 _uiController(&_window),
-_limitAsteroid(parsedData.asteroidNum), _limitAmmo(parsedData.ammoNum),
-_abilityProbability(parsedData.abilityProbability)
+_limitAsteroid(parsedData.asteroidNum), _limitAmmo(parsedData.ammoNum)
 {
 	srand(0); // Seeding Random
 	// Seting UI Data
@@ -38,8 +37,6 @@ void    GameManager::GameLoop()
 
 	InputControl inputController(this);
 	SpawnControl spawnController(&_objectFactory, _limitAsteroid);
-
-	(void)_abilityProbability; // To silence warning
 
 	_objectFactory.RestartBehaviour();
 	player->RestartBehaviour();

@@ -14,7 +14,9 @@ enum ObjectsEnum
 	CrystalGreenType,
 	CrystalBlueType,
 	CrystalPurpleType,
-	TorpedoType
+	TorpedoType,
+	ShieldBatteryType,
+	TorpedoAmmoType,
 };
 
 

@@ -173,6 +173,16 @@ void Player::RetrieveCollectable(ObjectsEnum type)
 		_score += 25;
 	if (type == ObjectsEnum::CrystalPurpleType)
 		_score += 40;
+	if (type == ObjectsEnum::ShieldBatteryType)
+	{
+		_score += 50;
+		RechargeShield(_shieldCapacity / 4);
+	}
+	if (type == ObjectsEnum::TorpedoAmmoType)
+	{
+		_score += 50;
+		RechargeTorpedo(1);
+	}
 }
 
 void Player::SetShieldActive(bool state)

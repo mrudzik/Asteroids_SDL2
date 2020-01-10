@@ -29,16 +29,29 @@ void 	GameObjectFactory::CreateResource(int posX, int posY)
 {
 	ObjectsEnum tempType;
 
-	int random = rand() % 4;
-	if (random == 0)
-		tempType = ObjectsEnum::CrystalWhiteType;
-	if (random == 1)
-		tempType = ObjectsEnum::CrystalGreenType;
-	if (random == 2)
-		tempType = ObjectsEnum::CrystalBlueType;
-	if (random == 3)
-		tempType = ObjectsEnum::CrystalPurpleType;
-
+	int random = rand() % 100;
+	if (random < _abilityProb * 100) // by default 0.3 to 30%
+	{
+		random = rand() % 3;
+		if (random == 1)
+			tempType = ObjectsEnum::TorpedoAmmoType;
+		else
+			tempType = ObjectsEnum::ShieldBatteryType;
+	}
+	else
+	{
+		random = rand() % 4;
+		if (random == 1)
+			tempType = ObjectsEnum::CrystalGreenType;
+		if (random == 2)
+			tempType = ObjectsEnum::CrystalBlueType;
+		if (random == 3)
+			tempType = ObjectsEnum::CrystalPurpleType;
+		else
+			tempType = ObjectsEnum::CrystalWhiteType;
+	}
+	
+	
 	CreateObject(tempType, posX, posY,
 		0, 0, 0, 1.0f, rand() % 360);
 }

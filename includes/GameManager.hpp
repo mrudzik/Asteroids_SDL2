@@ -20,7 +20,6 @@ private:
 
 	const int _limitAsteroid;
 	const int _limitAmmo;
-	const int _abilityProbability;
 
 public:
 	bool    holdingLock = false;

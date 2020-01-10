@@ -1,9 +1,12 @@
 
 #include "GameObjectFactory.hpp"
 
-GameObjectFactory::GameObjectFactory(GameSDL_Window* window, bool brownMotion)
-	: spawnRadius((window->GetWidth() > window->GetHeight()) ? window->GetWidth() : window->GetHeight()),
-	brownianMotion(brownMotion)
+GameObjectFactory::GameObjectFactory(GameSDL_Window* window,
+	bool brownMotion, float abilProb) :
+		_abilityProb(abilProb),
+		spawnRadius((window->GetWidth() > window->GetHeight())
+			? window->GetWidth() : window->GetHeight()),
+		brownianMotion(brownMotion)
 {
     std::cout << "Game Object Factory Creation" << std::endl;
     _window = window;
@@ -26,6 +29,13 @@ GameObjectFactory::GameObjectFactory(GameSDL_Window* window, bool brownMotion)
 	_crystalBluePic->LoadFromFile("resourses/crystals/crystal_blue_small.png", *_window);
 	_crystalPurplePic = new PicTexture();
 	_crystalPurplePic->LoadFromFile("resourses/crystals/crystal_purple_small.png", *_window);
+	// Ability pics
+	_shieldAbilPic = new PicTexture();
+	_shieldAbilPic->LoadFromFile("resourses/ShieldBattery.png", *_window);
+	_torpedoAbilPic = new PicTexture();
+	_torpedoAbilPic->LoadFromFile("resourses/torpedos/Torpedo2_small_Ammo.png", *_window);
+
+	
 	// Shield pics
 	_shieldPic = new PicTexture();
 	_shieldPic->LoadFromFile("resourses/ShieldCircle.png", *_window);
@@ -62,6 +72,9 @@ GameObjectFactory::~GameObjectFactory()
 	delete _crystalGreenPic;
 	delete _crystalBluePic;
 	delete _crystalPurplePic;
+
+	delete _shieldAbilPic;
+	delete _torpedoAbilPic;
 
 	delete _shieldPic;
 	delete _torpedoPic;
@@ -265,18 +278,29 @@ float xVec, float yVec, float speed, float rotationSpeed, float angle)
 	else if (objType == ObjectsEnum::CrystalWhiteType ||
 		objType == ObjectsEnum::CrystalGreenType ||
 		objType == ObjectsEnum::CrystalBlueType ||
-		objType == ObjectsEnum::CrystalPurpleType)
+		objType == ObjectsEnum::CrystalPurpleType ||
+		objType == ObjectsEnum::ShieldBatteryType ||
+		objType == ObjectsEnum::TorpedoAmmoType)
 	{
-		PicTexture* tempPic;
+		PicTexture* tempPic = NULL;
 
 		if (objType == ObjectsEnum::CrystalWhiteType)
 			tempPic = _crystalWhitePic;
-		if (objType == ObjectsEnum::CrystalGreenType)
+		else if (objType == ObjectsEnum::CrystalGreenType)
 			tempPic = _crystalGreenPic;
-		if (objType == ObjectsEnum::CrystalBlueType)
+		else if (objType == ObjectsEnum::CrystalBlueType)
 			tempPic = _crystalBluePic;
-		if (objType == ObjectsEnum::CrystalPurpleType)
+		else if (objType == ObjectsEnum::CrystalPurpleType)
 			tempPic = _crystalPurplePic;
+		else if (objType == ObjectsEnum::ShieldBatteryType)
+			tempPic = _shieldAbilPic;
+		else if (objType == ObjectsEnum::TorpedoAmmoType)
+			tempPic = _torpedoAbilPic;
+		else 
+		{ // Little Protection
+			std::cout << "Tried to create object with wrong Enum" << std::endl;
+			return;
+		}
 
 		Collectable* tempObject =
 			new Collectable(_window, tempPic, xPos, yPos,
@@ -332,7 +356,9 @@ void    GameObjectFactory::DestroyObject(ObjectsEnum objType, int index)
 	else if (objType == ObjectsEnum::CrystalWhiteType ||
 		objType == ObjectsEnum::CrystalGreenType ||
 		objType == ObjectsEnum::CrystalBlueType ||
-		objType == ObjectsEnum::CrystalPurpleType)
+		objType == ObjectsEnum::CrystalPurpleType ||
+		objType == ObjectsEnum::ShieldBatteryType ||
+		objType == ObjectsEnum::TorpedoAmmoType)
 	{
 		Collectable* tempCollectable = _collectables.at(index);
 		_collectables.erase(_collectables.begin() + index);

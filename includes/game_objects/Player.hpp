@@ -4,6 +4,12 @@
 #include "AbstractGameObject.hpp"
 #include "Asteroid.hpp"
 
+enum AbilityType
+{
+	TorpedoAbil,
+	AimshootAbil
+};
+
 class Player final: public AbstractGameObject
 {
 
@@ -26,10 +32,11 @@ private:
 	int _screenPosY;
 
 	int _score;
-
+	
 public:
 
-	Asteroid* lockedObject;
+	AbilityType 	selectedAbility = AbilityType::TorpedoAbil;
+	Asteroid* 		lockedObject;
 
     Player(GameSDL_Window* window, PicTexture* newAvatar,
     int xPos, int yPos, float xVec, float yVec, float speed,

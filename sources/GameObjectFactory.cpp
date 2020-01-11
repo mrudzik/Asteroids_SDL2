@@ -88,17 +88,17 @@ void 	GameObjectFactory::DeallocateAllObjects()
 	std::cout << "Deallocating Objects" << std::endl;
     for (int i = 0; i < (int)_bigAsteroids.size(); i++)
     {// Deallocating Asteroids
-		_bigAsteroids.at(i).reset();
-		// delete _bigAsteroids.at(i);
-		// _bigAsteroids.at(i) = NULL;
+		// _bigAsteroids.at(i).reset();
+		delete _bigAsteroids.at(i);
+		_bigAsteroids.at(i) = NULL;
     }
 	_bigAsteroids.clear();
 
 	for (int i = 0; i < (int)_smallAsteroids.size(); i++)
 	{// Small Asteroids
-		_smallAsteroids.at(i).reset();
-		// delete _smallAsteroids.at(i);
-		// _smallAsteroids.at(i) = NULL;
+		// _smallAsteroids.at(i).reset();
+		delete _smallAsteroids.at(i);
+		_smallAsteroids.at(i) = NULL;
 	}
 	_smallAsteroids.clear();
 
@@ -234,25 +234,25 @@ float xVec, float yVec, float speed, float rotationSpeed, float angle)
 {
 	if (objType == ObjectsEnum::BigAsteroidType)
 	{
-		std::shared_ptr<BigAsteroid> tempObject =
-			std::make_shared<BigAsteroid>(_window, _bigAsteroidPic,
-			xPos, yPos, xVec, yVec,
-			speed, rotationSpeed, angle);
-		// BigAsteroid* tempObject =
-		// 	new BigAsteroid(_window, _bigAsteroidPic, xPos, yPos,
-		// 	xVec, yVec, speed, rotationSpeed, angle);
+		// std::shared_ptr<BigAsteroid> tempObject =
+		// 	std::make_shared<BigAsteroid>(_window, _bigAsteroidPic,
+		// 	xPos, yPos, xVec, yVec,
+		// 	speed, rotationSpeed, angle);
+		BigAsteroid* tempObject =
+			new BigAsteroid(_window, _bigAsteroidPic, xPos, yPos,
+			xVec, yVec, speed, rotationSpeed, angle);
 		tempObject->lockObj.SetLockData(_lockPic, GenerateUniqueID());
 		_bigAsteroids.push_back(tempObject);
 	}
 	else if (objType == ObjectsEnum::SmallAsteroidType)
 	{
-		std::shared_ptr<SmallAsteroid> tempObject =
-			std::make_shared<SmallAsteroid>(_window, _smallAsteroidPic,
-			xPos, yPos, xVec, yVec,
-			speed, rotationSpeed, angle);
-		// SmallAsteroid* tempObject =
-		// 	new SmallAsteroid(_window, _smallAsteroidPic, xPos, yPos,
-		// 	xVec, yVec, speed, rotationSpeed, angle);
+		// std::shared_ptr<SmallAsteroid> tempObject =
+		// 	std::make_shared<SmallAsteroid>(_window, _smallAsteroidPic,
+		// 	xPos, yPos, xVec, yVec,
+		// 	speed, rotationSpeed, angle);
+		SmallAsteroid* tempObject =
+			new SmallAsteroid(_window, _smallAsteroidPic, xPos, yPos,
+			xVec, yVec, speed, rotationSpeed, angle);
 		tempObject->lockObj.SetLockData(_lockPic, GenerateUniqueID());
 		_smallAsteroids.push_back(tempObject);
 	}
@@ -314,23 +314,23 @@ void    GameObjectFactory::DestroyObject(ObjectsEnum objType, int index)
 {
 	if (objType == ObjectsEnum::BigAsteroidType)
 	{
-		_bigAsteroids.at(index).reset();	
-		// BigAsteroid* tempAsteroid = _bigAsteroids.at(index);
+		// _bigAsteroids.at(index).reset();	
+		BigAsteroid* tempAsteroid = _bigAsteroids.at(index);
 		// Erase that pointer from vector
 		_bigAsteroids.erase(_bigAsteroids.begin() + index);
 		// Deal with allocated data on that pointer
-		// delete tempAsteroid;
-		// tempAsteroid = NULL;
+		delete tempAsteroid;
+		tempAsteroid = NULL;
 	}
 	else if (objType == ObjectsEnum::SmallAsteroidType)
 	{
-		_smallAsteroids.at(index).reset();
-		// SmallAsteroid* tempAsteroid = _smallAsteroids.at(index);
+		// _smallAsteroids.at(index).reset();
+		SmallAsteroid* tempAsteroid = _smallAsteroids.at(index);
 		// Erase that pointer from vector
 		_smallAsteroids.erase(_smallAsteroids.begin() + index);
 		// Deal with allocated data on that pointer
-		// delete tempAsteroid;
-		// tempAsteroid = NULL;
+		delete tempAsteroid;
+		tempAsteroid = NULL;
 	}
 	else if (objType == ObjectsEnum::BulletType)
 	{
@@ -382,7 +382,7 @@ Asteroid* GameObjectFactory::GetClosestAsteroid(int posX, int posY)
 	// Check for closest dist
 	for (int i = 0; i < (int)_bigAsteroids.size(); i++)
 	{	// Big Asteroids
-		BigAsteroid* tempTarget = _bigAsteroids.at(i).get();
+		BigAsteroid* tempTarget = _bigAsteroids.at(i);
 
 		if (tempTarget->lockObj.IsLocked())
 			continue;
@@ -397,7 +397,7 @@ Asteroid* GameObjectFactory::GetClosestAsteroid(int posX, int posY)
 	}
 	for (int i = 0; i < (int)_smallAsteroids.size(); i++)
 	{	// Small Asteroids
-		SmallAsteroid* tempTarget = _smallAsteroids.at(i).get();
+		SmallAsteroid* tempTarget = _smallAsteroids.at(i);
 		if (tempTarget->lockObj.IsLocked())
 			continue;
 		
@@ -420,12 +420,12 @@ Asteroid* GameObjectFactory::GetAsteroidByID(int targetID)
 	for (int i = 0; i < (int)_bigAsteroids.size(); i++)
 	{	// Big Asteroids
 		if (_bigAsteroids.at(i)->lockObj.GetID() == targetID)
-			return _bigAsteroids.at(i).get();
+			return _bigAsteroids.at(i);
 	}
 	for (int i = 0; i < (int)_smallAsteroids.size(); i++)
 	{	// Small Asteroids
 		if (_smallAsteroids.at(i)->lockObj.GetID() == targetID)
-			return _smallAsteroids.at(i).get();
+			return _smallAsteroids.at(i);
 	}
 	return NULL;
 }

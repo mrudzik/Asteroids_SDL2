@@ -69,6 +69,69 @@ void    GameManager::GameLoop()
 
 
 
+
+void 	GameManager::AimShoot(AbstractGameObject* target)
+{
+	// Basic Values
+	// Chaser Location
+	float chaseX = player->GetPosX();
+	float chaseY = player->GetPosY();
+	// Runner Location
+	float runX = target->GetPosX();
+	float runY = target->GetPosY();
+	// Runner current speed and direction (dist per frame)
+	float runVelX = target->GetVecX() * target->GetSpeed();
+	float runVelY = target->GetVecY() * target->GetSpeed();
+	// Vector from Runner to Chaser
+	float vecRunChaseX = runX - chaseX;
+	float vecRunChaseY = runY - chaseY;
+	// Results
+	float resPosX;
+	float resPosY;
+	float resVecX;
+	float resVecY;
+
+	float chaseSpeed = 5;
+
+	float s = vecRunChaseX * runVelY - vecRunChaseY * runVelX;
+	float d = (-2 * vecRunChaseX * s) * (-2 * vecRunChaseX * s)
+		- 4 * (vecRunChaseX * vecRunChaseX + vecRunChaseY * vecRunChaseY)
+		* (s * s - (vecRunChaseY * vecRunChaseY) * (chaseSpeed * chaseSpeed));
+	if(!(d < 0))
+	{
+		float a1 = 		(2*vecRunChaseX*s + sqrtf(d))
+				/ //--------------------------------------------
+					(2*((vecRunChaseX*vecRunChaseX) + vecRunChaseY*vecRunChaseY));
+		float a2 = 		(2*vecRunChaseX*s - sqrtf(d))
+				/ //--------------------------------------------
+					(2*((vecRunChaseX*vecRunChaseX) + vecRunChaseY*vecRunChaseY));
+		float t1 = vecRunChaseY / (a1 - runVelY);
+		float t2 = vecRunChaseY / (a2 - runVelY);
+		float t = t1;
+		if(t < 0 || (t > t2 && t2 > 0))
+			t = t2;
+
+		resPosX = runX + runVelX * t;
+		resPosY = runY + runVelY * t;
+		resVecX = resPosX - chaseX;
+		resVecY = resPosY - chaseY;
+		float len = sqrt(resVecX * resVecX + resVecY * resVecY);
+		resVecX /= len;
+		resVecY /= len;
+
+		_objectFactory.BulletReload(_limitAmmo);
+		_objectFactory.CreateObject(ObjectsEnum::BulletType,
+			player->GetPosX(), player->GetPosY(),
+			resVecX, resVecY,
+			chaseSpeed, -1, 0);
+
+		return;
+	}
+
+
+}
+
+
 void 	GameManager::Shoot()
 {
 	_objectFactory.BulletReload(_limitAmmo);
@@ -79,7 +142,9 @@ void 	GameManager::Shoot()
 	5, 0, angle - 90);
 }
 
-void 	GameManager::LockTorpedo(bool state)
+
+
+void 	GameManager::LockObject(bool state)
 {
 	if (!state)
 	{
@@ -100,6 +165,20 @@ void 	GameManager::LockTorpedo(bool state)
 	player->lockedObject->lockObj.SetLock(true);
 }
 
+
+
+void 	GameManager::AbilityShoot()
+{
+	if (player->lockedObject == NULL)
+		return; // Protection
+	AimShoot(player->lockedObject);
+	// player->lockedObject->lockObj.SetLock(false);
+
+	LockObject(false);
+	// LockObject(true);
+
+}
+
 void 	GameManager::LaunchTorpedo()
 {
 	if (player->lockedObject == NULL)
@@ -112,12 +191,8 @@ void 	GameManager::LaunchTorpedo()
 	player->RechargeTorpedo(-1);
 	_objectFactory.CreateObject(ObjectsEnum::TorpedoType,
 		player->GetPosX(), player->GetPosY(), 0, 0, 2.0f, 0, 0);
-
-	// LockTorpedo(false);
-	// std::cout << "Lock Unlock" << std::endl;
-	// _lockedAsteroid->SetLock(false);
-
 	
+	// LockObject(true);
 }
 
 

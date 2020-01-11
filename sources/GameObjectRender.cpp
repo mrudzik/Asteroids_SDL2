@@ -12,7 +12,7 @@ void 	GameObjectFactory::RenderSpecific(int posX, int posY)
 	}
 	for (int i = 0; i < (int)_bigAsteroids.size(); i++)
 	{// Big Asteroids
-		BigAsteroid* tempObj = _bigAsteroids.at(i).get();
+		BigAsteroid* tempObj = _bigAsteroids.at(i);
 		if (tempObj->lockObj.IsLocked())
 			tempObj->lockObj.ShowLock(_window,
 				tempObj->GetPosX(), tempObj->GetPosY(),
@@ -21,7 +21,7 @@ void 	GameObjectFactory::RenderSpecific(int posX, int posY)
 	}
 	for (int i = 0; i < (int)_smallAsteroids.size(); i++)
 	{// Small Asteroids
-		SmallAsteroid* tempObj = _smallAsteroids.at(i).get();
+		SmallAsteroid* tempObj = _smallAsteroids.at(i);
 		if (tempObj->lockObj.IsLocked())
 			tempObj->lockObj.ShowLock(_window,
 				tempObj->GetPosX(), tempObj->GetPosY(),

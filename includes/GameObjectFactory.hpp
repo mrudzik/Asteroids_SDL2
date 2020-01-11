@@ -44,8 +44,8 @@ private:
 
     // Allocated Objects
 	// TODO make them all unique ptr
-    std::vector<std::shared_ptr<BigAsteroid>>		_bigAsteroids;
-	std::vector<std::shared_ptr<SmallAsteroid>>		_smallAsteroids;
+    std::vector<BigAsteroid*>		_bigAsteroids;
+	std::vector<SmallAsteroid*>		_smallAsteroids;
 	std::vector<Bullet*>			_bullets;
 	std::vector<Collectable*>		_collectables;
 	std::vector<Torpedo*> 			_torpedos;

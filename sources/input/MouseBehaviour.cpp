@@ -14,10 +14,23 @@ void    InputControl::MouseEventInput()
         {
             if (_game->holdingLock)
             {
-                _game->LaunchTorpedo();
                 _game->holdingLock = false;
-            }
-                // std::cout << "Torpedo!" << std::endl;
+				if (_game->player->selectedAbility == AbilityType::TorpedoAbil)
+				{
+					std::cout << "Torpedo" << std::endl;
+					_game->LaunchTorpedo();
+				}
+				else if (_game->player->selectedAbility == AbilityType::AimshootAbil)
+				{
+					std::cout << "Shoot" << std::endl;
+					_game->AbilityShoot(); 
+				}
+				else
+				{
+					std::cout << "Fail" << std::endl;
+					_game->holdingLock = true; 
+				}
+			}
         }
     }
 }

@@ -22,22 +22,39 @@ void InputControl::KeyboardEventInput()
 
       if (_event.key.keysym.sym == SDLK_1)
         _game->player->SetShieldActive(!_game->player->IsShielded());
-      if (_event.key.keysym.sym == SDLK_2
+
+
+
+      if ((_event.key.keysym.sym == SDLK_LSHIFT
+	  	|| _event.key.keysym.sym == SDLK_RSHIFT)
         && !_game->holdingLock) // Lock Target
       {
-        _game->LockTorpedo(true);
+        _game->LockObject(true);
         _game->holdingLock = true;
       }
        
     }
     if (_event.type == SDL_KEYUP)
     {
-      if (_event.key.keysym.sym == SDLK_2
-        && _game->holdingLock)
-      { // Unlock Target
-        _game->LockTorpedo(false);
-        _game->holdingLock = false;
-      }
+		if ((_event.key.keysym.sym == SDLK_LSHIFT
+	  		|| _event.key.keysym.sym == SDLK_RSHIFT)
+        	&& _game->holdingLock) // Unlock Target
+      	{
+			_game->LockObject(false);
+			_game->holdingLock = false;
+		}
+
+		if (_event.key.keysym.sym == SDLK_2)
+		{ //Select Torpedo
+			std::cout << "Torpedo Set" << std::endl;
+			_game->player->selectedAbility = AbilityType::TorpedoAbil;
+		}
+		if (_event.key.keysym.sym == SDLK_3)
+		{ // Select AutoAiming
+			std::cout << "Shoot Set" << std::endl;
+
+			_game->player->selectedAbility = AbilityType::AimshootAbil;
+		}
     }
 
 }

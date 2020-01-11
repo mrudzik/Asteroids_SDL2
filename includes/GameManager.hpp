@@ -32,12 +32,16 @@ public:
 	void 	GameLoop();
 
 	// Projectiles
-	void 	Shoot();
-	void 	LockTorpedo(bool state);
+	
+	void 	LockObject(bool state);
 	void 	LaunchTorpedo();
+	void 	AbilityShoot();
+
+	void 	AimShoot(AbstractGameObject* target);
+	void 	Shoot();
+
 
 	void 	QuitGame();
-
 	void	RefreshUIData();
 	void 	ShowHelp(InfoEnum textType);
 	void 	ShowCheat(int cheatNum);

@@ -121,7 +121,7 @@ void 	GameObjectFactory::BulletIntersections()
 		Bullet* tempBullet = _bullets.at(i);
 		for (int iTarg = (int)_smallAsteroids.size() - 1; iTarg > -1; iTarg--)
 		{// Small Asteroids
-			SmallAsteroid* tempTarget = _smallAsteroids.at(iTarg).get();
+			SmallAsteroid* tempTarget = _smallAsteroids.at(iTarg);
 			if (tempBullet->CheckIntersect(tempTarget))
 			{
 				// Create Resource here
@@ -136,7 +136,7 @@ void 	GameObjectFactory::BulletIntersections()
 			continue;// In case if Bullet Already Deleted
 		for (int iTarg = (int)_bigAsteroids.size() - 1; iTarg > -1; iTarg--)
 		{// Small Asteroids
-			BigAsteroid* tempTarget = _bigAsteroids.at(iTarg).get();
+			BigAsteroid* tempTarget = _bigAsteroids.at(iTarg);
 			if (tempBullet->CheckIntersect(tempTarget))
 			{// Create two small Asteroids
 				BigAsteroidSplit(tempBullet, tempTarget);
@@ -158,7 +158,7 @@ void 	GameObjectFactory::TorpedoIntersections()
 		Torpedo* tempObj = _torpedos.at(i);
 		for (int iTarg = (int)_smallAsteroids.size() - 1; iTarg > -1; iTarg--)
 		{// Small Asteroids
-			SmallAsteroid* tempTarget = _smallAsteroids.at(iTarg).get();
+			SmallAsteroid* tempTarget = _smallAsteroids.at(iTarg);
 			if (tempObj->CheckIntersect(tempTarget))
 			{
 				// Create Resource here
@@ -173,7 +173,7 @@ void 	GameObjectFactory::TorpedoIntersections()
 			continue;// In case if Bullet Already Deleted
 		for (int iTarg = (int)_bigAsteroids.size() - 1; iTarg > -1; iTarg--)
 		{// Small Asteroids
-			BigAsteroid* tempTarget = _bigAsteroids.at(iTarg).get();
+			BigAsteroid* tempTarget = _bigAsteroids.at(iTarg);
 			if (tempObj->CheckIntersect(tempTarget))
 			{// Create two small Asteroids
 				BigAsteroidSplit(tempObj, tempTarget);
@@ -193,13 +193,13 @@ void 	GameObjectFactory::AsteroidsIntersections()
 	// Checking intersections with all Asteroids
 	for (int i = 0; i < (int)_bigAsteroids.size(); i++)
 	{// Big Asteroids
-		BigAsteroid* tempObj = _bigAsteroids.at(i).get();
+		BigAsteroid* tempObj = _bigAsteroids.at(i);
 
 		for (int iTarg = 0; iTarg < (int)_bigAsteroids.size(); iTarg++)
 		{// Big Asteroids
 			if (iTarg == i)
 				continue;// If same Asteroid
-			BigAsteroid* tempTarget = _bigAsteroids.at(iTarg).get();
+			BigAsteroid* tempTarget = _bigAsteroids.at(iTarg);
 			if (tempTarget->AllIntersectCalculated == true)
 				continue;// If have calculated Intersection for this frame
 			if (AsteroidCollisionHandle(tempObj, tempTarget))
@@ -209,7 +209,7 @@ void 	GameObjectFactory::AsteroidsIntersections()
 			continue; // If already bounced from someone
 		for (int iTarg = 0; iTarg < (int)_smallAsteroids.size(); iTarg++)
 		{// Small Asteroids
-			SmallAsteroid* tempTarget = _smallAsteroids.at(iTarg).get();
+			SmallAsteroid* tempTarget = _smallAsteroids.at(iTarg);
 			if (tempTarget->AllIntersectCalculated == true)
 				continue;// If have calculated Intersection for this frame
 			if (AsteroidCollisionHandle(tempObj, tempTarget))
@@ -220,13 +220,13 @@ void 	GameObjectFactory::AsteroidsIntersections()
 
 	for (int i = 0; i < (int)_smallAsteroids.size(); i++)
 	{// Small Asteroids
-		SmallAsteroid* tempObj = _smallAsteroids.at(i).get();
+		SmallAsteroid* tempObj = _smallAsteroids.at(i);
 		
 		for (int iTarg = 0; iTarg < (int)_smallAsteroids.size(); iTarg++)
 		{// Small Asteroids
 			if (iTarg == i)
 				continue;// If same Asteroid
-			SmallAsteroid* tempTarget = _smallAsteroids.at(iTarg).get();
+			SmallAsteroid* tempTarget = _smallAsteroids.at(iTarg);
 			if (tempTarget->AllIntersectCalculated == true)
 				continue;// If have calculated Intersection for this frame
 			if (AsteroidCollisionHandle(tempObj, tempTarget))
@@ -256,14 +256,14 @@ bool 	GameObjectFactory::PlayerIntersections()
 	// Checking intersections with all Asteroids
 	for (int iTarg = 0; iTarg < (int)_bigAsteroids.size(); iTarg++)
 	{// Big Asteroids
-		BigAsteroid* tempTarget = _bigAsteroids.at(iTarg).get();
+		BigAsteroid* tempTarget = _bigAsteroids.at(iTarg);
 		if (player->CheckIntersect(tempTarget))
 			return true; // Ship Crashed
 	}
 	
 	for (int iTarg = 0; iTarg < (int)_smallAsteroids.size(); iTarg++)
 	{// Small Asteroids
-		SmallAsteroid* tempTarget = _smallAsteroids.at(iTarg).get();
+		SmallAsteroid* tempTarget = _smallAsteroids.at(iTarg);
 		if (player->CheckIntersect(tempTarget))
 			return true; // Ship Crashed
 	}
@@ -279,11 +279,11 @@ void 	GameObjectFactory::CalculateIntersectionsAll()
 
 	for (int i = 0; i < (int)_bigAsteroids.size(); i++)
 	{// Asteroids
-		ClearObjectFromFlags(_bigAsteroids.at(i).get());
+		ClearObjectFromFlags(_bigAsteroids.at(i));
 	}
 	for (int i = 0; i < (int)_smallAsteroids.size(); i++)
 	{// Small Asteroids
-		ClearObjectFromFlags(_smallAsteroids.at(i).get());
+		ClearObjectFromFlags(_smallAsteroids.at(i));
 	}
 
 	// std::cout << "Checking Intersections" << std::endl;

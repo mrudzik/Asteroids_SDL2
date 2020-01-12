@@ -163,6 +163,24 @@ void UI_Control::RenderTorpedoUI(
 		tempColor);
 }
 
+void UI_Control::RenderAutoShootUI(
+	int const screenX, int const screenY,
+	bool const isLocking)
+{
+	_strBuilder.str("");
+	SDL_Color tempColor = _window->GetColor(ColorEnum::White);
+	if (isLocking)
+	{
+		tempColor = _window->GetColor(ColorEnum::Green);
+		_strBuilder << "Locking";
+	}
+	_strBuilder
+		<< "\nAuto Aiming Shot";
+	
+	_window->DrawText(_strBuilder.str().c_str(),
+		screenX, screenY,
+		tempColor);
+}
 
 void UI_Control::RenderAll(s_UIData const data)
 {
@@ -201,8 +219,14 @@ void UI_Control::RenderAll(s_UIData const data)
 		_window->GetWidthHalf() + 20, _window->GetHeightHalf(),
 		data.shieldCapacity, data.shieldEnergy,
 		data.isShielded);
-	RenderTorpedoUI(
-		_window->GetWidthHalf() + 20, _window->GetHeightHalf() + 15,
-		data.torpedoCapacity, data.torpedoCount, data.isLockingTorpedo);
+
+	if (data.currentAbility == AbilityType::TorpedoAbil)
+		RenderTorpedoUI(
+			_window->GetWidthHalf() + 20, _window->GetHeightHalf() + 15,
+			data.torpedoCapacity, data.torpedoCount, data.isLocking);
+	else if (data.currentAbility == AbilityType::AimshootAbil)
+		RenderAutoShootUI(
+			_window->GetWidthHalf() + 20, _window->GetHeightHalf() + 15,
+			data.isLocking);
 }
 

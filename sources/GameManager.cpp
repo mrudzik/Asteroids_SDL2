@@ -273,7 +273,9 @@ void 	GameManager::RefreshUIData()
 	// Torpedo Stuff
 	_uiData.torpedoCapacity = player->GetTorpedoCap();
 	_uiData.torpedoCount = player->GetTorpedoCount();
-	_uiData.isLockingTorpedo = holdingLock;
+	_uiData.isLocking = holdingLock;
+	// Current Ability
+	_uiData.currentAbility = player->selectedAbility;
 
 }
 

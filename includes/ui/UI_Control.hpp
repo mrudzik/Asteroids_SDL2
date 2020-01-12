@@ -4,6 +4,7 @@
 #include "Reticle.hpp"
 #include "Informer.hpp"
 #include "FPS_Timer.hpp"
+#include "Player.hpp"
 
 struct s_UIData
 {
@@ -34,9 +35,11 @@ struct s_UIData
 	int shieldCapacity;
 	int shieldEnergy;
 
-	bool isLockingTorpedo;
+	bool isLocking;
 	int torpedoCapacity;
 	int torpedoCount;
+
+	AbilityType currentAbility;
 
 	void HideAll()
 	{
@@ -91,7 +94,9 @@ public:
 	void 	RenderTorpedoUI(
 		int const screenX, int const screenY,
 		int const torpCap, int const torpCount, bool const isLocking);
-
+	void 	RenderAutoShootUI(
+		int const screenX, int const screenY,
+		bool const isLocking);
 
 };
 

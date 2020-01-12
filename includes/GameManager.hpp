@@ -44,7 +44,8 @@ public:
 	void 	QuitGame();
 	void	RefreshUIData();
 	void 	ShowHelp(InfoEnum textType);
-	void 	ShowCheat(int cheatNum);
+	void 	DoCheat(int cheatNum);
+	void 	CalcCheats();
 };
 
 #endif

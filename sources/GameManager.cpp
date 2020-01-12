@@ -50,8 +50,9 @@ void    GameManager::GameLoop()
 		// Some calculations where something positioned etc.
 		_objectFactory.CalculateMovementAll();
 		_objectFactory.CalculateIntersectionsAll();
-		
-		
+		// Calculate cheats
+		CalcCheats();
+
 		// Refreshing UI Data
 		RefreshUIData();
 		// Rendering Logic
@@ -67,6 +68,13 @@ void    GameManager::GameLoop()
 
 }
 
+void 	GameManager::CalcCheats()
+{
+	if (_uiData.infShield)
+		player->RechargeShield(10);
+	if (_uiData.infTorpedo)
+		player->RechargeTorpedo(1);
+}
 
 
 
@@ -225,12 +233,18 @@ void 	GameManager::ShowHelp(InfoEnum textType)
 	}
 }
 
-void 	GameManager::ShowCheat(int cheatNum)
+void 	GameManager::DoCheat(int cheatNum)
 {
 	if (cheatNum == 1)
 		_uiData.showPlayerStatus = !_uiData.showPlayerStatus;
 	if (cheatNum == 2)
 		_uiData.showObjectsStatus = !_uiData.showObjectsStatus;
+	
+	if (cheatNum == 8)
+		_uiData.infTorpedo = !_uiData.infTorpedo;
+	if (cheatNum == 9)
+		_uiData.infShield = !_uiData.infShield;
+	
 	
 }
 

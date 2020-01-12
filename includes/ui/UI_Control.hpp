@@ -27,6 +27,8 @@ struct s_UIData
 	bool showCheatHelp;
 	bool showPlayerStatus;
 	bool showObjectsStatus;
+	bool infShield;
+	bool infTorpedo;
 
 	bool isShielded;
 	int shieldCapacity;
@@ -73,6 +75,10 @@ public:
 		int const curAsteroids, int const limAsteroids,
 		int const curCollectables,
 		int const curTorpedos);
+	void 	RenderCurrentCheats(
+		int const screenX, int const screenY,
+		bool const infShield, bool const infTorpedo,
+		bool const showObjects, bool const showPlayerInfo);
 	
 	// UI
 	void 	RenderPlayerUI(

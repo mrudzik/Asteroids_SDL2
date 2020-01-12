@@ -32,7 +32,7 @@ void UI_Control::RenderPlayerStatus(
 
 	_window->DrawText(_strBuilder.str().c_str(),
 		screenX, screenY,
-		_window->GetColor(ColorEnum::Green));
+		_window->GetColor(ColorEnum::Yellow));
 }
 
 void UI_Control::RenderObjectsStatus(
@@ -52,7 +52,31 @@ void UI_Control::RenderObjectsStatus(
 
 	_window->DrawText(_strBuilder.str().c_str(),
 		screenX, screenY,
-		_window->GetColor(ColorEnum::Green));
+		_window->GetColor(ColorEnum::Yellow));
+}
+
+void UI_Control::RenderCurrentCheats(
+	int const screenX, int const screenY,
+	bool const infShield, bool const infTorpedo,
+	bool const showObjects, bool const showPlayerInfo)
+{
+	if (!infShield && !infTorpedo && !showObjects && !showPlayerInfo)
+		return;
+
+	_strBuilder.str("");
+	_strBuilder << "Current cheats";
+	if (infShield)
+		_strBuilder << "\n - Infinite Shield";
+	if (infTorpedo)
+		_strBuilder << "\n - Infinite Torpedos";
+	if (showObjects)
+		_strBuilder << "\n - Objects info";
+	if (showPlayerInfo)
+		_strBuilder << "\n - Player info";
+	
+	_window->DrawText(_strBuilder.str().c_str(),
+		screenX, screenY,
+		_window->GetColor(ColorEnum::Yellow));
 }
 
 void UI_Control::RenderPlayerUI(
@@ -151,6 +175,11 @@ void UI_Control::RenderAll(s_UIData const data)
 	if (data.showCheatHelp)
 		_informer.RenderText(InfoEnum::CheatText);
 	// Cheat Info
+
+	RenderCurrentCheats(
+		_window->GetWidth() - 120, 10,
+		data.infShield, data.infTorpedo,
+		data.showObjectsStatus, data.showPlayerStatus);
 	if (data.showObjectsStatus)
 		RenderObjectsStatus(
 			5, 250,

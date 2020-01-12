@@ -18,6 +18,7 @@ Informer::Informer(GameSDL_Window* window)
 		"\n - Use Mouse - for Aiming"
 		"\n - Left Mouse Button - to shoot"
 		"\n - 1,2,3 - to select special ability"
+		"\n - Hold Shift - for locking nearest to reticle asteroid"
 		"\n - Right Mouse Button - to use selected special ability"
 		"\n\n Tips:"
 		"\n - Dodge Asteroids to avoid ship destruction"
@@ -26,10 +27,10 @@ Informer::Informer(GameSDL_Window* window)
 		"\n\n Special Abilities Description"
 		"\n   1. Phase Shield - once activated, grants protection from asteroids"
 		"\n for limited time (few seconds)"
-		"\n   2. Homing Missile - requires locking, once locked and activated,"
+		"\n   2. Homing Missile - [requires locking] once locked and activated,"
 		"\n follows locked asteroid and then explodes"
-		"\n   3. Aimbot Shoot - once activated, shoots few bullets at once "
-		"\n to nearby asteroids"
+		"\n   3. Aimbot Shoot - [requires locking] once locked and activated,"
+		"\n shoots aimed bullet to locked asteroid, on intercepting trajectory"
 		,
 		_window->font_ArialRegular, _window->GetColor(ColorEnum::White),
 		300, 50);
@@ -37,6 +38,8 @@ Informer::Informer(GameSDL_Window* window)
 		" Cheat Help"
 		"\n    Keypad 1 - Show Player Status"
 		"\n    Keypad 2 - Show Objects Status"
+		"\n    Keypad 8 - Infinite Torpedos"
+		"\n    Keypad 9 - Infinite Shield"
 		,
 		_window->font_ArialRegular, _window->GetColor(ColorEnum::White),
 		300, 50);

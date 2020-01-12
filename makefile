@@ -15,9 +15,9 @@ SRC = 	main.cpp \
 		\
 		SpawnControl.cpp			\
 		\
-		GameObjectFactory.cpp		\
-		GameObjectIntersections.cpp \
-		GameObjectRender.cpp		\
+		gameObjectFactory/GameObjectFactory.cpp			\
+		gameObjectFactory/GameObjectIntersections.cpp	\
+		gameObjectFactory/GameObjectRender.cpp			\
 		\
 		input/InputControl.cpp		\
 		input/KeyBehaviour.cpp		\
@@ -26,14 +26,14 @@ SRC = 	main.cpp \
 		texture/PicTexture.cpp			\
 		texture/BackGroundControl.cpp 	\
 		\
-		game_objects/AbstractGameObject.cpp \
-		game_objects/Asteroid.cpp			\
-		game_objects/BigAsteroid.cpp		\
-		game_objects/SmallAsteroid.cpp		\
-		game_objects/Bullet.cpp				\
-		game_objects/Torpedo.cpp 			\
-		game_objects/Player.cpp				\
-		game_objects/Collectable.cpp		\
+		gameObjects/AbstractGameObject.cpp \
+		gameObjects/Asteroid.cpp			\
+		gameObjects/BigAsteroid.cpp		\
+		gameObjects/SmallAsteroid.cpp		\
+		gameObjects/Bullet.cpp				\
+		gameObjects/Torpedo.cpp 			\
+		gameObjects/Player.cpp				\
+		gameObjects/Collectable.cpp		\
 		\
 		ui/UI_Control.cpp		\
 		ui/Reticle.cpp			\

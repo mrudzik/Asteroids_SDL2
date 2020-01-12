@@ -24,12 +24,12 @@ struct s_UIData
 	int mousePosX_world;
 	int mousePosY_world;
 
-	bool showHelp;
-	bool showCheatHelp;
-	bool showPlayerStatus;
-	bool showObjectsStatus;
-	bool infShield;
-	bool infTorpedo;
+	bool showHelp = false;
+	bool showCheatHelp = false;
+	bool showPlayerStatus = false;
+	bool showObjectsStatus = false;
+	bool infShield = false;
+	bool infTorpedo = false;
 
 	bool isShielded;
 	int shieldCapacity;

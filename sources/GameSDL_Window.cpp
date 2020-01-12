@@ -53,8 +53,8 @@ GameSDL_Window::~GameSDL_Window()
 		std::cout << "Destoying Window" << std::endl;		
 		SDL_DestroyWindow(window);
 	}
+	SDL_Quit();
 	std::cout << "Destructing Window Complete" << std::endl;
-
 }
 
 

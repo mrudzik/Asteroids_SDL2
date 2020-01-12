@@ -234,10 +234,6 @@ float xVec, float yVec, float speed, float rotationSpeed, float angle)
 {
 	if (objType == ObjectsEnum::BigAsteroidType)
 	{
-		// std::shared_ptr<BigAsteroid> tempObject =
-		// 	std::make_shared<BigAsteroid>(_window, _bigAsteroidPic,
-		// 	xPos, yPos, xVec, yVec,
-		// 	speed, rotationSpeed, angle);
 		BigAsteroid* tempObject =
 			new BigAsteroid(_window, _bigAsteroidPic, xPos, yPos,
 			xVec, yVec, speed, rotationSpeed, angle);
@@ -246,10 +242,6 @@ float xVec, float yVec, float speed, float rotationSpeed, float angle)
 	}
 	else if (objType == ObjectsEnum::SmallAsteroidType)
 	{
-		// std::shared_ptr<SmallAsteroid> tempObject =
-		// 	std::make_shared<SmallAsteroid>(_window, _smallAsteroidPic,
-		// 	xPos, yPos, xVec, yVec,
-		// 	speed, rotationSpeed, angle);
 		SmallAsteroid* tempObject =
 			new SmallAsteroid(_window, _smallAsteroidPic, xPos, yPos,
 			xVec, yVec, speed, rotationSpeed, angle);
@@ -265,13 +257,13 @@ float xVec, float yVec, float speed, float rotationSpeed, float angle)
 	}
 	else if (objType == ObjectsEnum::TorpedoType)
 	{
-		if (player->lockedObject == NULL)
+		if (player->lockedID < 0)
 			return; // Protection
 		
 		Torpedo* tempObject =
 			new Torpedo(_window, _torpedoPic, xPos, yPos,
 			xVec, yVec, speed, rotationSpeed, angle,
-			player->lockedObject->lockObj.GetID());
+			player->lockedID);
 
 		_torpedos.push_back(tempObject);
 	}
@@ -414,6 +406,8 @@ Asteroid* GameObjectFactory::GetClosestAsteroid(int posX, int posY)
 
 Asteroid* GameObjectFactory::GetAsteroidByID(int targetID)
 {
+	if (targetID < 0)
+		return NULL; // Protection
 	if (GetAsteroidCount() <= 0)
 		return NULL; // Protection
 	

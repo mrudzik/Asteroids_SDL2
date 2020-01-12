@@ -129,6 +129,7 @@ void 	GameObjectFactory::BulletIntersections()
 				// Destroy both
 				DestroyObject(ObjectsEnum::BulletType, i);
 				DestroyObject(ObjectsEnum::SmallAsteroidType, iTarg);
+				tempBullet = NULL;
 				break;
 			}
 		}
@@ -145,6 +146,7 @@ void 	GameObjectFactory::BulletIntersections()
 				// Destroy Both
 				DestroyObject(ObjectsEnum::BulletType, i);
 				DestroyObject(ObjectsEnum::BigAsteroidType, iTarg);
+				tempBullet = NULL;
 				break;
 			}
 		}
@@ -166,6 +168,7 @@ void 	GameObjectFactory::TorpedoIntersections()
 				// Destroy both
 				DestroyObject(ObjectsEnum::TorpedoType, i);
 				DestroyObject(ObjectsEnum::SmallAsteroidType, iTarg);
+				tempObj = NULL;
 				break;
 			}
 		}
@@ -182,6 +185,7 @@ void 	GameObjectFactory::TorpedoIntersections()
 				// Destroy Both
 				DestroyObject(ObjectsEnum::TorpedoType, i);
 				DestroyObject(ObjectsEnum::BigAsteroidType, iTarg);
+				tempObj = NULL;
 				break;
 			}
 		}

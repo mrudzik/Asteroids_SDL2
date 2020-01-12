@@ -17,17 +17,15 @@ void    InputControl::MouseEventInput()
                 _game->holdingLock = false;
 				if (_game->player->selectedAbility == AbilityType::TorpedoAbil)
 				{
-					std::cout << "Torpedo" << std::endl;
 					_game->LaunchTorpedo();
 				}
 				else if (_game->player->selectedAbility == AbilityType::AimshootAbil)
 				{
-					std::cout << "Shoot" << std::endl;
 					_game->AbilityShoot(); 
 				}
 				else
 				{
-					std::cout << "Fail" << std::endl;
+					std::cout << "Failed to use Special Ability" << std::endl;
 					_game->holdingLock = true; 
 				}
 			}

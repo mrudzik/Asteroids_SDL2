@@ -19,6 +19,7 @@ _limitAsteroid(parsedData.asteroidNum), _limitAmmo(parsedData.ammoNum)
 	_uiData.limAsteroids = parsedData.asteroidNum;
 	_uiData.limBullets = parsedData.ammoNum;
 	_uiData.HideAll();
+
 	// Setuping player
 	player = _objectFactory.player;
 	// Starting Game Loop
@@ -156,51 +157,50 @@ void 	GameManager::LockObject(bool state)
 {
 	if (!state)
 	{
-		if (player->lockedObject == NULL)
+		Asteroid* tempObject = _objectFactory.GetAsteroidByID(player->lockedID);
+		if (tempObject == NULL)
 			return; // Protection
-		player->lockedObject->lockObj.SetLock(false);
+		player->lockedID = -1;
+		tempObject->lockObj.SetLock(false);
 		return;
 	}
 
 	int worldPosX = _objectFactory.mouseWorldPosX;
 	int worldPosY = _objectFactory.mouseWorldPosY;
 
-	player->lockedObject = NULL;
-	player->lockedObject = _objectFactory.GetClosestAsteroid(worldPosX, worldPosY);
-	if (player->lockedObject == NULL)
+	player->lockedID = -1;
+	Asteroid* tempObject = _objectFactory.GetClosestAsteroid(worldPosX, worldPosY);
+	if (tempObject == NULL)
 		return; // Protection
-
-	player->lockedObject->lockObj.SetLock(true);
+	player->lockedID = tempObject->lockObj.GetID();
+	tempObject->lockObj.SetLock(true);
 }
 
 
 
 void 	GameManager::AbilityShoot()
 {
-	if (player->lockedObject == NULL)
+	Asteroid* tempObject = _objectFactory.GetAsteroidByID(player->lockedID);
+	if (tempObject == NULL)
 		return; // Protection
-	AimShoot(player->lockedObject);
-	// player->lockedObject->lockObj.SetLock(false);
-
+	AimShoot(tempObject);
 	LockObject(false);
-	// LockObject(true);
-
 }
 
 void 	GameManager::LaunchTorpedo()
 {
-	if (player->lockedObject == NULL)
+	Asteroid* tempObject = _objectFactory.GetAsteroidByID(player->lockedID);
+	if (tempObject == NULL)
 		return; // Protection
 	if (player->GetTorpedoCount() <= 0)
 	{
-		player->lockedObject->lockObj.SetLock(false);
+		tempObject->lockObj.SetLock(false);
 		return;
 	}
 	player->RechargeTorpedo(-1);
 	_objectFactory.CreateObject(ObjectsEnum::TorpedoType,
 		player->GetPosX(), player->GetPosY(), 0, 0, 2.0f, 0, 0);
-	
-	// LockObject(true);
+	player->lockedID = -1;	
 }
 
 

@@ -36,7 +36,7 @@ private:
 public:
 
 	AbilityType 	selectedAbility = AbilityType::TorpedoAbil;
-	Asteroid* 		lockedObject;
+	int 			lockedID;
 
     Player(GameSDL_Window* window, PicTexture* newAvatar,
     int xPos, int yPos, float xVec, float yVec, float speed,

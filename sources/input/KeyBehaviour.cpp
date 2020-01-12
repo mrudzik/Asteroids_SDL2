@@ -51,13 +51,10 @@ void InputControl::KeyboardEventInput()
 
 		if (_event.key.keysym.sym == SDLK_2)
 		{ //Select Torpedo
-			std::cout << "Torpedo Set" << std::endl;
 			_game->player->selectedAbility = AbilityType::TorpedoAbil;
 		}
 		if (_event.key.keysym.sym == SDLK_3)
 		{ // Select AutoAiming
-			std::cout << "Shoot Set" << std::endl;
-
 			_game->player->selectedAbility = AbilityType::AimshootAbil;
 		}
     }

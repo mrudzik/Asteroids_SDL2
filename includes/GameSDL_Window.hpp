@@ -31,9 +31,6 @@ private:
 	SDL_Renderer		*renderer;
 	SDL_Texture			*texture;
 
-
-	
-
 	int 				_wind_W;
 	int 				_wind_W_half;
 	int 				_wind_H;

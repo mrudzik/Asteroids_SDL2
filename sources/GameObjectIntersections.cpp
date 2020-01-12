@@ -296,8 +296,7 @@ void 	GameObjectFactory::CalculateIntersectionsAll()
 	if (PlayerIntersections())
 	{
 		std::cout << "Spaceship Crashed" << std::endl;
-		SDL_Delay(2000);
-		RestartBehaviour();
+		RestartBehaviour(RestartScenarioEnum::Death);
 		player->RestartBehaviour();
 	}
 	// std::cout << "Intersection Check Over" << std::endl;

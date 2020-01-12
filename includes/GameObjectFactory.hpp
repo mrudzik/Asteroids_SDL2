@@ -17,6 +17,13 @@
 #include "Collectable.hpp"
 #include "Torpedo.hpp"
 
+
+enum RestartScenarioEnum
+{
+	Start,
+	Death
+};
+
 class GameObjectFactory
 {
 private:
@@ -84,7 +91,7 @@ public:
 	int GetTorpedoCount();
 
 	void BulletReload(int const bulletLimit);
-	void RestartBehaviour();
+	void RestartBehaviour(RestartScenarioEnum scenario);
 
 
 	// In GameObjectsRender.cpp

@@ -38,7 +38,7 @@ void    GameManager::GameLoop()
 	InputControl inputController(this);
 	SpawnControl spawnController(&_objectFactory, _limitAsteroid);
 
-	_objectFactory.RestartBehaviour();
+	_objectFactory.RestartBehaviour(RestartScenarioEnum::Start);
 	player->RestartBehaviour();
 
 	while(_gameLoop)

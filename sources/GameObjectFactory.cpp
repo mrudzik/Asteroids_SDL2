@@ -460,9 +460,32 @@ void 	GameObjectFactory::BulletReload(int const bulletLimit)
 	DestroyObject(ObjectsEnum::BulletType, 0);
 }
 
-void 	GameObjectFactory::RestartBehaviour()
+void 	GameObjectFactory::RestartBehaviour(RestartScenarioEnum scenario)
 {
 	DeallocateAllObjects();
+
+	if (scenario == RestartScenarioEnum::Start)
+	{
+		SDL_RenderClear(_window->GetRender());
+		_window->DrawText(
+			"Loading...",
+			_window->GetWidthHalf() - 50, _window->GetHeightHalf(),
+			_window->GetColor(ColorEnum::Green));
+
+		SDL_RenderPresent(_window->GetRender());
+		SDL_Delay(500);
+	}
+	else if (scenario == RestartScenarioEnum::Death)
+	{
+		_window->DrawText(
+			" You Died"
+			"\n Now wait for Respawn"
+			"\n And try again",
+			_window->GetWidthHalf() - 100, _window->GetHeightHalf() - 100,
+			_window->GetColor(ColorEnum::Red));
+		SDL_RenderPresent(_window->GetRender());
+		SDL_Delay(2000);
+	}
 
 	CreateObject(ObjectsEnum::BigAsteroidType, -110, 200, 1, -1, 1, -0.2f, 30);
 	CreateObject(ObjectsEnum::BigAsteroidType, -200, 200, 0, 0, 0, -0.2f, 30);

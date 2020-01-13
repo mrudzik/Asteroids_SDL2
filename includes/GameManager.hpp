@@ -26,26 +26,31 @@ public:
 
 	Player*	player; // Allocated at Object Factory
 
+
+	// Declared in GameManager.cpp
 	GameManager(s_ParsedData parsedData);
 	~GameManager();
 
 	void 	GameLoop();
-
-	// Projectiles
-	
-	void 	LockObject(bool state);
-	void 	LaunchTorpedo();
-	void 	AbilityShoot();
-
-	void 	AimShoot(AbstractGameObject* target);
-	void 	Shoot();
-
+	void	RefreshUIData();
 
 	void 	QuitGame();
-	void	RefreshUIData();
 	void 	ShowHelp(InfoEnum textType);
 	void 	DoCheat(int cheatNum);
 	void 	CalcCheats();
+
+	
+
+
+	// Declared in GameAbilities.cpp
+	void 	LockObject(bool state);
+	// Ability
+	void 	LaunchTorpedo();
+	void 	AbilityShoot();
+	// Projectiles
+	void 	AimShoot(AbstractGameObject* target);
+	void 	Shoot();
+
 };
 
 #endif

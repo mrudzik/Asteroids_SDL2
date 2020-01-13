@@ -44,27 +44,35 @@ public:
 	PicTexture* shieldPic);
     ~Player();
 	
+	void 	RestartBehaviour();
+	void 	RenderOnWindow(int xPlayer, int yPlayer);
+
+	// Score
 	int 	GetScore();
+	// Retrieving stuff stuff ;P
+	void 	RetrieveCollectable(ObjectsEnum type);
+
+	// Shield Stuff
 	bool 	IsShielded();
 	int 	GetShieldCap();
 	int 	GetShieldEn();
 	void 	RechargeShield(int fuelCount);
+	void 	SetShieldActive(bool state);
+	void 	CalculateShield();
+	// Torpedo Stuff
 	int 	GetTorpedoCap();
 	int 	GetTorpedoCount();
 	void 	RechargeTorpedo(int count);
 
-	void CalculateAngle(int mousePosX, int mousePosY);
-	void MoveX(float xVec);
-	void MoveY(float yVec);
-	void InertiaDampeners();
+	// Moving stuff
+	void 	MoveX(float xVec);
+	void 	MoveY(float yVec);
+	void 	InertiaDampeners();
+	void 	CalculateAngle(int mousePosX, int mousePosY);
 
-	void RestartBehaviour();
+	
 
-	void RenderOnWindow(int xPlayer, int yPlayer);
-
-	void RetrieveCollectable(ObjectsEnum type);
-	void SetShieldActive(bool state);
-	void CalculateShield();
+	
 };
 
 

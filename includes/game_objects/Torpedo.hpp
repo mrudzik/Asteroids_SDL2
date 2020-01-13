@@ -20,9 +20,8 @@ public:
 	~Torpedo();
 
 	int GetTargetID();
+	
 	bool AimTarget(Asteroid* target, int mapWidth, int mapHeight);
-	// void TargetDestroyed();
-
 	void CalcShortestPos(int* targX, int* targY, int mapWidth, int mapHeight);
 	void CalculateAngle(int targX, int targY);
 };

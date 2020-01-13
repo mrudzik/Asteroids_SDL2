@@ -18,7 +18,6 @@ public:
 	float rotation, float angle);
     ~BigAsteroid();
 
-	// void BounceFrom();
 
 };
 

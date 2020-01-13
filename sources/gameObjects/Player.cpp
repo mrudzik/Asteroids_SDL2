@@ -30,32 +30,6 @@ Player::~Player()
 {
 }
 
-int Player::GetScore()
-{
-	return _score;
-}
-bool Player::IsShielded()
-{
-	return _isShielded;
-}
-
-int Player::GetShieldCap()
-{
-	return _shieldCapacity;
-}
-int Player::GetShieldEn()
-{
-	return _shieldEnergy;
-}
-int Player::GetTorpedoCap()
-{
-	return _torpedoCapacity;
-}
-int Player::GetTorpedoCount()
-{
-	return _torpedoCount;
-}
-
 
 
 void Player::RestartBehaviour()
@@ -71,6 +45,133 @@ void Player::RestartBehaviour()
 	_shieldEnergy = _shieldCapacity;
 	_torpedoCount = _torpedoCapacity;
 }
+
+void Player::RenderOnWindow(int xPlayer, int yPlayer)
+{
+	int xDif = xPlayer - _xPos + _window->GetWidthHalf();
+    int yDif = yPlayer - _yPos + _window->GetHeightHalf();
+
+    // TODO Protection to not render something that you cannot see
+
+	if (_isShielded)
+	{
+		_shieldPic->RenderPic(*_window,
+		xDif - _shieldPic->GetWidth() / 1.5, yDif - _shieldPic->GetHeight() / 1.5,
+		NULL, _shieldAngle, NULL, SDL_FLIP_NONE);
+	}
+    _Avatar->RenderPic(*_window,
+		xDif - _Avatar->GetWidth(), yDif - _Avatar->GetHeight(),
+		NULL, _angle, NULL, SDL_FLIP_NONE);
+}
+
+
+
+// Score
+int Player::GetScore()
+{
+	return _score;
+}
+// Retrievables
+void Player::RetrieveCollectable(ObjectsEnum type)
+{
+	if (type == ObjectsEnum::CrystalWhiteType)
+		_score += 10;
+	if (type == ObjectsEnum::CrystalGreenType)
+		_score += 15;
+	if (type == ObjectsEnum::CrystalBlueType)
+		_score += 25;
+	if (type == ObjectsEnum::CrystalPurpleType)
+		_score += 40;
+	if (type == ObjectsEnum::ShieldBatteryType)
+	{
+		_score += 50;
+		RechargeShield(_shieldCapacity / 4);
+	}
+	if (type == ObjectsEnum::TorpedoAmmoType)
+	{
+		_score += 50;
+		RechargeTorpedo(1);
+	}
+}
+
+
+
+
+// Shield stuff
+bool Player::IsShielded()
+{
+	return _isShielded;
+}
+
+int Player::GetShieldCap()
+{
+	return _shieldCapacity;
+}
+int Player::GetShieldEn()
+{
+	return _shieldEnergy;
+}
+
+void Player::RechargeShield(int fuelCount)
+{
+	if (fuelCount <= 0)
+		return;
+	_shieldEnergy += fuelCount;
+	if (_shieldEnergy > _shieldCapacity)
+		_shieldEnergy = _shieldCapacity;
+}
+
+void Player::SetShieldActive(bool state)
+{
+	if (_shieldEnergy == 0)
+	{
+		_isShielded = false;
+		return;
+	}
+	_isShielded = state;
+}
+
+void Player::CalculateShield()
+{
+	if (!_isShielded)
+		return;
+
+	_shieldAngle += _rotationSpeed;
+	_shieldEnergy -= _shieldUsage;
+	if (_shieldEnergy < 0)
+	{
+		_shieldEnergy = 0;
+		_isShielded = false;
+	}
+}
+
+
+// Torpedo stuff
+int Player::GetTorpedoCap()
+{
+	return _torpedoCapacity;
+}
+int Player::GetTorpedoCount()
+{
+	return _torpedoCount;
+}
+
+void Player::RechargeTorpedo(int count)
+{
+	_torpedoCount += count;
+	
+	if (_torpedoCount < 0)
+		_torpedoCount = 0;
+	if (_torpedoCount > _torpedoCapacity)
+		_torpedoCount = _torpedoCapacity;
+}
+
+
+
+
+
+
+// Moving stuff
 
 void Player::MoveX(float xVec)
 {
@@ -106,7 +207,6 @@ void Player::InertiaDampeners()
 	SlowVector(_yVec, _slowingSpeed);
 }
 
-
 void Player::CalculateAngle(int mouseScreenPosX, int mouseScreenPosY)
 {
 	bool 	halfFlag = false;
@@ -125,92 +225,12 @@ void Player::CalculateAngle(int mouseScreenPosX, int mouseScreenPosY)
 		_angle = 90.0 + (90.0 - _angle);
 	_angle += 180; // Reversing SpaceShip
 
-	// std::cout << "Angle : " << _angle << std::endl;
 	return;
 }
 
-void Player::CalculateShield()
-{
-	if (!_isShielded)
-		return;
-
-	_shieldAngle += _rotationSpeed;
-	_shieldEnergy -= _shieldUsage;
-	if (_shieldEnergy < 0)
-	{
-		_shieldEnergy = 0;
-		_isShielded = false;
-	}
-}
-
-void Player::RenderOnWindow(int xPlayer, int yPlayer)
-{
-	int xDif = xPlayer - _xPos + _window->GetWidthHalf();
-    int yDif = yPlayer - _yPos + _window->GetHeightHalf();
-
-    // TODO Protection to not render something that you cannot see
-
-	if (_isShielded)
-	{
-		_shieldPic->RenderPic(*_window,
-		xDif - _shieldPic->GetWidth() / 1.5, yDif - _shieldPic->GetHeight() / 1.5,
-		NULL, _shieldAngle, NULL, SDL_FLIP_NONE);
-	}
-    _Avatar->RenderPic(*_window,
-		xDif - _Avatar->GetWidth(), yDif - _Avatar->GetHeight(),
-		NULL, _angle, NULL, SDL_FLIP_NONE);
-}
 
 
 
-void Player::RetrieveCollectable(ObjectsEnum type)
-{
-	if (type == ObjectsEnum::CrystalWhiteType)
-		_score += 10;
-	if (type == ObjectsEnum::CrystalGreenType)
-		_score += 15;
-	if (type == ObjectsEnum::CrystalBlueType)
-		_score += 25;
-	if (type == ObjectsEnum::CrystalPurpleType)
-		_score += 40;
-	if (type == ObjectsEnum::ShieldBatteryType)
-	{
-		_score += 50;
-		RechargeShield(_shieldCapacity / 4);
-	}
-	if (type == ObjectsEnum::TorpedoAmmoType)
-	{
-		_score += 50;
-		RechargeTorpedo(1);
-	}
-}
 
-void Player::SetShieldActive(bool state)
-{
-	if (_shieldEnergy == 0)
-	{
-		_isShielded = false;
-		return;
-	}
-	_isShielded = state;
-}
 
-void Player::RechargeShield(int fuelCount)
-{
-	if (fuelCount <= 0)
-		return;
 
-	_shieldEnergy += fuelCount;
-	if (_shieldEnergy > _shieldCapacity)
-		_shieldEnergy = _shieldCapacity;
-}
-
-void Player::RechargeTorpedo(int count)
-{
-	_torpedoCount += count;
-	
-	if (_torpedoCount < 0)
-		_torpedoCount = 0;
-	if (_torpedoCount > _torpedoCapacity)
-		_torpedoCount = _torpedoCapacity;
-}

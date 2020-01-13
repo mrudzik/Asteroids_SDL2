@@ -1,14 +1,7 @@
 
-// #include "GameSDL_Window.hpp"
 #include "ParserControl.hpp"
 #include "GameManager.hpp"
-// #include <iostream>
 
-void LaunchGame()
-{
-    // GameSDL_Window window("Asteroids", 800, 800, 100, 100);
-
-}
 
 int    Parsing(int argc, char** argv, s_ParsedData* parsedData)
 {

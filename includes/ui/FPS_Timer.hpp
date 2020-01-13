@@ -14,9 +14,9 @@ private:
 	Uint32 timerStart;
 	Uint32 timerCurrent;
 	int _countedFrames = 0;
-
-	int 		_avgFPS;
-	std::stringstream _textFPS;
+	int _avgFPS;
+	
+	std::stringstream 	_textFPS;
 
 
 public:

@@ -21,7 +21,7 @@ struct s_ParsedData
 #define WINDOW_MAXSIZE 	2000
 #define WINDOW_MINSIZE 	200
 #define WINDOW_STANDART	800
-#define MAP_MAXSIZE  6000
+#define MAP_MAXSIZE  10000
 #define MAP_MINSIZE  1500
 #define MAP_STANDART 2000
 #define ASTEROID_COUNT_MAX 		50
@@ -41,16 +41,22 @@ private:
     s_ParsedData _data;
 
     // Declared in ParserTools.cpp
-    int ParseSize(int* x_res, int* y_res, std::string param);
+    int ParseSize(int* x_res, int* y_res,
+		std::string param);
     int ParseCount(int *res, std::string param);
     int ParseRate(double *res, std::string param);
 
     // Declared in ParserFlags.cpp
-    int Find_WindowSize(std::string flag, std::string param);
-    int Find_MapSize(std::string flag, std::string param);
-    int Find_AsteroidCount(std::string flag, std::string param);
-    int Find_AmmoCount(std::string flag, std::string param);
-    int Find_AbilityProbability(std::string flag, std::string param);
+    int Find_WindowSize(
+		std::string flag, std::string param);
+    int Find_MapSize(
+		std::string flag, std::string param);
+    int Find_AsteroidCount(
+		std::string flag, std::string param);
+    int Find_AmmoCount(
+		std::string flag, std::string param);
+    int Find_AbilityProbability(
+		std::string flag, std::string param);
 	int Find_BrownianMotion(std::string flag);
 
 public:

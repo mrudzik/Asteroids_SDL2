@@ -18,6 +18,9 @@ Collectable::~Collectable()
 {
 }
 
+
+
+
 bool Collectable::DestroyTimer()
 {
     Uint32 timeNow = SDL_GetTicks();

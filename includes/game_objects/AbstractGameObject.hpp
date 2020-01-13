@@ -57,6 +57,7 @@ public:
         float rotation, float angle);//, float size);
     ~AbstractGameObject();
 
+	// Getters
 	int GetPosX();
 	int GetPosY();
 	float GetVecX();
@@ -64,21 +65,25 @@ public:
 	float GetSpeed();
 	float GetAngle();
 	float GetSize();
-	
+	// Setters
+	void SetNewVec(float x, float y);
+	void SetNewPos(int x, int y);
 
+	// Render little Calcs
+    void virtual RenderOnWindow(int xPlayer, int yPlayer);
 
-    void CalculateMovement(int mapWidth, int mapHeight);
+	// Basic Calculations
+    void 	CalculateMovement(int mapWidth, int mapHeight);
     int 	CheckIntersect(AbstractGameObject* target);
+ 	void 	StopMoving();
+	// Brownian Calculations
 	void 	StaticResolution(AbstractGameObject* target);
 	void	DynamicResolution(AbstractGameObject* target);
 
-	void RestoreSize();
 
-    void virtual RenderOnWindow(int xPlayer, int yPlayer);
 
-    void StopMoving();
-	void SetNewVec(float x, float y);
-	void SetNewPos(int x, int y);
+   
+	
 
 
 };

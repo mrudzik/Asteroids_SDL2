@@ -17,10 +17,13 @@ Torpedo::~Torpedo()
 {
 }
 
+
+
 int Torpedo::GetTargetID()
 {
 	return _targetID;
 }
+
 
 
 
@@ -51,6 +54,7 @@ bool Torpedo::AimTarget(Asteroid* target, int mapWidth, int mapHeight)
 	}
 	return true;
 }
+
 
 void Torpedo::CalcShortestPos(int* targX, int* targY, int mapWidth, int mapHeight)
 {

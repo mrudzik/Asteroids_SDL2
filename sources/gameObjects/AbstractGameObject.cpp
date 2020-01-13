@@ -28,53 +28,67 @@ AbstractGameObject::~AbstractGameObject()
 { }
 
 
-
+// Getters
 int AbstractGameObject::GetPosX()
 {
 	return _xPos + _Avatar->GetWidth() / 2;
 }
-
 int AbstractGameObject::GetPosY()
 {
 	return _yPos + _Avatar->GetHeight() / 2;
 }
-
 float AbstractGameObject::GetVecX()
 {
 	return _xVec;
 }
-
 float AbstractGameObject::GetVecY()
 {
 	return _yVec;
 }
-
 float AbstractGameObject::GetSpeed()
 {
 	return _speed;
 }
-
 float AbstractGameObject::GetAngle()
 {
 	return _angle;
 }
-
 float AbstractGameObject::GetSize()
 {
 	return _maxSize;
 }
 
+// Setters
+void AbstractGameObject::SetNewVec(float x, float y)
+{
+	_xVec = x;
+	_yVec = y;
+}
+void AbstractGameObject::SetNewPos(int x, int y)
+{
+	_xPos = x;
+	_yPos = y;
+}
 
 
+// Rendering
+
+void AbstractGameObject::RenderOnWindow(int xPlayer, int yPlayer)
+{
+    int xDif = xPlayer - _xPos + _xShift;
+    int yDif = yPlayer - _yPos + _yShift;
+
+    // Protection to not render something that you cannot see
+	if (xDif < 0 - RENDER_TRESHOLD || _window->GetWidth() + RENDER_TRESHOLD < xDif)
+		return;
+	if (yDif < 0 - RENDER_TRESHOLD || _window->GetHeight() + RENDER_TRESHOLD < yDif)
+		return;
+
+    _Avatar->RenderPic(*_window, xDif, yDif, NULL, _angle, NULL, SDL_FLIP_NONE);
+}
 
 
-
-
-
-
-
-
-
+// Basic Calculations
 
 void AbstractGameObject::CalculateMovement(int mapWidth, int mapHeight)
 {
@@ -100,44 +114,7 @@ void AbstractGameObject::CalculateMovement(int mapWidth, int mapHeight)
 		_yPos -= mapHeight;
 	if (_yPos < 0)
 		_yPos += mapHeight;
-
 }
-
-
-void AbstractGameObject::RenderOnWindow(int xPlayer, int yPlayer)
-{
-    int xDif = xPlayer - _xPos + _xShift;
-    int yDif = yPlayer - _yPos + _yShift;
-
-    // Protection to not render something that you cannot see
-	if (xDif < 0 - RENDER_TRESHOLD || _window->GetWidth() + RENDER_TRESHOLD < xDif)
-		return;
-	if (yDif < 0 - RENDER_TRESHOLD || _window->GetHeight() + RENDER_TRESHOLD < yDif)
-		return;
-
-    _Avatar->RenderPic(*_window, xDif, yDif, NULL, _angle, NULL, SDL_FLIP_NONE);
-}
-
-
-void AbstractGameObject::StopMoving()
-{
-    _xVec = 0;
-    _yVec = 0;
-    _rotationSpeed = 0;
-}
-
-
-void AbstractGameObject::SetNewVec(float x, float y)
-{
-	_xVec = x;
-	_yVec = y;
-}
-void AbstractGameObject::SetNewPos(int x, int y)
-{
-	_xPos = x;
-	_yPos = y;
-}
-
 
 int AbstractGameObject::CheckIntersect(AbstractGameObject* target)
 {
@@ -150,6 +127,15 @@ int AbstractGameObject::CheckIntersect(AbstractGameObject* target)
 	return 0;
 }
 
+void AbstractGameObject::StopMoving()
+{
+    _xVec = 0;
+    _yVec = 0;
+    _rotationSpeed = 0;
+}
+
+// Brownian Calculations
+// To be honest this working little shitty
 
 void 	AbstractGameObject::StaticResolution(AbstractGameObject* target)
 {// Not letting objects to overlapp each other
@@ -167,11 +153,7 @@ void 	AbstractGameObject::StaticResolution(AbstractGameObject* target)
 	// Displace target ball
 	target->SetNewPos(target->GetPosX() + (overlapDistHalf * (_xPos - target->GetPosX()) / dist) + 10,
 		target->GetPosY() + (overlapDistHalf * (_yPos - target->GetPosY()) / dist) + 10);
-	
-	
-	
 }
-
 
 void 	AbstractGameObject::DynamicResolution(AbstractGameObject* target)
 {
@@ -188,10 +170,14 @@ void 	AbstractGameObject::DynamicResolution(AbstractGameObject* target)
 	float dpTan1 = _xVec * tgX + _yVec * tgY;
 	float dpTan2 = target->GetVecX() * tgX + target->GetVecY() * tgY;
 
-
 	SetNewVec(tgX * dpTan1, tgY * dpTan1);
 	target->SetNewVec(tgX * dpTan2, tgY * dpTan2);
 }
+
+
+// 		This Brownian Movement method is taken from another article
+// about bouncing balls. I leave it here just in case if i decide to
+// return here someday
 
 // void 	AbstractGameObject::BounceFrom(AbstractGameObject* bounceFrom)
 // {

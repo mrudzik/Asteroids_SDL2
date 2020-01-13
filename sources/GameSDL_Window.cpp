@@ -86,31 +86,7 @@ SDL_Renderer*	GameSDL_Window::GetRender()
 }
 
 
-// void 			GameSDL_Window::draw_text(const char* text, int x, int y)
-// {
-// 	SDL_Surface			*font_surf;
-// 	SDL_Texture			*font_textr;
-// 	SDL_Rect			font_rect;
-// 	SDL_Color 			color;
-	
-// 	int	tw;
-// 	int	th;
 
-// 	color.r = 255;
-// 	color.g = 255;
-// 	color.b = 255;
-
-// 	font_surf = TTF_RenderText_Solid(font_ttf, text, color);
-// 	font_textr = SDL_CreateTextureFromSurface(renderer, font_surf);
-// 	SDL_QueryTexture(font_textr, NULL, NULL, &tw, &th);
-// 	font_rect.x = x;
-// 	font_rect.y = y;
-// 	font_rect.w = tw;
-// 	font_rect.h = th;
-// 	SDL_RenderCopy(renderer, font_textr, NULL, &font_rect);
-// 	SDL_DestroyTexture(font_textr);
-// 	SDL_FreeSurface(font_surf);
-// }
 
 SDL_Color 	GameSDL_Window::GetColor(ColorEnum colorName)
 {

@@ -70,45 +70,48 @@ public:
 
 	bool const brownianMotion;
 
+	// In GameObjectFactory.cpp
     GameObjectFactory(GameSDL_Window* window,
 		bool brownMotion, float abilProb);
     ~GameObjectFactory();
 
-	void CalculateMovementAll();
-	int GenerateUniqueID();
     void CreateObject(ObjectsEnum objType, int xPos, int yPos,
 		float xVec, float yVec, float speed, float rotationSpeed, float angle);
     void DestroyObject(ObjectsEnum objType, int index);
 	void DeallocateAllObjects();
 	
-
-	Asteroid* GetClosestAsteroid(int posX, int posY);
-	Asteroid* GetAsteroidByID(int targetID);
-
-	int GetAsteroidCount();
-	int GetBulletCount();
-	int GetCollectableCount();
-	int GetTorpedoCount();
-
 	void BulletReload(int const bulletLimit);
 	void RestartBehaviour(RestartScenarioEnum scenario);
 
+	// In GameObjectCalculations.cpp
+	void 		CalculateMovementAll();
+	int 		GenerateUniqueID();
+	Asteroid* 	GetAsteroidByID(int targetID);
+	Asteroid* 	GetClosestAsteroid(int posX, int posY);
+
+	int 	GetAsteroidCount();
+	int 	GetBulletCount();
+	int 	GetCollectableCount();
+	int 	GetTorpedoCount();
+
+
 
 	// In GameObjectsRender.cpp
-	void RenderAll();
-	void CheckWarpZones(int playerX, int playerY);
-	void RenderBackground(int xDif, int yDif);
-	void RenderObjects(int playerX, int playerY);
-	void RenderSpecific(int posX, int posY);
+	void 	RenderAll();
+	void 	CheckWarpZones(int playerX, int playerY);
+	void 	RenderBackground(int xDif, int yDif);
+	void 	RenderObjects(int playerX, int playerY);
+	void 	RenderSpecific(int posX, int posY);
 
 	// In GameObjectsIntersections.cpp
-	void CalculateIntersectionsAll();
-	void BulletIntersections();
-	void TorpedoIntersections();
-	void AsteroidsIntersections();
-	bool PlayerIntersections();
-	void BigAsteroidSplit(AbstractGameObject* tempBullet, BigAsteroid* tempTarget);
-	void CreateResource(int posX, int posY);
+	void 	CalculateIntersectionsAll();
+	void 	BulletIntersections();
+	void	TorpedoIntersections();
+	void 	AsteroidsIntersections();
+	bool 	PlayerIntersections();
+	void 	BigAsteroidSplit(AbstractGameObject* tempBullet,
+				BigAsteroid* tempTarget);
+	void 	CreateResource(int posX, int posY);
 
 };
 

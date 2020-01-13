@@ -20,11 +20,9 @@ int 	FPS_Timer::CountFrames()
 	if (timerCurrent > timerStart + 1000.0f)
 	{// This will be true every second
 		timerStart = timerCurrent;
-
 		_avgFPS = _countedFrames;
 		_countedFrames = 0;
 	}
-
 	return _avgFPS;
 }
 

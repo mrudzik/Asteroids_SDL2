@@ -86,7 +86,6 @@ void UI_Control::RenderPlayerUI(
 	_strBuilder.str("");
 	_strBuilder
 		<< "Score : " << score;
-	
 	_window->DrawText(_strBuilder.str().c_str(),
 		screenX, screenY,
 		_window->GetColor(ColorEnum::White)); // TODO Change to yellow and digital font
@@ -115,7 +114,7 @@ void UI_Control::RenderShieldUI(
 		<< "Shield  " //<< shieldEn << " / " << shieldCap
 		// [///////.....]
 		<< "[" << CoolBar(40, 40 * ((float)shieldEn / (float)shieldCap), "/") << "]";
-	
+
 	SDL_Color tempColor = _window->GetColor(ColorEnum::White);
 	if (isShielded)
 	{
@@ -130,7 +129,6 @@ void UI_Control::RenderShieldUI(
 	_window->DrawText(_strBuilder.str().c_str(),
 		screenX, screenY,
 		tempColor);
-
 }
 
 void UI_Control::RenderTorpedoUI(
@@ -140,7 +138,6 @@ void UI_Control::RenderTorpedoUI(
 {
 	_strBuilder.str("");
 	SDL_Color tempColor = _window->GetColor(ColorEnum::White);
-
 	if (isLocking)
 	{
 		_strBuilder << "Locking";
@@ -151,13 +148,10 @@ void UI_Control::RenderTorpedoUI(
 		else
 			tempColor = _window->GetColor(ColorEnum::Green);
 	}
-	
 	_strBuilder
 		<< "\nTorpedos  " << torpCount << " / " << torpCap
 		// [00000   ]
 		<< "\n > " << CoolBar(torpCap, torpCount, "0");
-	
-	
 	_window->DrawText(_strBuilder.str().c_str(),
 		screenX, screenY,
 		tempColor);
@@ -181,6 +175,13 @@ void UI_Control::RenderAutoShootUI(
 		screenX, screenY,
 		tempColor);
 }
+
+
+
+
+
+
+
 
 void UI_Control::RenderAll(s_UIData const data)
 {

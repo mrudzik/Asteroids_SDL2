@@ -11,11 +11,13 @@ SRC = 	main.cpp \
 		parser/ParserTools.cpp		\
 		\
 		GameManager.cpp				\
+		GameAbilities.cpp 			\
 		GameSDL_Window.cpp 			\
 		\
 		SpawnControl.cpp			\
 		\
 		gameObjectFactory/GameObjectFactory.cpp			\
+		gameObjectFactory/GameObjectCalculations.cpp 	\
 		gameObjectFactory/GameObjectIntersections.cpp	\
 		gameObjectFactory/GameObjectRender.cpp			\
 		\

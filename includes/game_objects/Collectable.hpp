@@ -21,7 +21,6 @@ public:
     ~Collectable();
 
     bool DestroyTimer();
-
 	bool IsShowable();
 };
 

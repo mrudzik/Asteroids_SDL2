@@ -73,7 +73,8 @@ public:
 		int const mousePosX, int const mousePosY,
 		int const mousePosX_world, int const mousePosY_world,
 		int const playerPosX, int const playerPosY);
-	void 	RenderObjectsStatus(int const screenX, int const screenY,
+	void 	RenderObjectsStatus(
+		int const screenX, int const screenY,
 		int const curBullets, int const limBullets,
 		int const curAsteroids, int const limAsteroids,
 		int const curCollectables,
@@ -93,7 +94,8 @@ public:
 		bool const isShielded);
 	void 	RenderTorpedoUI(
 		int const screenX, int const screenY,
-		int const torpCap, int const torpCount, bool const isLocking);
+		int const torpCap, int const torpCount,
+		bool const isLocking);
 	void 	RenderAutoShootUI(
 		int const screenX, int const screenY,
 		bool const isLocking);
